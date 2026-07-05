@@ -1,0 +1,23 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "header",
+          "key": "x-vercel-ip-country",
+          "value": "UY"
+        }
+      ],
+      "destination": "/uy",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/uy",
+      "destination": "/indexuy.html"
+    }
+  ]
+}

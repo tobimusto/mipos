@@ -25,6 +25,12 @@ let cart = {};
 let total = 0;
 
 function addToCart(name, price) {
+  // Button flash animation
+  const btn = document.querySelector(`.dprod[onclick="addToCart('${name}',${price})"]`);
+  if (btn) {
+    btn.classList.add('dprod-adding');
+    setTimeout(() => btn.classList.remove('dprod-adding'), 320);
+  }
   if (cart[name]) cart[name].qty++;
   else cart[name] = { price, qty: 1 };
   total += price;
@@ -38,15 +44,25 @@ function renderCart() {
     const row = document.createElement('div');
     row.className = 'dci';
     row.innerHTML =
-      `<span class="dci-name">${name} ×${qty}</span>` +
+      `<span class="dci-name">${name}${qty > 1 ? ' ×' + qty : ''}</span>` +
       `<span class="dci-price">$${(price * qty).toLocaleString('es-AR')}</span>`;
     el.appendChild(row);
   });
-  document.getElementById('demoTotal').textContent = '$' + total.toLocaleString('es-AR');
+  const totalEl = document.getElementById('demoTotal');
+  totalEl.textContent = '$' + total.toLocaleString('es-AR');
+  // Pop animation on total change
+  if (total > 0) {
+    totalEl.classList.remove('total-pop');
+    void totalEl.offsetWidth;
+    totalEl.classList.add('total-pop');
+  }
 }
 
-function cobrar() {
+function mipos() {
   if (total === 0) return;
+  const amountEl = document.getElementById('successAmount');
+  const count = Object.keys(cart).length;
+  if (amountEl) amountEl.textContent = '$' + total.toLocaleString('es-AR') + ' · ' + count + (count === 1 ? ' producto' : ' productos');
   document.getElementById('demoScreen').hidden = true;
   document.getElementById('demoSuccess').hidden = false;
 }
@@ -61,11 +77,51 @@ function resetDemo() {
   document.getElementById('demoSuccess').hidden = true;
 }
 
-// PRICING TOGGLE
-let currentPeriod = 'mensual';
+// AUTO-DEMO: plays once when section enters viewport
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const section = document.querySelector('#demo');
+  if (!section || !('IntersectionObserver' in window)) return;
+  let played = false;
 
+  const flashBtn = (selector) => {
+    const btn = document.querySelector(selector);
+    if (!btn) return;
+    btn.classList.add('dprod-adding');
+    setTimeout(() => btn.classList.remove('dprod-adding'), 350);
+  };
+
+  const run = () => {
+    if (played || Object.keys(cart).length > 0) return;
+    played = true;
+    let t = 1000;
+    setTimeout(() => { flashBtn('[data-id="coca"]'); addToCart('Coca Cola 2.25L', 1900); }, t);
+    t += 900;
+    setTimeout(() => { flashBtn('[data-id="alfa"]'); addToCart('Alfajor Havanna', 1200); }, t);
+    t += 800;
+    setTimeout(() => { flashBtn('[data-id="agua"]'); addToCart('Agua 1.5L', 800); }, t);
+    t += 1100;
+    setTimeout(() => {
+      const btn = document.getElementById('miposBtn');
+      if (btn) { btn.classList.add('dprod-adding'); setTimeout(() => btn.classList.remove('dprod-adding'), 300); }
+      mipos();
+    }, t);
+    t += 2800;
+    setTimeout(() => {
+      resetDemo();
+      const ind = document.getElementById('demoIndicator');
+      if (ind) ind.textContent = 'Tu turno';
+    }, t);
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { setTimeout(run, 600); io.unobserve(section); } });
+  }, { threshold: 0.45 });
+  io.observe(section);
+})()
+
+// PRICING TOGGLE
 function setToggle(mode) {
-  currentPeriod = mode;
   document.getElementById('btnMensual').classList.toggle('active', mode === 'mensual');
   document.getElementById('btnAnual').classList.toggle('active', mode === 'anual');
   document.querySelectorAll('.plan-p').forEach(el => {
@@ -75,15 +131,131 @@ function setToggle(mode) {
   document.querySelectorAll('.plan-old-price').forEach(el => {
     el.textContent = mode === 'anual' ? el.dataset.a : el.dataset.m;
   });
-  document.querySelectorAll('.plan-yearly-lbl').forEach(el => {
+  document.querySelectorAll('.plan-yearly-lbl').forEach((el, index) => {
     if (mode === 'anual') {
-      const total = parseInt(el.dataset.total).toLocaleString('es-AR');
-      el.textContent = 'Facturado anualmente ($' + total + ')';
+      const yearlyPrices = ['$144.000', '$240.000', '$273.600'];
+      el.textContent = `Facturado anualmente (${yearlyPrices[index]})`;
+      el.style.display = 'block';
     } else {
-      el.textContent = '';
+      el.style.display = 'none';
     }
   });
 }
+setToggle('anual');
+
+// SPOTLIGHT CARDS — cursor-following glow on float notes, testimonials and pricing cards
+(function () {
+  const targets = document.querySelectorAll('.float-note, .note, .ptag');
+  targets.forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--cx', `${e.clientX - r.left}px`);
+      el.style.setProperty('--cy', `${e.clientY - r.top}px`);
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.removeProperty('--cx');
+      el.style.removeProperty('--cy');
+    });
+  });
+})();
+
+// PARALLAX TILT — 3D tilt on testimonial cards
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.note').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(600px) rotateY(${x * 9}deg) rotateX(${-y * 7}deg) translateZ(6px) translateY(-2px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+})();
+
+// PANEL STATS COUNTER — storytelling: numbers count up as panel enters view
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const counters = document.querySelectorAll('[data-count]');
+  if (!counters.length || !('IntersectionObserver' in window)) return;
+
+  const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+  const formatAR = n => Math.round(n).toLocaleString('es-AR');
+
+  const animate = (el) => {
+    const target = parseInt(el.dataset.count, 10);
+    const prefix = el.dataset.prefix || '';
+    const duration = 1100;
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      el.textContent = prefix + formatAR(easeOutCubic(progress) * target);
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = prefix + formatAR(target);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => animate(e.target), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  counters.forEach(el => io.observe(el));
+})();
+
+// FEAT-INDEX STAGGER — hierarchy: feature items cascade in, not all at once
+(function () {
+  const list = document.querySelector('.feat-index');
+  if (!list || !('IntersectionObserver' in window)) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('li').forEach((li, i) => {
+          setTimeout(() => li.classList.add('is-feat-in'), i * 65);
+        });
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  io.observe(list);
+})();
+
+// MOBILE MENU
+(function () {
+  const menuOpen = document.getElementById('menuOpen');
+  const menuClose = document.getElementById('menuClose');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileOverlay = document.getElementById('mobileOverlay');
+  if (!menuOpen || !mobileMenu) return;
+
+  const open = () => {
+    mobileMenu.classList.add('open');
+    mobileOverlay && mobileOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    menuClose && menuClose.focus();
+  };
+  const close = () => {
+    mobileMenu.classList.remove('open');
+    mobileOverlay && mobileOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+    menuOpen.focus();
+  };
+
+  menuOpen.addEventListener('click', open);
+  menuClose && menuClose.addEventListener('click', close);
+  mobileOverlay && mobileOverlay.addEventListener('click', close);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && mobileMenu.classList.contains('open')) close(); });
+})();
 
 // SMOOTH ANCHOR SCROLL
 document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -177,92 +349,133 @@ themeBtn.addEventListener('click', (e) => {
       {
         duration: 500,
         easing: 'ease-in-out',
+        fill: 'forwards',
         pseudoElement: isDark ? '::view-transition-old(root)' : '::view-transition-new(root)'
       }
     );
   });
 });
 
-// CHECKOUT MODAL & PAYMENTS
-const PAYMENT_LINKS = {
-  mensual: {
-    esencial: { rebill: 'https://pay.rebill.com/LINK_ESENCIAL_MENSUAL', mp: 'https://mpago.la/LINK_ESENCIAL_MENSUAL' },
-    pro:      { rebill: 'https://pay.rebill.com/LINK_PRO_MENSUAL', mp: 'https://mpago.la/LINK_PRO_MENSUAL' },
-    ia:       { rebill: 'https://pay.rebill.com/LINK_IA_MENSUAL', mp: 'https://mpago.la/LINK_IA_MENSUAL' }
-  },
-  anual: {
-    esencial: { rebill: 'https://pay.rebill.com/LINK_ESENCIAL_ANUAL', mp: 'https://mpago.la/LINK_ESENCIAL_ANUAL' },
-    pro:      { rebill: 'https://pay.rebill.com/LINK_PRO_ANUAL', mp: 'https://mpago.la/LINK_PRO_ANUAL' },
-    ia:       { rebill: 'https://pay.rebill.com/LINK_IA_ANUAL', mp: 'https://mpago.la/LINK_IA_ANUAL' }
+// AUTH STATE SYNC
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const u = params.get('u');
+  const e = params.get('e');
+  const clear = params.get('clear');
+
+  if (clear) {
+    localStorage.removeItem('mipos_user_name');
+    localStorage.removeItem('mipos_user_email');
+    window.history.replaceState({}, document.title, window.location.pathname);
+  } else if (u && e) {
+    localStorage.setItem('mipos_user_name', decodeURIComponent(u));
+    localStorage.setItem('mipos_user_email', decodeURIComponent(e));
+    window.history.replaceState({}, document.title, window.location.pathname);
   }
-};
 
-const PLAN_DATA = {
-  esencial: { name: 'Plan Esencial', priceMensual: 15000, priceAnual: 12000 },
-  pro:      { name: 'Plan Pro', priceMensual: 25000, priceAnual: 20000 },
-  ia:       { name: 'Plan IA', priceMensual: 28500, priceAnual: 22800 }
-};
+  const savedName = localStorage.getItem('mipos_user_name');
+  const savedEmail = localStorage.getItem('mipos_user_email');
 
-let selectedPlanId = null;
+  if (savedName) {
+    // Hide guest buttons
+    document.querySelectorAll('.auth-guest').forEach(el => el.style.display = 'none');
+    
+    // Show logged-in blocks
+    document.querySelectorAll('.auth-logged').forEach(el => {
+      el.style.display = 'flex';
+    });
 
-function openCheckout(planId) {
-  selectedPlanId = planId;
-  const plan = PLAN_DATA[planId];
-  const isAnual = currentPeriod === 'anual';
-  
-  const price = isAnual ? plan.priceAnual : plan.priceMensual;
-  const durationText = isAnual ? '1 año' : '1 mes';
-  const subtotal = isAnual ? (plan.priceMensual * 12) : plan.priceMensual;
-  const discount = isAnual ? (subtotal - (plan.priceAnual * 12)) : 0;
-  const finalTotal = isAnual ? (plan.priceAnual * 12) : plan.priceMensual;
+    // Populate data
+    const nameEls = document.querySelectorAll('#navUserName, #mobUserName');
+    const emailEls = document.querySelectorAll('#navUserEmail, #mobUserEmail');
+    const avatarEls = document.querySelectorAll('#mobUserAvatar');
 
-  document.getElementById('cksPlanName').textContent = plan.name;
-  document.getElementById('cksDuration').textContent = durationText;
-  document.getElementById('cksSubtotal').textContent = '$' + subtotal.toLocaleString('es-AR');
-  
-  const discEl = document.getElementById('cksDiscount');
-  if (discount > 0) {
-    discEl.textContent = '-$' + discount.toLocaleString('es-AR');
-    discEl.parentElement.style.display = 'flex';
+    nameEls.forEach(el => el.textContent = savedName);
+    emailEls.forEach(el => el.textContent = savedEmail || '');
+    avatarEls.forEach(el => el.textContent = savedName.charAt(0).toUpperCase());
+  }
+})();
+
+// PANEL SWITCHER + AUTO-ROTATE
+(function () {
+  const btns = document.querySelectorAll('.psw-btn');
+  if (!btns.length) return;
+
+  function switchTo(btn) {
+    btns.forEach(b => b.classList.remove('psw-active'));
+    btn.classList.add('psw-active');
+    document.querySelectorAll('.panel-window').forEach(p => {
+      const show = p.id === btn.dataset.target;
+      p.classList.toggle('panel-w-hidden', !show);
+      if (show) { p.classList.remove('panel-w-in'); void p.offsetWidth; p.classList.add('panel-w-in'); }
+    });
+  }
+
+  let idx = 0;
+  let timer = null;
+  let visible = false;
+
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+      if (!visible) return;
+      idx = (idx + 1) % btns.length;
+      switchTo(btns[idx]);
+    }, 5000);
+  }
+
+  btns.forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      idx = i;
+      switchTo(btn);
+      startTimer();
+    });
+  });
+
+  const section = document.getElementById('panel');
+  if (section && 'IntersectionObserver' in window) {
+    new IntersectionObserver(entries => {
+      visible = entries[0].isIntersecting;
+      if (visible) startTimer(); else clearInterval(timer);
+    }, { threshold: 0.3 }).observe(section);
   } else {
-    discEl.parentElement.style.display = 'none';
+    visible = true;
+    startTimer();
+  }
+})();
+
+// STATS STRIP COUNTER
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const nums = document.querySelectorAll('.stat-num[data-stat]');
+  if (!nums.length || !('IntersectionObserver' in window)) return;
+
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+
+  function fmt(val, prefix, suffix) {
+    if (suffix === 'M') return prefix + (val / 1000).toFixed(3) + suffix;
+    return prefix + Math.round(val).toLocaleString('es-AR') + suffix;
   }
 
-  document.getElementById('cksTotal').textContent = '$' + finalTotal.toLocaleString('es-AR');
-  document.getElementById('cksTotalSub').textContent = isAnual ? ('$' + finalTotal.toLocaleString('es-AR') + ' / año') : ('$' + finalTotal.toLocaleString('es-AR') + ' / mes');
-
-  updateMethodUI();
-  document.getElementById('checkoutModal').showModal();
-}
-
-function closeCheckout() {
-  document.getElementById('checkoutModal').close();
-}
-
-function updateMethodUI() {
-  const method = document.querySelector('input[name="payment_method"]:checked').value;
-  document.querySelectorAll('.ck-method').forEach(el => el.classList.remove('active'));
-  document.querySelector('input[name="payment_method"]:checked').closest('.ck-method').classList.add('active');
-  
-  const note = document.getElementById('cksTotalNote');
-  if (method === 'rebill') {
-    note.textContent = 'Se activa la renovación automática.';
-  } else {
-    note.textContent = 'Renovación manual via MercadoPago.';
+  function animate(el) {
+    const target = parseInt(el.dataset.stat, 10);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const duration = 1600;
+    const t0 = performance.now();
+    (function step(now) {
+      const p = Math.min((now - t0) / duration, 1);
+      el.textContent = fmt(easeOut(p) * target, prefix, suffix);
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = fmt(target, prefix, suffix);
+    })(t0);
   }
-}
 
-function submitCheckout() {
-  const name = document.getElementById('ckName').value.trim();
-  const email = document.getElementById('ckEmail').value.trim();
-  
-  if (!name || !email) {
-    alert('Por favor ingresá tu nombre completo y email antes de continuar.');
-    return;
-  }
-  
-  const method = document.querySelector('input[name="payment_method"]:checked').value;
-  const link = PAYMENT_LINKS[currentPeriod][selectedPlanId][method];
-  
-  window.location.href = link;
-}
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { animate(e.target); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.6 });
+
+  nums.forEach(el => io.observe(el));
+})();
