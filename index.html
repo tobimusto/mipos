@@ -885,7 +885,7 @@
         <li>Hasta 2 usuarios</li>
         <li><span class="tag-pronto">Pronto</span> Facturación ARCA (Adicional)</li>
       </ul>
-      <a href="#" onclick="openTransferModal(); return false;" class="btn btn-ghost ptag-cta">Elegir este plan</a>
+      <a href="#" onclick="openTransferModal(this); return false;" class="btn btn-ghost ptag-cta">Elegir este plan</a>
       <p class="plan-trial" style="text-align:center; font-size:13px; color:var(--ink-3); margin-top:12px; font-weight:500;">Probar 14 días gratis</p>
     </article>
 
@@ -904,7 +904,7 @@
         <li>Hasta 5 usuarios</li>
         <li><span class="tag-pronto">Pronto</span> Facturación ARCA (Adicional)</li>
       </ul>
-      <a href="https://app.mipos.online/login" class="btn btn-orange ptag-cta">Elegir este plan</a>
+      <a href="#" onclick="openTransferModal(this); return false;" class="btn btn-orange ptag-cta">Elegir este plan</a>
       <p class="plan-trial" style="text-align:center; font-size:13px; color:var(--ink-3); margin-top:12px; font-weight:500;">Probar 7 días gratis</p>
     </article>
 
@@ -924,7 +924,7 @@
         <li><span class="tag-pronto">Pronto</span> Escaneo inteligente de facturas</li>
         <li><span class="tag-pronto">Pronto</span> Soporte para balanzas</li>
       </ul>
-      <a href="#" onclick="openTransferModal(); return false;" class="btn btn-ghost ptag-cta">Elegir este plan</a>
+      <a href="#" onclick="openTransferModal(this); return false;" class="btn btn-ghost ptag-cta">Elegir este plan</a>
       <p class="plan-trial" style="text-align:center; font-size:13px; color:var(--ink-3); margin-top:12px; font-weight:500;">Probar 7 días gratis</p>
     </article>
   </div>
@@ -1343,6 +1343,10 @@
     </div>
 
     <div class="tr-modal-body">
+        <div class="tr-data-group">
+          <span class="tr-label">PLAN SELECCIONADO</span>
+          <strong style="color:var(--brand); font-size:16px;">Plan <span id="transferModalPlan">Esencial</span> <span style="color:var(--ink-2);font-size:14px;font-weight:500;">(A transferir: <span id="transferModalAmount">$15.000</span>)</span></strong>
+        </div>
       <div class="tr-data-group">
         <span class="tr-label">BANCO</span>
         <strong>Lemon</strong>
@@ -1369,7 +1373,40 @@
     </div>
   </div>
 </div>
-<script>function openTransferModal() { document.getElementById('transferModal').classList.add('active'); } function closeTransferModal() { document.getElementById('transferModal').classList.remove('active'); } function copyAlias() { navigator.clipboard.writeText('tobiasmustolemon').then(()=>alert('Alias copiado!')).catch(e=>console.error(e)); }</script>
+<script>
+function openTransferModal(btn) { 
+  if (btn) {
+    const article = btn.closest('article');
+    if (article) {
+      const planName = article.querySelector('.ptag-name').innerText;
+      const isAnual = document.getElementById('btnAnual') && document.getElementById('btnAnual').classList.contains('active');
+      let amount = '';
+      const priceSpan = article.querySelector('.plan-p');
+      if (priceSpan) {
+        if (isAnual) {
+          const mPrice = parseInt(priceSpan.dataset.a);
+          amount = '
+
+</body>
+</html>
+ + (mPrice * 12).toLocaleString('es-AR');
+        } else {
+          amount = '
+
+</body>
+</html>
+ + parseInt(priceSpan.dataset.m).toLocaleString('es-AR');
+        }
+      }
+      document.getElementById('transferModalPlan').innerText = planName + (isAnual ? ' (Anual)' : ' (Mensual)');
+      document.getElementById('transferModalAmount').innerText = amount;
+    }
+  }
+  document.getElementById('transferModal').classList.add('active'); 
+} 
+function closeTransferModal() { document.getElementById('transferModal').classList.remove('active'); } 
+function copyAlias() { navigator.clipboard.writeText('tobiasmustolemon').then(()=>alert('Alias copiado!')).catch(e=>console.error(e)); }
+</script>
 
 </body>
 </html>
