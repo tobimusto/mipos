@@ -997,7 +997,7 @@
         <li>Hasta 2 usuarios</li>
         <li><span class="tag-pronto">Pronto</span> Facturación ARCA (Adicional)</li>
       </ul>
-      <a href="https://app.mipos.online/login" class="btn btn-ghost ptag-cta">Elegir este plan</a>
+      <a href="#" onclick="openTransferModal(); return false;" class="btn btn-ghost ptag-cta">Elegir este plan</a>
       <p class="plan-trial" style="text-align:center; font-size:13px; color:var(--ink-3); margin-top:12px; font-weight:500;">Probar 14 días gratis</p>
     </article>
 
@@ -1036,7 +1036,7 @@
         <li><span class="tag-pronto">Pronto</span> Escaneo inteligente de facturas</li>
         <li><span class="tag-pronto">Pronto</span> Soporte para balanzas</li>
       </ul>
-      <a href="https://app.mipos.online/login" class="btn btn-ghost ptag-cta">Elegir este plan</a>
+      <a href="#" onclick="openTransferModal(); return false;" class="btn btn-ghost ptag-cta">Elegir este plan</a>
       <p class="plan-trial" style="text-align:center; font-size:13px; color:var(--ink-3); margin-top:12px; font-weight:500;">Probar 7 días gratis</p>
     </article>
   </div>
@@ -1369,5 +1369,44 @@
     }
   });
 </script>
+
+<div class="tr-modal-overlay" id="transferModal" onclick="if(event.target===this)closeTransferModal()">
+  <div class="tr-modal">
+    <button class="tr-close" onclick="closeTransferModal()" aria-label="Cerrar"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    
+    <div class="tr-modal-header">
+      <h3 style="font-family:var(--font-display);font-size:20px;font-weight:700;margin:0 0 8px;">Transferencia bancaria</h3>
+      <p style="color:var(--ink-3);font-size:14px;margin:0;">Realizá la transferencia a la siguiente cuenta:</p>
+    </div>
+
+    <div class="tr-modal-body">
+      <div class="tr-data-group">
+        <span class="tr-label">BANCO</span>
+        <strong>Lemon</strong>
+      </div>
+      <div class="tr-data-group">
+        <span class="tr-label">TITULAR</span>
+        <strong>Tobias Musto Cayetano</strong>
+      </div>
+      <div class="tr-data-group">
+        <span class="tr-label">ALIAS</span>
+        <div class="tr-copy-row">
+          <strong id="trAlias">tobiasmustolemon</strong>
+          <button type="button" onclick="copyAlias()" title="Copiar alias"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tr-modal-footer">
+      <p>Una vez hecha la transferencia, envianos el comprobante por WhatsApp indicando el email con el que te registraste en la app.</p>
+      <a href="https://wa.me/5491124017714?text=Hola,%20ya%20me%20registr%C3%A9%20en%20la%20app.%20Ac%C3%A1%20te%20env%C3%ADo%20el%20comprobante%20de%20transferencia%20para%20activar%20mi%20plan.%20Mi%20email%20es:%20" target="_blank" rel="noopener" class="btn btn-orange" style="width:100%; justify-content:center; display:flex; gap:8px; margin-top:0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+        Enviar comprobante
+      </a>
+    </div>
+  </div>
+</div>
+<script>function openTransferModal() { document.getElementById('transferModal').classList.add('active'); } function closeTransferModal() { document.getElementById('transferModal').classList.remove('active'); } function copyAlias() { navigator.clipboard.writeText('tobiasmustolemon').then(()=>alert('Alias copiado!')).catch(e=>console.error(e)); }</script>
+
 </body>
 </html>
