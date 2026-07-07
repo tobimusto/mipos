@@ -25,10 +25,11 @@
     <span class="logo-name" style="font-family:var(--font-display); text-transform:lowercase; font-size:22px; margin-left:-2px;">mipos</span>
   </a>
   <nav class="nav-links" aria-label="Secciones">
-    <a href="#features">QuÃ© hace</a>
+    <a href="#panel">QuÃ© hace</a>
     <a href="#compare">Comparar</a>
     <a href="#pricing">Precios</a>
     <a href="#faq">Preguntas</a>
+      <a href="#soporte">Contacto</a>
   </nav>
   <div class="nav-ctas">
     <button id="themeToggle" class="btn-theme" aria-label="Cambiar tema" type="button">
@@ -66,10 +67,11 @@
     </button>
   </div>
   <div class="mobile-nav-links">
-    <a href="#features">QuÃ© hace</a>
+    <a href="#panel">QuÃ© hace</a>
     <a href="#compare">Comparar</a>
     <a href="#pricing">Precios</a>
     <a href="#faq">Preguntas</a>
+      <a href="#soporte">Contacto</a>
   </div>
   <div class="mobile-nav-ctas">
     <a href="https://app.mipos.online/login" class="btn btn-ghost btn-lg auth-guest">Entrar</a>
@@ -183,44 +185,6 @@
       <span class="stat-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7.5L5 2.5l3 5"/></svg>promedio</span>
     </div>
   </div>
-</section>
-
-<!-- TIME SAVED CALCULATOR -->
-<section class="calc-section" id="ahorro">
-<div class="wrap calc-grid">
-  <div class="calc-intro" data-reveal>
-    <h2>Â¿CuÃ¡nto tiempo<br/><span class="hl">recuperÃ¡s por mes?</span></h2>
-    <p class="sec-sub">MovÃ©s las barras con los nÃºmeros de tu comercio y calculÃ¡s las horas que dejÃ¡s de perder en tareas manuales.</p>
-    <div class="calc-controls">
-      <div class="calc-field">
-        <label for="rngVentas">Ventas por dÃ­a <output id="outVentas">120</output></label>
-        <input type="range" id="rngVentas" class="slider" min="20" max="500" step="10" value="120" aria-label="Ventas por dÃ­a"/>
-      </div>
-      <div class="calc-field">
-        <label for="rngCierre">Minutos en cerrar la caja por dÃ­a <output id="outCierre">25</output></label>
-        <input type="range" id="rngCierre" class="slider" min="5" max="60" step="5" value="25" aria-label="Minutos en cerrar la caja por dÃ­a"/>
-      </div>
-      <div class="calc-field">
-        <label for="rngStock">Horas de inventario por semana <output id="outStock">6</output></label>
-        <input type="range" id="rngStock" class="slider" min="1" max="25" step="1" value="6" aria-label="Horas de inventario por semana"/>
-      </div>
-    </div>
-  </div>
-
-  <div class="calc-result" data-reveal aria-live="polite">
-    <p class="cr-label">RecuperÃ¡s cada mes</p>
-    <p class="cr-hours"><span id="crHours" class="num">71</span><span class="cr-unit">horas</span></p>
-    <p class="cr-year">Equivale a <strong id="crDays" class="num">106</strong> jornadas de 8 h al aÃ±o.</p>
-    <ul class="cr-breakdown">
-      <li><span>Registrar ventas</span><span class="num" id="brVentas">+42 h</span></li>
-      <li><span>Cierre de caja</span><span class="num" id="brCierre">+11 h</span></li>
-      <li><span>Inventario y restock</span><span class="num" id="brStock">+16 h</span></li>
-      <li><span>Reportes automÃ¡ticos</span><span class="num" id="brRep">+3 h</span></li>
-    </ul>
-    <a href="https://app.mipos.online/login" class="btn btn-orange btn-lg cr-cta">Empezar a ahorrar tiempo</a>
-    <p class="cr-fine">EstimaciÃ³n segÃºn promedios de comercios que ya usan mipos.</p>
-  </div>
-</div>
 </section>
 
 <!-- PANEL PREVIEW -->
@@ -361,7 +325,7 @@
             <div class="pmc-head">Pendientes</div>
             <div class="pm-pend-row">
               <span class="pm-pend-dot" style="background:var(--pgrn)"></span>
-              <span class="pm-pend-lbl">A mipos</span>
+              <span class="pm-pend-lbl">A cobrar</span>
               <span class="pm-pend-sub">3 clientes con fiado</span>
               <span class="pm-pend-amt" style="color:var(--pgrn)">+$23.700</span>
             </div>
@@ -562,7 +526,7 @@
                 <button class="pos-met" type="button"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Fiado</button>
               </div>
             </div>
-            <button class="pos-mipos" type="button">mipos $7.030</button>
+            <button class="pos-mipos" type="button">Cobrar $7.030</button>
           </div>
         </div>
       </main>
@@ -570,128 +534,127 @@
   </div>
 
   <!-- â”€â”€ TIENDA ONLINE â”€â”€ -->
-  <div class="panel-window panel-w-hidden" id="panel-store" role="img" aria-label="Vista de la configuraciÃ³n de Tienda Online">
+  <!-- â”€â”€ TIENDA ONLINE â”€â”€ -->
+  <div class="panel-window panel-w-hidden" id="panel-store" role="img" aria-label="Vista de la Tienda Online pÃºblica Kiosco Don Beto: catÃ¡logo de productos por categorÃ­a con pedidos por WhatsApp">
     <div class="panel-chrome">
       <span class="pc-dot"></span><span class="pc-dot"></span><span class="pc-dot"></span>
-      <div class="panel-url">app.mipos.com/tienda</div>
+      <div class="panel-url">mipos.com/c/kiosco-don-beto</div>
     </div>
-    <div class="panel-app">
-      <aside class="panel-side">
-        <div class="ps-brand">
-          <div class="ps-brand-logo">
-            <svg width="20" height="20" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="transparent"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="ps-brand-meta"><strong>mipos</strong><span>#De91 Â· Propietario</span></div>
+    <div class="panel-app" style="background:#EEF3F8; display:flex; flex-direction:column; overflow-y:auto;">
+      <!-- STORE HEADER -->
+      <div style="background:#fff; flex-shrink:0; position:relative;">
+        <div style="height:120px; overflow:hidden;">
+          <img src="./kiosco-banner.png" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center;">
         </div>
-        <nav class="ps-nav">
-          <div class="ps-group">
-            <p>OperaciÃ³n</p>
-            <span class="ps-item"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Punto de Venta</span>
-            <span class="ps-item"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>Compras</span>
-          </div>
-          <div class="ps-group">
-            <p>CatÃ¡logo</p>
-            <span class="ps-item"><svg viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Productos</span>
-            <span class="ps-item"><svg viewBox="0 0 24 24"><path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16"/></svg>Movimientos</span>
-            <span class="ps-item active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Mi Tienda Online</span>
-          </div>
-          <div class="ps-group">
-            <p>Personas</p>
-            <span class="ps-item"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>Clientes</span>
-            <span class="ps-item"><svg viewBox="0 0 24 24"><path d="M20 7h-9m3-3-3 3 3 3M4 17h9m-3 3 3-3-3-3"/></svg>Proveedores</span>
-          </div>
-        </nav>
-      </aside>
-
-      <main class="panel-main" style="background: var(--pbg2);">
-        <div class="pm-head" style="margin-bottom:8px;">
-          <div><h3>Mi Tienda Online</h3><p>GestionÃ¡ el catÃ¡logo pÃºblico para tus clientes.</p></div>
-          <div class="pm-presets">
-            <span class="pm-preset pm-preset-on">Ver tienda pÃºblica</span>
+        <div style="position:absolute; top:86px; left:20px; width:68px; height:68px; border-radius:14px; background:#2563EB; color:#fff; font-weight:800; font-size:1.8rem; display:flex; align-items:center; justify-content:center; border:3px solid #fff; box-shadow:0 4px 16px rgba(37,99,235,0.4); font-family:'Sora',sans-serif; z-index:20;">D</div>
+        <div style="padding:42px 20px 16px; border-bottom:1px solid #E5EBF2;">
+          <div style="font-size:22px; font-weight:800; color:#1A1A15; font-family:'Sora',sans-serif; letter-spacing:-0.02em;">Kiosco Don Beto</div>
+          <div style="font-size:11px; font-weight:700; text-transform:uppercase; color:#A09C97; margin-top:2px; letter-spacing:0.08em;">KIOSCO Â· ALMACÃ‰N</div>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:10px; flex-wrap:wrap;">
+            <span style="background:#DCFCE7; color:#15803D; font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:0.04em;">â— ABIERTO</span>
+            <span style="font-size:11px; color:#6B6560;">ðŸ“ Av. San MartÃ­n 1420</span>
+            <span style="font-size:11px; color:#6B6560;">ðŸ• Lun a Dom Â· 08:00 - 22:00hs</span>
           </div>
         </div>
-
-        <div style="display:grid; grid-template-columns: 1fr 280px; gap:20px; flex:1; overflow:hidden;">
-          <div style="display:flex; flex-direction:column; gap:16px; overflow-y:auto; padding-right:4px;">
-            <div class="pm-card" style="padding:18px;">
-              <div class="pmc-head" style="font-size:13px;">Estado de la Tienda</div>
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
-                <div>
-                  <div style="font-size:13px; font-weight:600; color:var(--ptxt);">Tienda Activa</div>
-                  <div style="font-size:11px; color:var(--ptxt2);">Los clientes pueden ver el catÃ¡logo y hacer pedidos.</div>
-                </div>
-                <div style="width:36px; height:20px; background:#00D68F; border-radius:10px; position:relative;">
-                  <div style="width:16px; height:16px; background:#fff; border-radius:50%; position:absolute; top:2px; right:2px; box-shadow:0 1px 2px rgba(0,0,0,0.2);"></div>
-                </div>
-              </div>
-              <div style="background:var(--pbg); border:1px solid var(--pbord); border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between;">
-                <span style="font-size:12px; color:var(--ptxt2); font-family:var(--font-mono);">mipos.com/kioscodeto</span>
-                <span style="font-size:11px; font-weight:600; color:var(--brand); cursor:pointer;">Copiar link</span>
-              </div>
+      </div>
+      <!-- PRODUCT SECTIONS -->
+      <div style="padding:18px 20px 80px; display:flex; flex-direction:column; gap:24px; flex:1;">
+        <!-- LÃ¡cteos -->
+        <section>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <div style="width:4px; height:20px; background:#2563EB; border-radius:2px; flex-shrink:0;"></div>
+            <h2 style="margin:0; font-size:15px; font-weight:700; color:#1A1A15; font-family:'Sora',sans-serif; letter-spacing:-0.01em;">LÃ¡cteos</h2>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px;">
+            <div style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(201,214,229,0.6); box-shadow:0 1px 4px rgba(0,0,0,0.07); position:relative;">
+              <div style="height:130px; background:#f0f4f8; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:2px;"><img src="https://images.openfoodfacts.org/images/products/779/008/003/8217/front_es.3.400.jpg" alt="Leche Sancor" loading="lazy" style="height:126px; width:100%; object-fit:contain;"></div>
+              <div style="padding:9px 10px 32px;"><div style="font-size:11px; font-weight:700; color:#1A1A15; line-height:1.3;">Leche Sancor entera</div><div style="font-size:10px; color:#A09C97; margin-top:2px; line-height:1.3;">Leche entera larga vida</div><div style="font-size:12px; font-weight:800; color:#1A1A15; margin-top:6px;">$1.850</div></div>
+              <div style="position:absolute; bottom:8px; right:8px; width:26px; height:26px; border-radius:50%; background:#2563EB; display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 3px 8px rgba(37,99,235,0.3);">+</div>
             </div>
-
-            <div class="pm-card" style="padding:18px;">
-              <div class="pmc-head" style="font-size:13px;">InformaciÃ³n del Negocio</div>
-              <div style="display:flex; flex-direction:column; gap:12px;">
-                <div>
-                  <label style="font-size:11px; font-weight:600; color:var(--ptxt3); display:block; margin-bottom:4px;">Nombre del local</label>
-                  <div style="background:var(--pbg); border:1px solid var(--pbord); border-radius:6px; padding:8px 10px; font-size:12px; color:var(--ptxt);">Kiosco Don Beto</div>
-                </div>
-                <div>
-                  <label style="font-size:11px; font-weight:600; color:var(--ptxt3); display:block; margin-bottom:4px;">DirecciÃ³n</label>
-                  <div style="background:var(--pbg); border:1px solid var(--pbord); border-radius:6px; padding:8px 10px; font-size:12px; color:var(--ptxt);">Av. San MartÃ­n 1420</div>
-                </div>
-                <div>
-                  <label style="font-size:11px; font-weight:600; color:var(--ptxt3); display:block; margin-bottom:4px;">WhatsApp de pedidos</label>
-                  <div style="background:var(--pbg); border:1px solid var(--pbord); border-radius:6px; padding:8px 10px; font-size:12px; color:var(--ptxt);">+54 9 11 1234-5678</div>
-                </div>
-              </div>
-              <button style="background:var(--pind); color:#0A2118; border:none; border-radius:6px; padding:8px 16px; font-size:12px; font-weight:700; font-family:var(--font); margin-top:16px; width:100%; cursor:pointer;">Guardar cambios</button>
+            <div style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(201,214,229,0.6); box-shadow:0 1px 4px rgba(0,0,0,0.07); position:relative;">
+              <div style="height:130px; background:#f0f4f8; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:2px;"><img src="https://images.openfoodfacts.org/images/products/779/394/005/4006/front_es.42.400.jpg" alt="Manteca La SerenÃ­sima" loading="lazy" style="height:126px; width:100%; object-fit:contain;"></div>
+              <div style="padding:9px 10px 32px;"><div style="font-size:11px; font-weight:700; color:#1A1A15; line-height:1.3;">Manteca La SerenÃ­sima</div><div style="font-size:10px; color:#A09C97; margin-top:2px; line-height:1.3;">Manteca c/sal 200g</div><div style="font-size:12px; font-weight:800; color:#1A1A15; margin-top:6px;">$1.260</div></div>
+              <div style="position:absolute; bottom:8px; right:8px; width:26px; height:26px; border-radius:50%; background:#2563EB; display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 3px 8px rgba(37,99,235,0.3);">+</div>
+            </div>
+            <div style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(201,214,229,0.6); box-shadow:0 1px 4px rgba(0,0,0,0.07); position:relative;">
+              <div style="height:130px; background:#f0f4f8; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:2px;"><img src="https://images.openfoodfacts.org/images/products/779/391/300/0894/front_es.4.400.jpg" alt="Yogur Frutilla" loading="lazy" style="height:126px; width:100%; object-fit:contain;"></div>
+              <div style="padding:9px 10px 32px;"><div style="font-size:11px; font-weight:700; color:#1A1A15; line-height:1.3;">Yogur ClÃ¡sico frutilla</div><div style="font-size:10px; color:#A09C97; margin-top:2px; line-height:1.3;">Yogur clÃ¡sico argentino</div><div style="font-size:12px; font-weight:800; color:#1A1A15; margin-top:6px;">$1.100</div></div>
+              <div style="position:absolute; bottom:8px; right:8px; width:26px; height:26px; border-radius:50%; background:#2563EB; display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 3px 8px rgba(37,99,235,0.3);">+</div>
+            </div>
+            <div style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(201,214,229,0.6); box-shadow:0 1px 4px rgba(0,0,0,0.07); position:relative;">
+              <div style="height:130px; background:#f0f4f8; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:2px;"><img src="https://images.openfoodfacts.org/images/products/779/074/206/7005/front_es.27.400.jpg" alt="Dulce de Leche Repostero" loading="lazy" style="height:126px; width:100%; object-fit:contain;"></div>
+              <div style="padding:9px 10px 32px;"><div style="font-size:11px; font-weight:700; color:#1A1A15; line-height:1.3;">Dulce de Leche Repostero</div><div style="font-size:10px; color:#A09C97; margin-top:2px; line-height:1.3;">Dulce de leche c/crema</div><div style="font-size:12px; font-weight:800; color:#1A1A15; margin-top:6px;">$1.100</div></div>
+              <div style="position:absolute; bottom:8px; right:8px; width:26px; height:26px; border-radius:50%; background:#2563EB; display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 3px 8px rgba(37,99,235,0.3);">+</div>
             </div>
           </div>
-
-          <div style="display:flex; justify-content:center; align-items:flex-start;">
-            <div class="store-phone" style="width:100%; height:100%; max-height:480px; box-shadow:0 8px 24px rgba(0,0,0,0.12); transform:scale(0.95); transform-origin:top center;">
-              <div class="sp-notch"></div>
-              <div class="sp-screen">
-                <div class="sp-head">
-                  <div class="sp-banner"></div>
-                  <div class="sp-logo">D</div>
-                  <div class="sp-name">Kiosco Don Beto</div>
-                  <div class="sp-status"><span class="sp-dot"></span> Abierto ahora</div>
-                </div>
-                <div class="sp-tabs">
-                  <span class="spt-active">Bebidas</span>
-                  <span>Snacks</span>
-                  <span>Golosinas</span>
-                </div>
-                <div class="sp-items">
-                  <div class="spi">
-                    <div class="spi-img" style="background:#f1f5f9">ðŸ¥¤</div>
-                    <div class="spi-info">
-                      <span class="spi-name">Coca Cola 2.25L</span>
-                      <span class="spi-price">$1.900</span>
-                    </div>
-                    <div class="spi-add">+</div>
-                  </div>
-                  <div class="spi">
-                    <div class="spi-img" style="background:#fef3c7">ðŸ«</div>
-                    <div class="spi-info">
-                      <span class="spi-name">Alfajor Havanna</span>
-                      <span class="spi-price">$1.200</span>
-                    </div>
-                    <div class="spi-add">+</div>
-                  </div>
-                </div>
-                <div class="sp-fab" style="position:absolute; bottom:12px; left:12px; right:12px;">
-                  <span>Ver mi pedido</span>
-                  <span class="spf-price">$3.100</span>
-                </div>
-              </div>
+        </section>
+        <!-- Snacks -->
+        <section>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <div style="width:4px; height:20px; background:#2563EB; border-radius:2px; flex-shrink:0;"></div>
+            <h2 style="margin:0; font-size:15px; font-weight:700; color:#1A1A15; font-family:'Sora',sans-serif; letter-spacing:-0.01em;">Snacks</h2>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px;">
+            <div style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(201,214,229,0.6); box-shadow:0 1px 4px rgba(0,0,0,0.07); position:relative;">
+              <div style="height:130px; background:#f0f4f8; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:2px;"><img src="https://images.openfoodfacts.org/images/products/000/007/799/1577/front_es.14.400.jpg" alt="Alfajor Fantoche" loading="lazy" style="height:126px; width:100%; object-fit:contain;"></div>
+              <div style="padding:9px 10px 32px;"><div style="font-size:11px; font-weight:700; color:#1A1A15; line-height:1.3;">Alfajor Fantoche</div><div style="font-size:10px; color:#A09C97; margin-top:2px; line-height:1.3;">Triple chocolate negro</div><div style="font-size:12px; font-weight:800; color:#1A1A15; margin-top:6px;">$960</div></div>
+              <div style="position:absolute; bottom:8px; right:8px; width:26px; height:26px; border-radius:50%; background:#2563EB; display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 3px 8px rgba(37,99,235,0.3);">+</div>
+            </div>
+            <div style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(201,214,229,0.6); box-shadow:0 1px 4px rgba(0,0,0,0.07); position:relative;">
+              <div style="height:130px; background:#f0f4f8; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:2px;"><img src="https://images.openfoodfacts.org/images/products/762/230/083/5620/front_en.23.400.jpg" alt="Alfajor Milka" loading="lazy" style="height:126px; width:100%; object-fit:contain;"></div>
+              <div style="padding:9px 10px 32px;"><div style="font-size:11px; font-weight:700; color:#1A1A15; line-height:1.3;">Alfajor Milka</div><div style="font-size:10px; color:#A09C97; margin-top:2px; line-height:1.3;">Textura suave y cremosa</div><div style="font-size:12px; font-weight:800; color:#1A1A15; margin-top:6px;">$550</div></div>
+              <div style="position:absolute; bottom:8px; right:8px; width:26px; height:26px; border-radius:50%; background:#2563EB; display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 3px 8px rgba(37,99,235,0.3);">+</div>
+            </div>
+            <div style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(201,214,229,0.6); box-shadow:0 1px 4px rgba(0,0,0,0.07); position:relative;">
+              <div style="height:130px; background:#f0f4f8; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:2px;"><img src="https://images.openfoodfacts.org/images/products/000/007/799/1584/front_es.12.400.jpg" alt="Alfajor Jorgito" loading="lazy" style="height:126px; width:100%; object-fit:contain;"></div>
+              <div style="padding:9px 10px 32px;"><div style="font-size:11px; font-weight:700; color:#1A1A15; line-height:1.3;">Alfajor Jorgito</div><div style="font-size:10px; color:#A09C97; margin-top:2px; line-height:1.3;">ClÃ¡sico familiar glaseado</div><div style="font-size:12px; font-weight:800; color:#1A1A15; margin-top:6px;">$1.100</div></div>
+              <div style="position:absolute; bottom:8px; right:8px; width:26px; height:26px; border-radius:50%; background:#2563EB; display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 3px 8px rgba(37,99,235,0.3);">+</div>
+            </div>
+            <div style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(201,214,229,0.6); box-shadow:0 1px 4px rgba(0,0,0,0.07); position:relative;">
+              <div style="height:130px; background:#f0f4f8; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:2px;"><img src="https://images.openfoodfacts.org/images/products/000/007/790/3518/front_es.33.400.jpg" alt="Galletitas Opera" loading="lazy" style="height:126px; width:100%; object-fit:contain;"></div>
+              <div style="padding:9px 10px 32px;"><div style="font-size:11px; font-weight:700; color:#1A1A15; line-height:1.3;">Galletitas Opera</div><div style="font-size:10px; color:#A09C97; margin-top:2px; line-height:1.3;">Obleas rellenas c/crema</div><div style="font-size:12px; font-weight:800; color:#1A1A15; margin-top:6px;">$850</div></div>
+              <div style="position:absolute; bottom:8px; right:8px; width:26px; height:26px; border-radius:50%; background:#2563EB; display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 3px 8px rgba(37,99,235,0.3);">+</div>
             </div>
           </div>
+        </section>
+        <!-- Bebidas -->
+        <section>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <div style="width:4px; height:20px; background:#2563EB; border-radius:2px; flex-shrink:0;"></div>
+            <h2 style="margin:0; font-size:15px; font-weight:700; color:#1A1A15; font-family:'Sora',sans-serif; letter-spacing:-0.01em;">Bebidas</h2>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px;">
+            <div style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(201,214,229,0.6); box-shadow:0 1px 4px rgba(0,0,0,0.07); position:relative;">
+              <div style="height:130px; background:#f0f4f8; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:2px;"><img src="https://images.openfoodfacts.org/images/products/544/900/000/0996/front_en.1035.400.jpg" alt="Coca Cola" loading="lazy" style="height:126px; width:100%; object-fit:contain;"></div>
+              <div style="padding:9px 10px 32px;"><div style="font-size:11px; font-weight:700; color:#1A1A15; line-height:1.3;">Coca Cola 2.25L</div><div style="font-size:10px; color:#A09C97; margin-top:2px; line-height:1.3;">Bebida gaseosa cola</div><div style="font-size:12px; font-weight:800; color:#1A1A15; margin-top:6px;">$1.900</div></div>
+              <div style="position:absolute; bottom:8px; right:8px; width:26px; height:26px; border-radius:50%; background:#2563EB; display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 3px 8px rgba(37,99,235,0.3);">+</div>
+            </div>
+            <div style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(201,214,229,0.6); box-shadow:0 1px 4px rgba(0,0,0,0.07); position:relative;">
+              <div style="height:130px; background:#f0f4f8; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:2px;"><img src="https://images.openfoodfacts.org/images/products/779/915/500/0197/front_es.3.400.jpg" alt="Agua Villavicencio" loading="lazy" style="height:126px; width:100%; object-fit:contain;"></div>
+              <div style="padding:9px 10px 32px;"><div style="font-size:11px; font-weight:700; color:#1A1A15; line-height:1.3;">Agua Villavicencio 1.5L</div><div style="font-size:10px; color:#A09C97; margin-top:2px; line-height:1.3;">Sin gas, cristalina</div><div style="font-size:12px; font-weight:800; color:#1A1A15; margin-top:6px;">$800</div></div>
+              <div style="position:absolute; bottom:8px; right:8px; width:26px; height:26px; border-radius:50%; background:#2563EB; display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 3px 8px rgba(37,99,235,0.3);">+</div>
+            </div>
+            <div style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(201,214,229,0.6); box-shadow:0 1px 4px rgba(0,0,0,0.07); position:relative;">
+              <div style="height:130px; background:#f0f4f8; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:2px;"><img src="https://images.openfoodfacts.org/images/products/000/009/016/2909/front_en.122.400.jpg" alt="Red Bull" loading="lazy" style="height:126px; width:100%; object-fit:contain;"></div>
+              <div style="padding:9px 10px 32px;"><div style="font-size:11px; font-weight:700; color:#1A1A15; line-height:1.3;">Red Bull 250ml</div><div style="font-size:10px; color:#A09C97; margin-top:2px; line-height:1.3;">Energizante original</div><div style="font-size:12px; font-weight:800; color:#1A1A15; margin-top:6px;">$2.800</div></div>
+              <div style="position:absolute; bottom:8px; right:8px; width:26px; height:26px; border-radius:50%; background:#2563EB; display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 3px 8px rgba(37,99,235,0.3);">+</div>
+            </div>
+            <div style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(201,214,229,0.6); box-shadow:0 1px 4px rgba(0,0,0,0.07); position:relative;">
+              <div style="height:130px; background:#f0f4f8; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:2px;"><img src="https://images.openfoodfacts.org/images/products/594/232/100/2408/front_en.17.400.jpg" alt="Sprite" loading="lazy" style="height:126px; width:100%; object-fit:contain;"></div>
+              <div style="padding:9px 10px 32px;"><div style="font-size:11px; font-weight:700; color:#1A1A15; line-height:1.3;">Sprite 2.25L</div><div style="font-size:10px; color:#A09C97; margin-top:2px; line-height:1.3;">LimÃ³n sin cafeÃ­na</div><div style="font-size:12px; font-weight:800; color:#1A1A15; margin-top:6px;">$1.500</div></div>
+              <div style="position:absolute; bottom:8px; right:8px; width:26px; height:26px; border-radius:50%; background:#2563EB; display:flex; align-items:center; justify-content:center; color:#fff; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 3px 8px rgba(37,99,235,0.3);">+</div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- FAB -->
+      <div style="position:sticky; bottom:0; padding:10px 20px 14px; background:linear-gradient(to top,#EEF3F8 60%,transparent); flex-shrink:0;">
+        <div style="background:#2563EB; color:#fff; border-radius:14px; padding:13px 20px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 8px 28px rgba(37,99,235,0.32); cursor:pointer; font-family:'DM Sans',sans-serif;">
+          <span style="background:rgba(255,255,255,0.2); width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">1</span>
+          <span style="font-size:13px; font-weight:700;">Ver pedido</span>
+          <span style="font-size:13px; font-weight:700;">$2.800</span>
         </div>
-      </main>
+      </div>
     </div>
   </div>
 
@@ -772,17 +735,51 @@
     </li>
     <li>
       <span class="fi-num">04</span>
-      <div><h4>CatÃ¡logo por WhatsApp <span class="tag tag-pro">Pro</span></h4><p>CompartÃ­s tu catÃ¡logo y recibÃ­s los pedidos directo en el sistema, listos para preparar.</p></div>
+      <div><h4>Tienda online <span class="tag tag-pro">Pro</span></h4><p>CompartÃ­s tu catÃ¡logo y recibÃ­s los pedidos directo en el sistema, listos para preparar.</p></div>
     </li>
     <li>
       <span class="fi-num">05</span>
-      <div><h4>IA de precios <span class="tag tag-pro">Pro</span></h4><p>Compara tus precios con miles de comercios y te marca dÃ³nde estÃ¡s dejando plata sobre el mostrador.</p></div>
-    </li>
-    <li>
-      <span class="fi-num">06</span>
       <div><h4>FacturaciÃ³n ARCA <span class="tag tag-soon">Pronto</span></h4><p>Facturas A, B y C con CAE automÃ¡tico. IntegraciÃ³n directa, sin intermediarios ni costos ocultos.</p></div>
     </li>
   </ol>
+</div>
+</section>
+
+<!-- TIME SAVED CALCULATOR -->
+<section class="calc-section" id="ahorro">
+<div class="wrap calc-grid">
+  <div class="calc-intro" data-reveal>
+    <h2>Â¿CuÃ¡nto tiempo<br/><span class="hl">recuperÃ¡s por mes?</span></h2>
+    <p class="sec-sub">MovÃ©s las barras con los nÃºmeros de tu comercio y calculÃ¡s las horas que dejÃ¡s de perder en tareas manuales.</p>
+    <div class="calc-controls">
+      <div class="calc-field">
+        <label for="rngVentas">Ventas por dÃ­a <output id="outVentas">120</output></label>
+        <input type="range" id="rngVentas" class="slider" min="20" max="500" step="10" value="120" aria-label="Ventas por dÃ­a"/>
+      </div>
+      <div class="calc-field">
+        <label for="rngCierre">Minutos en cerrar la caja por dÃ­a <output id="outCierre">25</output></label>
+        <input type="range" id="rngCierre" class="slider" min="5" max="60" step="5" value="25" aria-label="Minutos en cerrar la caja por dÃ­a"/>
+      </div>
+      <div class="calc-field">
+        <label for="rngStock">Horas de inventario por semana <output id="outStock">6</output></label>
+        <input type="range" id="rngStock" class="slider" min="1" max="25" step="1" value="6" aria-label="Horas de inventario por semana"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="calc-result" data-reveal aria-live="polite">
+    <p class="cr-label">RecuperÃ¡s cada mes</p>
+    <p class="cr-hours"><span id="crHours" class="num">71</span><span class="cr-unit">horas</span></p>
+    <p class="cr-year">Equivale a <strong id="crDays" class="num">106</strong> jornadas de 8 h al aÃ±o.</p>
+    <ul class="cr-breakdown">
+      <li><span>Registrar ventas</span><span class="num" id="brVentas">+42 h</span></li>
+      <li><span>Cierre de caja</span><span class="num" id="brCierre">+11 h</span></li>
+      <li><span>Inventario y restock</span><span class="num" id="brStock">+16 h</span></li>
+      <li><span>Reportes automÃ¡ticos</span><span class="num" id="brRep">+3 h</span></li>
+    </ul>
+    <a href="https://app.mipos.online/login" class="btn btn-orange btn-lg cr-cta">Empezar a ahorrar tiempo</a>
+    <p class="cr-fine">EstimaciÃ³n segÃºn promedios de comercios que ya usan mipos.</p>
+  </div>
 </div>
 </section>
 
@@ -836,7 +833,7 @@
         <div class="demo-cart-head">Carrito</div>
         <div class="demo-cart-items" id="cartItems"><span class="cart-empty">TocÃ¡ un producto para empezarâ€¦</span></div>
         <div class="demo-total"><span>Total</span><span class="demo-total-val" id="demoTotal">$0</span></div>
-        <button class="btn btn-orange demo-mipos" id="miposBtn" type="button" onclick="mipos()">mipos venta</button>
+        <button class="btn btn-orange demo-mipos" id="miposBtn" type="button" onclick="mipos()">Vender</button>
       </div>
     </div>
     <div class="terminal-screen success" id="demoSuccess" hidden>
@@ -874,7 +871,7 @@
       <span class="ptag-hole"></span>
       <h3 class="ptag-name">Esencial</h3>
       <div class="ptag-price"><sup>$</sup><span class="plan-p" data-m="15000" data-a="12000">15.000</span></div>
-      <p class="ptag-period">por mes Â· 14 dÃ­as de prueba gratis</p>
+      <p class="ptag-period">por mes Â· 7 dÃ­as de prueba gratis</p>
       <p class="ptag-old plan-old-price" data-m="" data-a="$15.000/mes"></p>
       <p class="plan-yearly-lbl" style="font-size: 12px; color: var(--ink-3); font-weight: 500;"></p>
       <ul class="ptag-feats">
@@ -887,7 +884,7 @@
         <li><span class="tag-pronto">Pronto</span> FacturaciÃ³n ARCA (Adicional)</li>
       </ul>
       <a href="https://app.mipos.online/login" class="btn btn-ghost ptag-cta">Elegir este plan</a>
-      <p class="plan-trial" style="text-align:center; font-size:13px; color:var(--ink-3); margin-top:12px; font-weight:500;">Probar 14 dÃ­as gratis</p>
+      <p class="plan-trial" style="text-align:center; font-size:13px; color:var(--ink-3); margin-top:12px; font-weight:500;">Probar 7 dÃ­as gratis</p>
     </article>
 
     <article class="ptag featured">
@@ -950,13 +947,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr><th scope="row">Plan gratuito real</th><td class="us-col yes">Solo 14 dÃ­as</td><td class="no">Libreta fiado</td><td class="no">No</td></tr>
+        <tr><th scope="row">Plan gratuito real</th><td class="us-col yes">7 dÃ­as de prueba</td><td class="no">Libreta fiado</td><td class="no">No</td></tr>
         <tr><th scope="row">Precio inicial</th><td class="us-col yes">$12.000 / $25.000</td><td>PÃ©rdida de datos</td><td>MÃ¡s de $40.000</td></tr>
         <tr><th scope="row">Acceso multi-dispositivo</th><td class="us-col yes">Incluido</td><td class="no">No aplica</td><td class="no">No</td></tr>
         <tr><th scope="row">Multi-sucursal</th><td class="us-col yes">Desde Pro</td><td>Imposible</td><td>Solo enterprise</td></tr>
-        <tr><th scope="row">CatÃ¡logo por WhatsApp</th><td class="us-col yes">Incluido</td><td class="no">No</td><td class="no">No</td></tr>
+        <tr><th scope="row">Tienda online</th><td class="us-col yes">Plan Pro</td><td class="no">No</td><td class="no">No</td></tr>
         <tr><th scope="row">Apertura y cierre de caja</th><td class="us-col yes">Incluido</td><td class="no">CÃ¡lculos tediosos</td><td>Parcial</td></tr>
-        <tr><th scope="row">IA de precios</th><td class="us-col yes">Plan Pro</td><td>No</td><td class="no">No</td></tr>
         <tr><th scope="row">Soporte por WhatsApp</th><td class="us-col yes">Todos los planes</td><td>No existe</td><td>Email</td></tr>
         <tr><th scope="row">FacturaciÃ³n ARCA</th><td class="us-col yes">Pronto</td><td>Manual / Contador</td><td>Costo adicional</td></tr>
       </tbody>
@@ -970,33 +966,233 @@
 <div class="wrap">
   <header class="sec-head" data-reveal>
     <h2>Comerciantes que ya<br/><span class="hl">dejaron el papel.</span></h2>
+    <p class="tck-rating-line">
+      <span class="tck-stars-global">â˜…â˜…â˜…â˜…â˜…</span>
+      <strong>4.9</strong> de 5 Â· mÃ¡s de 300 comerciantes
+    </p>
   </header>
-  <div class="notes">
-    <figure class="note" data-reveal>
-      <p class="note-stars">â˜…â˜…â˜…â˜…â˜…</p>
-      <blockquote>Antes cerraba la caja con lÃ¡piz y papel. Ahora mipos me dice exactamente cuÃ¡nto vendÃ­ y quÃ© se fue. No sÃ© cÃ³mo laburaba antes.</blockquote>
-      <figcaption>
-        <img class="note-av" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Marcela R." width="46" height="46" loading="lazy"/>
-        <span><strong>Marcela R.</strong>Kiosco Â· Palermo, CABA</span>
-      </figcaption>
-    </figure>
-    <figure class="note" data-reveal>
-      <p class="note-stars">â˜…â˜…â˜…â˜…â˜…</p>
-      <blockquote>Tengo dos almacenes y por fin los veo en un solo lado. El cierre de caja me ahorra media hora al dÃ­a. Antes eso lo hacÃ­a con la calculadora.</blockquote>
-      <figcaption>
-        <img class="note-av" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Lucas F." width="46" height="46" loading="lazy"/>
-        <span><strong>Lucas F.</strong>AlmacÃ©n Â· Rosario, Santa Fe</span>
-      </figcaption>
-    </figure>
-    <figure class="note" data-reveal>
-      <p class="note-stars">â˜…â˜…â˜…â˜…â˜…</p>
-      <blockquote>ProbÃ© otra app pero era cara para arrancar. Con el plan gratis lo usÃ© dos semanas y ya pasÃ© al Esencial. El soporte por WhatsApp es real, no un bot.</blockquote>
-      <figcaption>
-        <img class="note-av" src="https://randomuser.me/api/portraits/women/65.jpg" alt="Romina G." width="46" height="46" loading="lazy"/>
-        <span><strong>Romina G.</strong>Indumentaria Â· CÃ³rdoba</span>
-      </figcaption>
-    </figure>
+
+  <div class="tck-wrap" data-reveal>
+    <button class="tck-btn tck-prev" type="button" aria-label="OpiniÃ³n anterior">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+
+    <div class="tck-viewport">
+      <div class="tck-track" id="tckTrack">
+
+        <figure class="tck-card">
+          <div class="tck-header">
+            <div class="tck-hlogo"><svg width="14" height="14" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="rgba(255,255,255,.25)"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="tck-hmeta"><span class="tck-hbrand">mipos</span><span class="tck-hnum">#4821 Â· hace 2 dÃ­as</span></div>
+            <span class="tck-htype">Kiosco</span>
+          </div>
+          <div class="tck-body">
+            <p class="tck-stars">â˜…â˜…â˜…â˜…â˜…</p>
+            <blockquote>Antes cerraba la caja con lÃ¡piz y papel. Ahora mipos me dice exactamente cuÃ¡nto vendÃ­ y quÃ© se fue. No sÃ© cÃ³mo laburaba antes.</blockquote>
+          </div>
+          <div class="tck-cut" aria-hidden="true"></div>
+          <figcaption class="tck-cap">
+            <img class="tck-av" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Marcela R." width="38" height="38" loading="lazy"/>
+            <div><strong>Marcela R.</strong><span>Kiosco Â· Palermo, CABA</span></div>
+          </figcaption>
+        </figure>
+
+        <figure class="tck-card">
+          <div class="tck-header">
+            <div class="tck-hlogo"><svg width="14" height="14" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="rgba(255,255,255,.25)"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="tck-hmeta"><span class="tck-hbrand">mipos</span><span class="tck-hnum">#1203 Â· hace 5 dÃ­as</span></div>
+            <span class="tck-htype">AlmacÃ©n</span>
+          </div>
+          <div class="tck-body">
+            <p class="tck-stars">â˜…â˜…â˜…â˜…â˜…</p>
+            <blockquote>Tengo dos almacenes y por fin los veo en un solo lado. El cierre de caja me ahorra media hora al dÃ­a. Antes eso lo hacÃ­a con la calculadora.</blockquote>
+          </div>
+          <div class="tck-cut" aria-hidden="true"></div>
+          <figcaption class="tck-cap">
+            <img class="tck-av" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Lucas F." width="38" height="38" loading="lazy"/>
+            <div><strong>Lucas F.</strong><span>AlmacÃ©n Â· Rosario, Santa Fe</span></div>
+          </figcaption>
+        </figure>
+
+        <figure class="tck-card">
+          <div class="tck-header">
+            <div class="tck-hlogo"><svg width="14" height="14" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="rgba(255,255,255,.25)"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="tck-hmeta"><span class="tck-hbrand">mipos</span><span class="tck-hnum">#8917 Â· hace 1 semana</span></div>
+            <span class="tck-htype">Indumentaria</span>
+          </div>
+          <div class="tck-body">
+            <p class="tck-stars">â˜…â˜…â˜…â˜…â˜…</p>
+            <blockquote>ProbÃ© otra app pero era cara para arrancar. Con el plan gratis lo usÃ© dos semanas y ya pasÃ© al Esencial. El soporte por WhatsApp es real, no un bot.</blockquote>
+          </div>
+          <div class="tck-cut" aria-hidden="true"></div>
+          <figcaption class="tck-cap">
+            <img class="tck-av" src="https://randomuser.me/api/portraits/women/65.jpg" alt="Romina G." width="38" height="38" loading="lazy"/>
+            <div><strong>Romina G.</strong><span>Indumentaria Â· CÃ³rdoba</span></div>
+          </figcaption>
+        </figure>
+
+        <figure class="tck-card">
+          <div class="tck-header">
+            <div class="tck-hlogo"><svg width="14" height="14" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="rgba(255,255,255,.25)"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="tck-hmeta"><span class="tck-hbrand">mipos</span><span class="tck-hnum">#3542 Â· hace 3 dÃ­as</span></div>
+            <span class="tck-htype">Autoservicio</span>
+          </div>
+          <div class="tck-body">
+            <p class="tck-stars">â˜…â˜…â˜…â˜…â˜…</p>
+            <blockquote>Lo empecÃ© a usar para el stock y terminÃ© usando todo. Los fiados sin libreta me cambiaron la vida. Mis clientes me preguntan cÃ³mo lo hago.</blockquote>
+          </div>
+          <div class="tck-cut" aria-hidden="true"></div>
+          <figcaption class="tck-cap">
+            <img class="tck-av" src="https://randomuser.me/api/portraits/men/18.jpg" alt="Diego P." width="38" height="38" loading="lazy"/>
+            <div><strong>Diego P.</strong><span>Autoservicio Â· Montevideo</span></div>
+          </figcaption>
+        </figure>
+
+        <figure class="tck-card">
+          <div class="tck-header">
+            <div class="tck-hlogo"><svg width="14" height="14" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="rgba(255,255,255,.25)"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="tck-hmeta"><span class="tck-hbrand">mipos</span><span class="tck-hnum">#6734 Â· hace 2 semanas</span></div>
+            <span class="tck-htype">FerreterÃ­a</span>
+          </div>
+          <div class="tck-body">
+            <p class="tck-stars">â˜…â˜…â˜…â˜…â˜…</p>
+            <blockquote>TenÃ­a miedo de que fuera complicado porque soy grande. Pero en diez minutos ya estaba vendiendo. Mis hijos se sorprendieron cuando les mostrÃ©.</blockquote>
+          </div>
+          <div class="tck-cut" aria-hidden="true"></div>
+          <figcaption class="tck-cap">
+            <img class="tck-av" src="https://randomuser.me/api/portraits/women/12.jpg" alt="Ana C." width="38" height="38" loading="lazy"/>
+            <div><strong>Ana C.</strong><span>FerreterÃ­a Â· Salto</span></div>
+          </figcaption>
+        </figure>
+
+        <figure class="tck-card">
+          <div class="tck-header">
+            <div class="tck-hlogo"><svg width="14" height="14" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="rgba(255,255,255,.25)"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="tck-hmeta"><span class="tck-hbrand">mipos</span><span class="tck-hnum">#2891 Â· hace 4 dÃ­as</span></div>
+            <span class="tck-htype">VerdulerÃ­a</span>
+          </div>
+          <div class="tck-body">
+            <p class="tck-stars">â˜…â˜…â˜…â˜…â˜…</p>
+            <blockquote>Lo que mÃ¡s me gusta es el reporte de fin del dÃ­a. Antes me quedaba una hora cerrando la caja. Ahora miro el celular y ya sÃ© todo.</blockquote>
+          </div>
+          <div class="tck-cut" aria-hidden="true"></div>
+          <figcaption class="tck-cap">
+            <img class="tck-av" src="https://randomuser.me/api/portraits/men/72.jpg" alt="MatÃ­as V." width="38" height="38" loading="lazy"/>
+            <div><strong>MatÃ­as V.</strong><span>VerdulerÃ­a Â· Las Piedras</span></div>
+          </figcaption>
+        </figure>
+
+        <figure class="tck-card">
+          <div class="tck-header">
+            <div class="tck-hlogo"><svg width="14" height="14" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="rgba(255,255,255,.25)"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="tck-hmeta"><span class="tck-hbrand">mipos</span><span class="tck-hnum">#7456 Â· hace 1 semana</span></div>
+            <span class="tck-htype">PanaderÃ­a</span>
+          </div>
+          <div class="tck-body">
+            <p class="tck-stars">â˜…â˜…â˜…â˜…â˜…</p>
+            <blockquote>Tengo tres empleadas y ahora veo cuÃ¡nto vende cada una. El mes pasado detectÃ© un error en la caja que sin mipos no me enteraba jamÃ¡s.</blockquote>
+          </div>
+          <div class="tck-cut" aria-hidden="true"></div>
+          <figcaption class="tck-cap">
+            <img class="tck-av" src="https://randomuser.me/api/portraits/women/38.jpg" alt="Claudia M." width="38" height="38" loading="lazy"/>
+            <div><strong>Claudia M.</strong><span>PanaderÃ­a Â· PaysandÃº</span></div>
+          </figcaption>
+        </figure>
+
+        <figure class="tck-card">
+          <div class="tck-header">
+            <div class="tck-hlogo"><svg width="14" height="14" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="rgba(255,255,255,.25)"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="tck-hmeta"><span class="tck-hbrand">mipos</span><span class="tck-hnum">#5309 Â· hace 3 dÃ­as</span></div>
+            <span class="tck-htype">PerfumerÃ­a</span>
+          </div>
+          <div class="tck-body">
+            <p class="tck-stars">â˜…â˜…â˜…â˜…â˜…</p>
+            <blockquote>El catÃ¡logo online fue lo que me cerrÃ³. Mis clientes piden por WhatsApp y yo solo confirmo. Ahora vendo sin ni abrir el local algunos dÃ­as.</blockquote>
+          </div>
+          <div class="tck-cut" aria-hidden="true"></div>
+          <figcaption class="tck-cap">
+            <img class="tck-av" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Fernando R." width="38" height="38" loading="lazy"/>
+            <div><strong>Fernando R.</strong><span>PerfumerÃ­a Â· Canelones</span></div>
+          </figcaption>
+        </figure>
+
+        <figure class="tck-card">
+          <div class="tck-header">
+            <div class="tck-hlogo"><svg width="14" height="14" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="rgba(255,255,255,.25)"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="tck-hmeta"><span class="tck-hbrand">mipos</span><span class="tck-hnum">#9023 Â· hace 6 dÃ­as</span></div>
+            <span class="tck-htype">Kiosco</span>
+          </div>
+          <div class="tck-body">
+            <p class="tck-stars">â˜…â˜…â˜…â˜…â˜…</p>
+            <blockquote>Me lo recomendÃ³ otra comerciante del barrio. Desde que lo uso, el inventario lo hago en veinte minutos. Antes me llevaba toda la tarde del domingo.</blockquote>
+          </div>
+          <div class="tck-cut" aria-hidden="true"></div>
+          <figcaption class="tck-cap">
+            <img class="tck-av" src="https://randomuser.me/api/portraits/women/29.jpg" alt="Rosa T." width="38" height="38" loading="lazy"/>
+            <div><strong>Rosa T.</strong><span>Kiosco Â· Rivera</span></div>
+          </figcaption>
+        </figure>
+
+        <figure class="tck-card">
+          <div class="tck-header">
+            <div class="tck-hlogo"><svg width="14" height="14" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="rgba(255,255,255,.25)"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="tck-hmeta"><span class="tck-hbrand">mipos</span><span class="tck-hnum">#4617 Â· hace 2 semanas</span></div>
+            <span class="tck-htype">AlmacÃ©n</span>
+          </div>
+          <div class="tck-body">
+            <p class="tck-stars">â˜…â˜…â˜…â˜…â˜…</p>
+            <blockquote>Los fiados eran mi pesadilla. Una libreta, otra libreta, y siempre me faltaba plata al cierre. Ahora todo estÃ¡ en pantalla y no perdÃ­ mÃ¡s un peso.</blockquote>
+          </div>
+          <div class="tck-cut" aria-hidden="true"></div>
+          <figcaption class="tck-cap">
+            <img class="tck-av" src="https://randomuser.me/api/portraits/men/63.jpg" alt="Carlos B." width="38" height="38" loading="lazy"/>
+            <div><strong>Carlos B.</strong><span>AlmacÃ©n Â· Fray Bentos</span></div>
+          </figcaption>
+        </figure>
+
+        <figure class="tck-card">
+          <div class="tck-header">
+            <div class="tck-hlogo"><svg width="14" height="14" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="rgba(255,255,255,.25)"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="tck-hmeta"><span class="tck-hbrand">mipos</span><span class="tck-hnum">#8134 Â· hace 5 dÃ­as</span></div>
+            <span class="tck-htype">Ropa</span>
+          </div>
+          <div class="tck-body">
+            <p class="tck-stars">â˜…â˜…â˜…â˜…â˜…</p>
+            <blockquote>ProbÃ© el plan gratis y no me alcanzÃ³ para conocerlo bien, pasÃ© al Esencial. Es la mejor inversiÃ³n que hice para el negocio en aÃ±os.</blockquote>
+          </div>
+          <div class="tck-cut" aria-hidden="true"></div>
+          <figcaption class="tck-cap">
+            <img class="tck-av" src="https://randomuser.me/api/portraits/women/51.jpg" alt="Patricia S." width="38" height="38" loading="lazy"/>
+            <div><strong>Patricia S.</strong><span>Ropa y calzado Â· TacuarembÃ³</span></div>
+          </figcaption>
+        </figure>
+
+        <figure class="tck-card">
+          <div class="tck-header">
+            <div class="tck-hlogo"><svg width="14" height="14" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="rgba(255,255,255,.25)"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="tck-hmeta"><span class="tck-hbrand">mipos</span><span class="tck-hnum">#2708 Â· hace 1 semana</span></div>
+            <span class="tck-htype">LibrerÃ­a</span>
+          </div>
+          <div class="tck-body">
+            <p class="tck-stars">â˜…â˜…â˜…â˜…â˜…</p>
+            <blockquote>Lo mejor es que funciona desde el celular. Cuando estoy en la feria tambiÃ©n registro las ventas. Al final del dÃ­a tengo todo consolidado solo.</blockquote>
+          </div>
+          <div class="tck-cut" aria-hidden="true"></div>
+          <figcaption class="tck-cap">
+            <img class="tck-av" src="https://randomuser.me/api/portraits/men/27.jpg" alt="Gustavo N." width="38" height="38" loading="lazy"/>
+            <div><strong>Gustavo N.</strong><span>LibrerÃ­a Â· Maldonado</span></div>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+
+    <button class="tck-btn tck-next" type="button" aria-label="OpiniÃ³n siguiente">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
   </div>
+
+  <div class="tck-dots" id="tckDots" role="group" aria-label="Ir a opiniÃ³n"></div>
 </div>
 </section>
 
@@ -1103,11 +1299,10 @@
   <div class="footer-col">
     <h4>Producto</h4>
     <ul>
-      <li><a href="#features">QuÃ© hace</a></li>
+      <li><a href="#panel">QuÃ© hace</a></li>
       <li><a href="#pricing">Precios</a></li>
       <li><a href="#compare">Comparar</a></li>
       <li><a href="#demo">Demo</a></li>
-        <li><a href="/terminos">TÃ©rminos y Condiciones</a></li>
     </ul>
   </div>
   <div class="footer-col">
@@ -1122,12 +1317,12 @@
     <h4>Legal</h4>
     <ul>
       <li><a href="#">Privacidad</a></li>
-      <li><a href="#">TÃ©rminos</a></li>
+      <li><a href="terminosycondiciones.html">TÃ©rminos</a></li>
     </ul>
   </div>
 </div>
 <div class="wrap footer-bottom">
-  <span>Â© 2026 mipos Â· Todos los derechos reservados</span>
+  <span>Â© 2026 mipos Â· Todos los derechos reservados Â· <a href="terminosycondiciones.html" style="color:inherit;opacity:.6;">TÃ©rminos y Condiciones</a></span>
   <a href="https://codetm.site" target="_blank" rel="noopener noreferrer" class="by-codetm">Desarrollado por <strong>CodeTM</strong></a>
 </div>
 </footer>
@@ -1248,5 +1443,95 @@
     }
   });
 </script>
+<script>
+(function(){
+  var track = document.getElementById('tckTrack');
+  var dotsEl = document.getElementById('tckDots');
+  var prevBtn = document.querySelector('.tck-prev');
+  var nextBtn = document.querySelector('.tck-next');
+  var viewport = document.querySelector('.tck-viewport');
+  if(!track||!dotsEl||!prevBtn||!nextBtn||!viewport) return;
+
+  var cards = Array.from(track.querySelectorAll('.tck-card'));
+  var total = cards.length;
+  var current = 0;
+  var autoTimer = null;
+  var GAP = 20;
+
+  function perView(){ return window.innerWidth >= 900 ? 3 : 1; }
+  function maxIdx(){ return Math.max(0, total - perView()); }
+
+  function setCardWidths(){
+    var pv = perView();
+    var vpW = viewport.offsetWidth;
+    var w = Math.floor((vpW - GAP * (pv - 1)) / pv);
+    cards.forEach(function(c){ c.style.flex = '0 0 ' + w + 'px'; });
+  }
+
+  function cardW(){ return cards[0].offsetWidth; }
+
+  // create dots
+  for(var i=0;i<total;i++){
+    var d = document.createElement('button');
+    d.className = 'tck-dot' + (i===0?' active':'');
+    d.setAttribute('aria-label','OpiniÃ³n '+(i+1));
+    d.setAttribute('type','button');
+    (function(idx){ d.addEventListener('click',function(){ go(idx); restartAuto(); }); })(i);
+    dotsEl.appendChild(d);
+  }
+
+  function updateDots(){
+    dotsEl.querySelectorAll('.tck-dot').forEach(function(d,i){ d.classList.toggle('active', i===current); });
+  }
+
+  function go(idx){
+    current = Math.max(0, Math.min(idx, maxIdx()));
+    track.style.transform = 'translateX(-'+(current*(cardW()+GAP))+'px)';
+    updateDots();
+  }
+
+  prevBtn.addEventListener('click',function(){ go(current-1); restartAuto(); });
+  nextBtn.addEventListener('click',function(){ go(current+1); restartAuto(); });
+
+  function startAuto(){
+    autoTimer = setInterval(function(){
+      go(current >= maxIdx() ? 0 : current+1);
+    }, 5200);
+  }
+  function restartAuto(){ clearInterval(autoTimer); startAuto(); }
+
+  // touch swipe
+  var txStart=0;
+  track.addEventListener('touchstart',function(e){ txStart=e.changedTouches[0].screenX; },{passive:true});
+  track.addEventListener('touchend',function(e){
+    var diff = txStart - e.changedTouches[0].screenX;
+    if(Math.abs(diff)>42){ go(diff>0?current+1:current-1); restartAuto(); }
+  },{passive:true});
+
+  // pause on hover
+  var wrap = document.querySelector('.tck-wrap');
+  if(wrap){
+    wrap.addEventListener('mouseenter',function(){ clearInterval(autoTimer); });
+    wrap.addEventListener('mouseleave',startAuto);
+  }
+
+  // resize: recalculate widths then reposition
+  var rsTimer;
+  window.addEventListener('resize',function(){
+    clearTimeout(rsTimer);
+    rsTimer = setTimeout(function(){
+      setCardWidths();
+      current = Math.min(current, maxIdx());
+      go(current);
+    }, 80);
+  });
+
+  // init
+  setCardWidths();
+  go(0);
+  startAuto();
+})();
+</script>
+
 </body>
 </html>

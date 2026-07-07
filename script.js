@@ -91,15 +91,25 @@ function resetDemo() {
     setTimeout(() => btn.classList.remove('dprod-adding'), 350);
   };
 
+  const getDemoProduct = (id) => {
+    const btn = document.querySelector(`.dprod[data-id="${id}"]`);
+    if (!btn) return null;
+    const match = btn.getAttribute('onclick').match(/addToCart\('([^']+)',\s*(\d+)\)/);
+    return match ? { name: match[1], price: parseInt(match[2]) } : null;
+  };
+
   const run = () => {
     if (played || Object.keys(cart).length > 0) return;
     played = true;
     let t = 1000;
-    setTimeout(() => { flashBtn('[data-id="coca"]'); addToCart('Coca Cola 2.25L', 1900); }, t);
+    const coca = getDemoProduct('coca');
+    const alfa = getDemoProduct('alfa');
+    const agua = getDemoProduct('agua');
+    if (coca) setTimeout(() => { flashBtn('[data-id="coca"]'); addToCart(coca.name, coca.price); }, t);
     t += 900;
-    setTimeout(() => { flashBtn('[data-id="alfa"]'); addToCart('Alfajor Havanna', 1200); }, t);
+    if (alfa) setTimeout(() => { flashBtn('[data-id="alfa"]'); addToCart(alfa.name, alfa.price); }, t);
     t += 800;
-    setTimeout(() => { flashBtn('[data-id="agua"]'); addToCart('Agua 1.5L', 800); }, t);
+    if (agua) setTimeout(() => { flashBtn('[data-id="agua"]'); addToCart(agua.name, agua.price); }, t);
     t += 1100;
     setTimeout(() => {
       const btn = document.getElementById('miposBtn');
@@ -414,6 +424,7 @@ themeBtn.addEventListener('click', (e) => {
   let idx = 0;
   let timer = null;
   let visible = false;
+  let userSelected = false;
 
   function startTimer() {
     clearInterval(timer);
@@ -421,14 +432,15 @@ themeBtn.addEventListener('click', (e) => {
       if (!visible) return;
       idx = (idx + 1) % btns.length;
       switchTo(btns[idx]);
-    }, 5000);
+    }, 10000);
   }
 
   btns.forEach((btn, i) => {
     btn.addEventListener('click', () => {
       idx = i;
+      userSelected = true;
       switchTo(btn);
-      startTimer();
+      clearInterval(timer);
     });
   });
 
@@ -436,7 +448,7 @@ themeBtn.addEventListener('click', (e) => {
   if (section && 'IntersectionObserver' in window) {
     new IntersectionObserver(entries => {
       visible = entries[0].isIntersecting;
-      if (visible) startTimer(); else clearInterval(timer);
+      if (visible && !userSelected) startTimer(); else clearInterval(timer);
     }, { threshold: 0.3 }).observe(section);
   } else {
     visible = true;
@@ -452,8 +464,15 @@ themeBtn.addEventListener('click', (e) => {
 
   const easeOut = t => 1 - Math.pow(1 - t, 3);
 
-  function fmt(val, prefix, suffix) {
-    if (suffix === 'M') return prefix + (val / 1000).toFixed(3) + suffix;
+  function fmtMillions(val, prefix, direct) {
+    if (direct) return prefix + Math.round(val) + 'M';
+    const m = val / 1000;
+    const formatted = Number.isInteger(m) ? String(m) : m.toFixed(3);
+    return prefix + formatted + 'M';
+  }
+
+  function fmt(val, prefix, suffix, directMillion) {
+    if (suffix === 'M') return fmtMillions(val, prefix, directMillion);
     return prefix + Math.round(val).toLocaleString('es-AR') + suffix;
   }
 
@@ -461,13 +480,14 @@ themeBtn.addEventListener('click', (e) => {
     const target = parseInt(el.dataset.stat, 10);
     const prefix = el.dataset.prefix || '';
     const suffix = el.dataset.suffix || '';
+    const directMillion = 'million' in el.dataset;
     const duration = 1600;
     const t0 = performance.now();
     (function step(now) {
       const p = Math.min((now - t0) / duration, 1);
-      el.textContent = fmt(easeOut(p) * target, prefix, suffix);
+      el.textContent = fmt(easeOut(p) * target, prefix, suffix, directMillion);
       if (p < 1) requestAnimationFrame(step);
-      else el.textContent = fmt(target, prefix, suffix);
+      else el.textContent = fmt(target, prefix, suffix, directMillion);
     })(t0);
   }
 

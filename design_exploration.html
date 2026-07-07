@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mipos — Exploración Visual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=Barlow+Condensed:wght@700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; overflow-x: hidden; padding-top: 48px; }
+
+    /* ─── SELECTOR BAR ─── */
+    .selector {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      display: flex;
+      background: rgba(8,11,18,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      height: 48px;
+    }
+    .sel-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: #555870;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0 16px;
+    }
+    .sel-btn.active { color: #fff; border-bottom-color: #00D97E; }
+    .sel-btn:hover:not(.active) { color: #aaa; }
+
+    /* ─── HERO SECTIONS ─── */
+    .hero { display: none; min-height: calc(100vh - 48px); flex-direction: column; }
+    .hero.active { display: flex; }
+
+
+    /* ══════════════════════════════════════════════
+       DIRECCIÓN A — PULSO
+       Oscuro · Contador en tiempo real · Eléctrico
+       Paleta: #080B12 · #F0EDE4 · #00D97E · #3B5BDB · #FF6B35
+       Display: Bebas Neue · Texto: Syne 800 · Body: Inter
+    ══════════════════════════════════════════════ */
+    #hero-a { background: #080B12; color: #F0EDE4; position: relative; overflow: hidden; }
+
+    /* ambient glow */
+    #hero-a::before {
+      content: '';
+      position: absolute;
+      top: -250px; left: -250px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(0,217,126,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    #hero-a::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; right: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(59,91,219,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .nav-a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 64px;
+      position: relative;
+      z-index: 2;
+    }
+    .logo-a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 19px;
+      color: #F0EDE4;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 30px; height: 30px;
+      background: #3B5BDB;
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .nav-links-a {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links-a a {
+      color: #4A4D6E;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .nav-links-a a:hover { color: #F0EDE4; }
+    .nav-right-a { display: flex; gap: 10px; align-items: center; }
+    .btn-ghost-a {
+      background: transparent;
+      border: 1px solid #1E2235;
+      color: #7B7D96;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-ghost-a:hover { border-color: #3A3D58; color: #F0EDE4; }
+    .btn-cta-a {
+      background: #00D97E;
+      border: none;
+      color: #080B12;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-cta-a:hover { background: #00F590; transform: translateY(-1px); }
+
+    .hero-a-main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0 64px;
+      position: relative;
+      z-index: 2;
+      gap: 48px;
+    }
+    .hero-a-left { }
+
+    .live-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #00D97E;
+      margin-bottom: 10px;
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      background: #00D97E;
+      border-radius: 50%;
+      animation: livepulse 2s ease-in-out infinite;
+    }
+    @keyframes livepulse {
+      0%,100% { opacity:1; transform: scale(1); box-shadow: 0 0 0 0 rgba(0,217,126,0.4); }
+      50% { opacity:0.5; transform: scale(0.7); box-shadow: 0 0 0 6px rgba(0,217,126,0); }
+    }
+
+    .counter-a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(80px, 11vw, 148px);
+      line-height: 0.88;
+      letter-spacing: 0.02em;
+      color: #F0EDE4;
+      margin-bottom: 4px;
+    }
+    .counter-a .sep { color: #00D97E; }
+
+    .counter-desc {
+      font-size: 13px;
+      font-weight: 500;
+      color: #2A2D42;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 44px;
+    }
+
+    .headline-a {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 800;
+      line-height: 1.1;
+      color: #F0EDE4;
+      margin-bottom: 14px;
+    }
+    .headline-a em {
+      font-style: normal;
+      color: #00D97E;
+    }
+    .body-a {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #5B5E7A;
+      max-width: 400px;
+      margin-bottom: 36px;
+    }
+    .cta-row-a {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .cta-main-a {
+      background: #00D97E;
+      border: none;
+      color: #080B12;
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cta-main-a:hover { background: #00F08D; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,217,126,0.28); }
+    .cta-play-a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: #4A4D6E;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .cta-play-a:hover { color: #F0EDE4; }
+    .play-icon {
+      width: 34px; height: 34px;
+      border: 1.5px solid #1E2235;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* RIGHT: PRODUCT */
+    .hero-a-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 40px 0;
+    }
+    .mockup-wrap-a {
+      position: relative;
+      width: 360px;
+    }
+    .pos-card-a {
+      background: #10131E;
+      border: 1px solid #1A1D2E;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.04);
+      animation: floatMain 7s ease-in-out infinite;
+    }
+    @keyframes floatMain {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-9px); }
+    }
+    .pos-head-a {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+    .pos-name-a {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: #E8E5F0;
+    }
+    .pos-meta-a { font-size: 11px; color: #3A3D55; margin-top: 3px; }
+    .badge-a {
+      background: rgba(0,217,126,0.1);
+      color: #00D97E;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(0,217,126,0.2);
+    }
+    .pos-items-a { list-style: none; }
+    .pos-item-a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 0;
+      border-top: 1px solid #161929;
+      font-size: 13px;
+      color: #B0AECB;
+    }
+    .pos-item-a .i-name { flex: 1; }
+    .pos-item-a .i-qty { color: #2E3148; font-size: 12px; margin: 0 12px; }
+    .pos-item-a .i-price { color: #E8E5F0; font-weight: 600; }
+    .pos-total-a {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 16px 0 0;
+      margin-top: 4px;
+      border-top: 1px solid #1A1D2E;
+    }
+    .pos-total-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #2E3148; }
+    .pos-total-amt {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      letter-spacing: 0.02em;
+      color: #F0EDE4;
+    }
+    .pos-btns-a {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .pos-btn-ghost { background: #161929; border: 1px solid #1E2235; color: #B0AECB; padding: 11px; border-radius: 9px; font-size: 13px; text-align: center; cursor: pointer; }
+    .pos-btn-paid { background: #00D97E; border: none; color: #080B12; padding: 11px; border-radius: 9px; font-size: 13px; font-weight: 700; text-align: center; cursor: pointer; }
+
+    /* Floating stat cards */
+    .float-card {
+      position: absolute;
+      background: #12151F;
+      border: 1px solid #1A1D2E;
+      border-radius: 14px;
+      padding: 14px 18px;
+      box-shadow: 0 20px 48px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+    .float-card.fc-tr {
+      top: -16px; right: -64px;
+      animation: floatB 8s ease-in-out infinite;
+    }
+    .float-card.fc-bl {
+      bottom: 20px; left: -64px;
+      animation: floatC 9s ease-in-out infinite;
+    }
+    @keyframes floatB { 0%,100% { transform: translateY(-4px); } 50% { transform: translateY(8px); } }
+    @keyframes floatC { 0%,100% { transform: translateY(4px); } 50% { transform: translateY(-8px); } }
+    .fc-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #2E3148; margin-bottom: 5px; }
+    .fc-value { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: #F0EDE4; line-height: 1; }
+    .fc-delta { font-size: 12px; font-weight: 600; color: #00D97E; margin-top: 3px; }
+    .fc-alert { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; color: #FF6B35; line-height: 1; }
+    .fc-alert-desc { font-size: 12px; color: #3A3D55; margin-top: 3px; }
+
+    /* Ticker */
+    .ticker-a {
+      background: #0B0E18;
+      border-top: 1px solid #141727;
+      padding: 13px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+    .ticker-a::before, .ticker-a::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 100px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .ticker-a::before { left: 0; background: linear-gradient(to right, #0B0E18, transparent); }
+    .ticker-a::after { right: 0; background: linear-gradient(to left, #0B0E18, transparent); }
+    .ticker-track {
+      display: inline-flex;
+      animation: tickerroll 28s linear infinite;
+    }
+    .tick-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 28px;
+      font-size: 12px;
+    }
+    .tick-dot { width: 4px; height: 4px; background: #00D97E; border-radius: 50%; flex-shrink: 0; }
+    .tick-name { color: #4A4D6E; font-weight: 500; }
+    .tick-amount { color: #D0CEEA; font-weight: 600; }
+    .tick-sep { color: #1E2235; }
+    .tick-time { color: #252840; }
+    @keyframes tickerroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+
+    /* ══════════════════════════════════════════════
+       DIRECCIÓN B — CONTRASTE
+       Split · Condensado · Impacto tipográfico
+       Paleta: #1B2032 (navy) · #F7F5EE (warm white) · #F59E0B (amber) · #16A34A (green)
+       Display: Barlow Condensed 900 · Body: Space Grotesk
+    ══════════════════════════════════════════════ */
+    #hero-b { flex-direction: column; }
+
+    .nav-b {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      background: #F7F5EE;
+      border-bottom: 1px solid #E8E4D8;
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+    .logo-b {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: #1B2032;
+    }
+    .logo-icon-b {
+      width: 30px; height: 30px;
+      background: #3B5BDB;
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 14px; font-weight: 700;
+    }
+    .nav-links-b { display: flex; gap: 32px; list-style: none; }
+    .nav-links-b a {
+      color: #8B8FA8;
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .nav-right-b { display: flex; gap: 10px; align-items: center; }
+    .btn-ghost-b {
+      background: transparent;
+      border: 1.5px solid #D4CFC0;
+      color: #5B6070;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .btn-cta-b {
+      background: #1B2032;
+      border: none;
+      color: #F7F5EE;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .hero-b-body {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 55% 45%;
+    }
+
+    /* LEFT: DARK HALF */
+    .b-left {
+      background: #1B2032;
+      padding: 64px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .b-left::after {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .eyebrow-b {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #F59E0B;
+      margin-bottom: 20px;
+      position: relative; z-index: 1;
+    }
+    .headline-b {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(72px, 8vw, 108px);
+      font-weight: 900;
+      line-height: 0.92;
+      color: #F7F5EE;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+      position: relative; z-index: 1;
+    }
+    .headline-b .hl-accent { color: #F59E0B; display: block; }
+    .headline-b .hl-white { color: #F7F5EE; display: block; }
+
+    .stats-b {
+      display: flex;
+      gap: 28px;
+      margin-bottom: 36px;
+      position: relative; z-index: 1;
+    }
+    .stat-b { }
+    .stat-num-b {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 44px;
+      font-weight: 800;
+      color: #F7F5EE;
+      line-height: 1;
+    }
+    .stat-desc-b {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      color: #4A5268;
+      margin-top: 4px;
+    }
+    .stat-divider-b { width: 1px; background: #252B40; align-self: stretch; }
+
+    .body-b {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #6B7290;
+      max-width: 400px;
+      margin-bottom: 40px;
+      position: relative; z-index: 1;
+    }
+    .cta-row-b { display: flex; gap: 14px; position: relative; z-index: 1; }
+    .cta-main-b {
+      background: #F59E0B;
+      border: none;
+      color: #1B2032;
+      padding: 15px 32px;
+      border-radius: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cta-main-b:hover { background: #FBBF24; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,158,11,0.3); }
+    .cta-sec-b {
+      background: transparent;
+      border: 1.5px solid #252B40;
+      color: #6B7290;
+      padding: 14px 22px;
+      border-radius: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    /* RIGHT: LIGHT HALF */
+    .b-right {
+      background: #F7F5EE;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 32px;
+      position: relative;
+      gap: 20px;
+    }
+    .pos-card-b {
+      background: white;
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 8px 32px rgba(27,32,50,0.10), 0 2px 8px rgba(27,32,50,0.05);
+      width: 280px;
+      flex-shrink: 0;
+    }
+    .pos-head-b {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .pos-name-b {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: #1B2032;
+    }
+    .pos-meta-b {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      color: #9CA3AF;
+      margin-top: 2px;
+    }
+    .badge-b {
+      background: #D1FAE5;
+      color: #065F46;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+    .pos-items-b { list-style: none; }
+    .pos-item-b {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-top: 1px solid #F9FAFB;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      color: #374151;
+    }
+    .pos-item-b .ib-qty { color: #D1D5DB; font-size: 11px; }
+    .pos-total-b {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 14px 0 0;
+      border-top: 1px solid #F3F4F6;
+      margin-top: 4px;
+    }
+    .pos-total-lbl-b {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9CA3AF;
+    }
+    .pos-total-amt-b {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      color: #1B2032;
+    }
+    .pos-btns-b {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .pb-ghost { background: #F9FAFB; border: 1px solid #E5E7EB; color: #374151; padding: 10px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 500; text-align: center; cursor: pointer; }
+    .pb-paid { background: #16A34A; border: none; color: white; padding: 10px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700; text-align: center; cursor: pointer; }
+
+    /* Right side mini-stats B */
+    .mini-stats-b { display: flex; flex-direction: column; gap: 12px; }
+    .mini-stat-b {
+      background: white;
+      border-radius: 12px;
+      padding: 16px 18px;
+      box-shadow: 0 4px 16px rgba(27,32,50,0.07);
+      min-width: 148px;
+    }
+    .ms-label { font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #9CA3AF; margin-bottom: 6px; }
+    .ms-value {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+      color: #1B2032;
+      line-height: 1;
+    }
+    .ms-delta { font-family: 'Space Grotesk', sans-serif; font-size: 12px; color: #16A34A; font-weight: 600; margin-top: 4px; }
+    .ms-alert { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; color: #F59E0B; line-height: 1; }
+
+
+    /* ══════════════════════════════════════════════
+       DIRECCIÓN C — TABLERO
+       Claro · Dashboard como hero · Datos como protagonistas
+       Paleta: #F8F9FC bg · #101828 texto · #3B5BDB azul · #16A34A verde · #F59E0B ámbar
+       Display: Syne 800 · Body: Inter
+    ══════════════════════════════════════════════ */
+    #hero-c { flex-direction: column; background: #F0F2F8; }
+
+    .nav-c {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 56px;
+      background: white;
+      border-bottom: 1px solid #E4E7ED;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+    }
+    .logo-c {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      color: #101828;
+    }
+    .logo-icon-c {
+      width: 28px; height: 28px;
+      background: #3B5BDB;
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 13px; font-weight: 700;
+    }
+    .nav-links-c { display: flex; gap: 28px; list-style: none; }
+    .nav-links-c a {
+      color: #6B7280;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .nav-links-c a:hover { color: #101828; }
+    .nav-right-c { display: flex; gap: 10px; align-items: center; }
+    .btn-ghost-c {
+      background: white;
+      border: 1px solid #D1D5DB;
+      color: #374151;
+      padding: 8px 16px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .btn-cta-c {
+      background: #3B5BDB;
+      border: none;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-cta-c:hover { background: #2F4DC4; }
+
+    .hero-c-body {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 440px 1fr;
+    }
+
+    /* LEFT: COPY PANEL */
+    .c-left {
+      background: white;
+      border-right: 1px solid #E4E7ED;
+      padding: 60px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .pill-c {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #EEF2FF;
+      color: #3B5BDB;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 26px;
+      width: fit-content;
+    }
+    .pill-dot-c { width: 5px; height: 5px; background: #3B5BDB; border-radius: 50%; }
+    .headline-c {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(36px, 3.5vw, 50px);
+      font-weight: 800;
+      line-height: 1.06;
+      color: #101828;
+      margin-bottom: 18px;
+    }
+    .headline-c .hc-accent { color: #3B5BDB; }
+    .body-c {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #6B7280;
+      margin-bottom: 36px;
+    }
+    .proof-c {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .proof-item-c { }
+    .proof-num-c {
+      font-family: 'Syne', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: #101828;
+      line-height: 1;
+    }
+    .proof-desc-c { font-size: 11px; color: #9CA3AF; margin-top: 4px; }
+    .proof-div-c { width: 1px; background: #E4E7ED; align-self: stretch; }
+    .cta-row-c { display: flex; gap: 14px; align-items: center; }
+    .cta-main-c {
+      background: #3B5BDB;
+      border: none;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cta-main-c:hover { background: #2F4DC4; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(59,91,219,0.25); }
+    .cta-play-c {
+      display: flex; align-items: center; gap: 7px;
+      background: none; border: none;
+      color: #9CA3AF;
+      font-size: 13px; font-weight: 500;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .cta-play-c:hover { color: #374151; }
+
+    /* RIGHT: DASHBOARD */
+    .c-right {
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow: hidden;
+    }
+
+    /* Top bar inside dashboard */
+    .dash-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .dash-title-c {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #101828;
+    }
+    .dash-sub-c { font-size: 12px; color: #9CA3AF; margin-top: 1px; }
+    .dash-badge-live {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #FEF9C3;
+      color: #A16207;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    /* KPI row */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .kpi-card {
+      background: white;
+      border: 1px solid #E4E7ED;
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .kpi-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #9CA3AF; margin-bottom: 8px; }
+    .kpi-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: #101828;
+      line-height: 1;
+    }
+    .kpi-delta { font-size: 12px; font-weight: 600; color: #16A34A; margin-top: 6px; display: flex; align-items: center; gap: 4px; }
+    .kpi-delta.warn { color: #D97706; }
+    .kpi-delta.neutral { color: #6B7280; }
+
+    /* Main content: POS + chart */
+    .dash-main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      flex: 1;
+    }
+    .pos-card-c {
+      background: white;
+      border: 1px solid #E4E7ED;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .pos-head-c {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 18px;
+      border-bottom: 1px solid #F3F4F6;
+    }
+    .pos-name-c { font-size: 13px; font-weight: 600; color: #101828; }
+    .pos-meta-c { font-size: 11px; color: #9CA3AF; margin-top: 2px; }
+    .badge-live-c {
+      background: #FEF3C7;
+      color: #D97706;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+    .pos-items-c { list-style: none; padding: 8px 18px; flex: 1; }
+    .pos-item-c {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      font-size: 13px;
+      color: #374151;
+      border-bottom: 1px solid #FAFAFA;
+    }
+    .ic-right { display: flex; align-items: center; gap: 12px; }
+    .ic-qty { color: #D1D5DB; font-size: 11px; }
+    .ic-price { font-weight: 600; color: #101828; }
+    .pos-total-c {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      border-top: 1px solid #F3F4F6;
+    }
+    .ptl-c { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #9CA3AF; }
+    .pta-c { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: #101828; }
+    .pos-btns-c {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 0 18px 16px;
+    }
+    .pc-ghost { background: #F9FAFB; border: 1px solid #E5E7EB; color: #374151; padding: 9px; border-radius: 8px; font-size: 12px; text-align: center; cursor: pointer; }
+    .pc-paid { background: #16A34A; border: none; color: white; padding: 9px; border-radius: 8px; font-size: 12px; font-weight: 600; text-align: center; cursor: pointer; }
+
+    /* Bar chart */
+    .chart-card {
+      background: white;
+      border: 1px solid #E4E7ED;
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+    }
+    .chart-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+    .chart-title { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #9CA3AF; }
+    .chart-peak { font-size: 11px; color: #9CA3AF; }
+    .bar-chart {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+    }
+    .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .bar {
+      width: 100%;
+      background: #EEF2FF;
+      border-radius: 4px 4px 0 0;
+      transition: all 0.3s;
+    }
+    .bar.today { background: #3B5BDB; }
+    .bar-lbl { font-size: 10px; color: #D1D5DB; }
+
+
+    /* ─── SHARED: MOTION SAFETY ─── */
+    @media (prefers-reduced-motion: reduce) {
+      .live-dot, .ticker-track,
+      .pos-card-a, .float-card { animation: none; }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero-a-main, .hero-b-body { grid-template-columns: 1fr; }
+      .hero-a-right, .b-right { display: none; }
+      .hero-b-body { grid-template-columns: 1fr; }
+      .b-right { display: none; }
+      .hero-c-body { grid-template-columns: 1fr; }
+      .c-right { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── SELECTOR ─── -->
+<nav class="selector">
+  <button class="sel-btn active" onclick="showHero('a',this)">A — Pulso · Oscuro</button>
+  <button class="sel-btn" onclick="showHero('b',this)">B — Contraste · Split</button>
+  <button class="sel-btn" onclick="showHero('c',this)">C — Tablero · Datos</button>
+</nav>
+
+
+<!-- ══════════════════════════════════════════
+     HERO A: PULSO
+══════════════════════════════════════════ -->
+<section id="hero-a" class="hero active">
+  <nav class="nav-a">
+    <a class="logo-a" href="#">
+      <div class="logo-icon">✓</div>
+      mipos
+    </a>
+    <ul class="nav-links-a">
+      <li><a href="#">Qué hace</a></li>
+      <li><a href="#">Comparar</a></li>
+      <li><a href="#">Precios</a></li>
+      <li><a href="#">Preguntas</a></li>
+    </ul>
+    <div class="nav-right-a">
+      <button class="btn-ghost-a">Entrar</button>
+      <button class="btn-cta-a">Probar gratis</button>
+    </div>
+  </nav>
+
+  <div class="hero-a-main">
+    <div class="hero-a-left">
+      <div class="live-label">
+        <div class="live-dot"></div>
+        Ventas registradas hoy en Uruguay
+      </div>
+      <div class="counter-a" id="counterA">4<span class="sep">.</span>000</div>
+      <div class="counter-desc">y contando</div>
+
+      <h1 class="headline-a">
+        Tu negocio,<br>
+        en <em>tiempo real.</em>
+      </h1>
+      <p class="body-a">
+        Ventas, stock y fiados en un solo lugar. Sin instalar nada.
+        Pensado para el comerciante uruguayo — empezás en cinco minutos.
+      </p>
+      <div class="cta-row-a">
+        <button class="cta-main-a">Abrí tu caja gratis →</button>
+        <button class="cta-play-a">
+          <div class="play-icon">
+            <svg width="10" height="12" viewBox="0 0 10 12" fill="none">
+              <path d="M1 1L9 6L1 11V1Z" fill="currentColor"/>
+            </svg>
+          </div>
+          Ver cómo funciona
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-a-right">
+      <div class="mockup-wrap-a">
+        <div class="pos-card-a">
+          <div class="pos-head-a">
+            <div>
+              <div class="pos-name-a">Kiosco Don Beto</div>
+              <div class="pos-meta-a">Venta #4822 · hoy 14:33</div>
+            </div>
+            <div class="badge-a">● Caja abierta</div>
+          </div>
+          <ul class="pos-items-a">
+            <li class="pos-item-a">
+              <span class="i-name">Coca Cola 2.25L</span>
+              <span class="i-qty">×2</span>
+              <span class="i-price">$340</span>
+            </li>
+            <li class="pos-item-a">
+              <span class="i-name">Alfajor Portezuelo</span>
+              <span class="i-qty">×1</span>
+              <span class="i-price">$30</span>
+            </li>
+            <li class="pos-item-a">
+              <span class="i-name">Agua mineral 1.5L</span>
+              <span class="i-qty">×3</span>
+              <span class="i-price">$160</span>
+            </li>
+          </ul>
+          <div class="pos-total-a">
+            <span class="pos-total-lbl">Total</span>
+            <span class="pos-total-amt">$530</span>
+          </div>
+          <div class="pos-btns-a">
+            <div class="pos-btn-ghost">Efectivo</div>
+            <div class="pos-btn-paid">✓ Cobrado</div>
+          </div>
+        </div>
+
+        <div class="float-card fc-tr">
+          <div class="fc-label">Vendido hoy</div>
+          <div class="fc-value">$34.000</div>
+          <div class="fc-delta">↑ 18% que ayer</div>
+        </div>
+        <div class="float-card fc-bl">
+          <div class="fc-label">Por reponer</div>
+          <div class="fc-alert">3</div>
+          <div class="fc-alert-desc">productos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TICKER -->
+  <div class="ticker-a">
+    <div class="ticker-track">
+      <span class="tick-item"><span class="tick-dot"></span><span class="tick-name">Almacén El Topo</span><span class="tick-sep">·</span><span class="tick-amount">$2.340</span><span class="tick-sep">·</span><span class="tick-time">hace 1 min</span></span>
+      <span class="tick-item"><span class="tick-dot"></span><span class="tick-name">Kiosco La Paloma</span><span class="tick-sep">·</span><span class="tick-amount">$890</span><span class="tick-sep">·</span><span class="tick-time">hace 2 min</span></span>
+      <span class="tick-item"><span class="tick-dot"></span><span class="tick-name">Autoservicio Centro</span><span class="tick-sep">·</span><span class="tick-amount">$5.120</span><span class="tick-sep">·</span><span class="tick-time">hace 3 min</span></span>
+      <span class="tick-item"><span class="tick-dot"></span><span class="tick-name">Mini Mercado Sol</span><span class="tick-sep">·</span><span class="tick-amount">$1.650</span><span class="tick-sep">·</span><span class="tick-time">hace 4 min</span></span>
+      <span class="tick-item"><span class="tick-dot"></span><span class="tick-name">Kiosco Don Mario</span><span class="tick-sep">·</span><span class="tick-amount">$420</span><span class="tick-sep">·</span><span class="tick-time">hace 5 min</span></span>
+      <span class="tick-item"><span class="tick-dot"></span><span class="tick-name">Almacén La Unión</span><span class="tick-sep">·</span><span class="tick-amount">$3.200</span><span class="tick-sep">·</span><span class="tick-time">hace 6 min</span></span>
+      <span class="tick-item"><span class="tick-dot"></span><span class="tick-name">Verdulería San José</span><span class="tick-sep">·</span><span class="tick-amount">$780</span><span class="tick-sep">·</span><span class="tick-time">hace 7 min</span></span>
+      <!-- duplicated for seamless loop -->
+      <span class="tick-item"><span class="tick-dot"></span><span class="tick-name">Almacén El Topo</span><span class="tick-sep">·</span><span class="tick-amount">$2.340</span><span class="tick-sep">·</span><span class="tick-time">hace 1 min</span></span>
+      <span class="tick-item"><span class="tick-dot"></span><span class="tick-name">Kiosco La Paloma</span><span class="tick-sep">·</span><span class="tick-amount">$890</span><span class="tick-sep">·</span><span class="tick-time">hace 2 min</span></span>
+      <span class="tick-item"><span class="tick-dot"></span><span class="tick-name">Autoservicio Centro</span><span class="tick-sep">·</span><span class="tick-amount">$5.120</span><span class="tick-sep">·</span><span class="tick-time">hace 3 min</span></span>
+      <span class="tick-item"><span class="tick-dot"></span><span class="tick-name">Mini Mercado Sol</span><span class="tick-sep">·</span><span class="tick-amount">$1.650</span><span class="tick-sep">·</span><span class="tick-time">hace 4 min</span></span>
+      <span class="tick-item"><span class="tick-dot"></span><span class="tick-name">Kiosco Don Mario</span><span class="tick-sep">·</span><span class="tick-amount">$420</span><span class="tick-sep">·</span><span class="tick-time">hace 5 min</span></span>
+      <span class="tick-item"><span class="tick-dot"></span><span class="tick-name">Almacén La Unión</span><span class="tick-sep">·</span><span class="tick-amount">$3.200</span><span class="tick-sep">·</span><span class="tick-time">hace 6 min</span></span>
+      <span class="tick-item"><span class="tick-dot"></span><span class="tick-name">Verdulería San José</span><span class="tick-sep">·</span><span class="tick-amount">$780</span><span class="tick-sep">·</span><span class="tick-time">hace 7 min</span></span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     HERO B: CONTRASTE
+══════════════════════════════════════════ -->
+<section id="hero-b" class="hero">
+  <nav class="nav-b">
+    <a class="logo-b" href="#" style="text-decoration:none;">
+      <div class="logo-icon-b">✓</div>
+      mipos
+    </a>
+    <ul class="nav-links-b">
+      <li><a href="#">Qué hace</a></li>
+      <li><a href="#">Comparar</a></li>
+      <li><a href="#">Precios</a></li>
+      <li><a href="#">Preguntas</a></li>
+    </ul>
+    <div class="nav-right-b">
+      <button class="btn-ghost-b">Entrar</button>
+      <button class="btn-cta-b">Probar gratis</button>
+    </div>
+  </nav>
+
+  <div class="hero-b-body">
+    <div class="b-left">
+      <div class="eyebrow-b">Kioscos · Almacenes · Autoservicios</div>
+      <h1 class="headline-b">
+        <span class="hl-white">Abrí</span>
+        <span class="hl-accent">tu caja</span>
+        <span class="hl-white">ahora.</span>
+      </h1>
+
+      <div class="stats-b">
+        <div class="stat-b">
+          <div class="stat-num-b">5'</div>
+          <div class="stat-desc-b">para empezar a vender</div>
+        </div>
+        <div class="stat-divider-b"></div>
+        <div class="stat-b">
+          <div class="stat-num-b">$0</div>
+          <div class="stat-desc-b">para comenzar</div>
+        </div>
+        <div class="stat-divider-b"></div>
+        <div class="stat-b">
+          <div class="stat-num-b">4.821</div>
+          <div class="stat-desc-b">ventas hoy</div>
+        </div>
+      </div>
+
+      <p class="body-b">
+        El sistema de ventas, stock y fiados pensado para el comerciante uruguayo.
+        Sin instalar nada — desde el primer día.
+      </p>
+      <div class="cta-row-b">
+        <button class="cta-main-b">Abrí tu caja gratis →</button>
+        <button class="cta-sec-b">Ver cómo funciona</button>
+      </div>
+    </div>
+
+    <div class="b-right">
+      <div class="pos-card-b">
+        <div class="pos-head-b">
+          <div>
+            <div class="pos-name-b">Kiosco Don Beto</div>
+            <div class="pos-meta-b">Venta #4822 · hoy 14:33</div>
+          </div>
+          <div class="badge-b">● Caja abierta</div>
+        </div>
+        <ul class="pos-items-b">
+          <li class="pos-item-b">
+            <span>Coca Cola 2.25L <span class="ib-qty">×2</span></span>
+            <span>$340</span>
+          </li>
+          <li class="pos-item-b">
+            <span>Alfajor Portezuelo <span class="ib-qty">×1</span></span>
+            <span>$30</span>
+          </li>
+          <li class="pos-item-b">
+            <span>Agua mineral 1.5L <span class="ib-qty">×3</span></span>
+            <span>$160</span>
+          </li>
+        </ul>
+        <div class="pos-total-b">
+          <span class="pos-total-lbl-b">Total</span>
+          <span class="pos-total-amt-b">$530</span>
+        </div>
+        <div class="pos-btns-b">
+          <div class="pb-ghost">Efectivo</div>
+          <div class="pb-paid">✓ Cobrado</div>
+        </div>
+      </div>
+
+      <div class="mini-stats-b">
+        <div class="mini-stat-b">
+          <div class="ms-label">Vendido hoy</div>
+          <div class="ms-value">$34.000</div>
+          <div class="ms-delta">↑ 18% que ayer</div>
+        </div>
+        <div class="mini-stat-b">
+          <div class="ms-label">Por reponer</div>
+          <div class="ms-alert">3</div>
+          <div class="ms-label" style="color:#D97706;margin-top:4px;">productos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     HERO C: TABLERO
+══════════════════════════════════════════ -->
+<section id="hero-c" class="hero">
+  <nav class="nav-c">
+    <a class="logo-c" href="#" style="text-decoration:none;">
+      <div class="logo-icon-c">✓</div>
+      mipos
+    </a>
+    <ul class="nav-links-c">
+      <li><a href="#">Qué hace</a></li>
+      <li><a href="#">Comparar</a></li>
+      <li><a href="#">Precios</a></li>
+      <li><a href="#">Preguntas</a></li>
+    </ul>
+    <div class="nav-right-c">
+      <button class="btn-ghost-c">Entrar</button>
+      <button class="btn-cta-c">Probar gratis</button>
+    </div>
+  </nav>
+
+  <div class="hero-c-body">
+    <div class="c-left">
+      <div class="pill-c">
+        <div class="pill-dot-c"></div>
+        Para el comerciante uruguayo
+      </div>
+      <h1 class="headline-c">
+        Todo tu negocio,<br>
+        siempre <span class="hc-accent">al día.</span>
+      </h1>
+      <p class="body-c">
+        Ventas, stock y fiados en un solo tablero. Sin instalar nada, sin aprender
+        software complicado — empezás a vender en cinco minutos.
+      </p>
+      <div class="proof-c">
+        <div class="proof-item-c">
+          <div class="proof-num-c">4.821</div>
+          <div class="proof-desc-c">ventas hoy</div>
+        </div>
+        <div class="proof-div-c"></div>
+        <div class="proof-item-c">
+          <div class="proof-num-c">5 min</div>
+          <div class="proof-desc-c">para empezar</div>
+        </div>
+        <div class="proof-div-c"></div>
+        <div class="proof-item-c">
+          <div class="proof-num-c">$0</div>
+          <div class="proof-desc-c">para comenzar</div>
+        </div>
+      </div>
+      <div class="cta-row-c">
+        <button class="cta-main-c">Abrí tu caja gratis</button>
+        <button class="cta-play-c">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <circle cx="7" cy="7" r="6.5" stroke="currentColor"/>
+            <path d="M5.5 4.5L9.5 7L5.5 9.5V4.5Z" fill="currentColor"/>
+          </svg>
+          Ver demo
+        </button>
+      </div>
+    </div>
+
+    <div class="c-right">
+      <div class="dash-topbar">
+        <div>
+          <div class="dash-title-c">Kiosco Don Beto</div>
+          <div class="dash-sub-c">Hoy · sábado 5 de julio</div>
+        </div>
+        <div class="dash-badge-live">
+          <div style="width:6px;height:6px;background:#D97706;border-radius:50%;"></div>
+          Caja abierta
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-label">Vendido hoy</div>
+          <div class="kpi-value">$34.000</div>
+          <div class="kpi-delta">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M5 1L9 6H1L5 1Z" fill="currentColor"/>
+            </svg>
+            18% más que ayer
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Ventas del día</div>
+          <div class="kpi-value">47</div>
+          <div class="kpi-delta neutral">+3 vs. promedio</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Por reponer</div>
+          <div class="kpi-value" style="color:#D97706;">3</div>
+          <div class="kpi-delta warn">productos con stock bajo</div>
+        </div>
+      </div>
+
+      <!-- Main: POS + chart -->
+      <div class="dash-main">
+        <div class="pos-card-c">
+          <div class="pos-head-c">
+            <div>
+              <div class="pos-name-c">Venta en curso</div>
+              <div class="pos-meta-c">#4822 · 14:33 hs</div>
+            </div>
+            <div class="badge-live-c">● En curso</div>
+          </div>
+          <ul class="pos-items-c">
+            <li class="pos-item-c">
+              <span>Coca Cola 2.25L</span>
+              <div class="ic-right"><span class="ic-qty">×2</span><span class="ic-price">$340</span></div>
+            </li>
+            <li class="pos-item-c">
+              <span>Alfajor Portezuelo</span>
+              <div class="ic-right"><span class="ic-qty">×1</span><span class="ic-price">$30</span></div>
+            </li>
+            <li class="pos-item-c">
+              <span>Agua mineral 1.5L</span>
+              <div class="ic-right"><span class="ic-qty">×3</span><span class="ic-price">$160</span></div>
+            </li>
+          </ul>
+          <div class="pos-total-c">
+            <span class="ptl-c">Total</span>
+            <span class="pta-c">$530</span>
+          </div>
+          <div class="pos-btns-c">
+            <div class="pc-ghost">Efectivo</div>
+            <div class="pc-paid">✓ Cobrado</div>
+          </div>
+        </div>
+
+        <!-- Bar chart -->
+        <div class="chart-card">
+          <div class="chart-head">
+            <div class="chart-title">Ventas · últimos 7 días</div>
+          </div>
+          <div class="bar-chart" id="barChart">
+            <div class="bar-col"><div class="bar" style="height:55%"></div><div class="bar-lbl">L</div></div>
+            <div class="bar-col"><div class="bar" style="height:70%"></div><div class="bar-lbl">M</div></div>
+            <div class="bar-col"><div class="bar" style="height:45%"></div><div class="bar-lbl">X</div></div>
+            <div class="bar-col"><div class="bar" style="height:80%"></div><div class="bar-lbl">J</div></div>
+            <div class="bar-col"><div class="bar" style="height:60%"></div><div class="bar-lbl">V</div></div>
+            <div class="bar-col"><div class="bar" style="height:88%"></div><div class="bar-lbl">S</div></div>
+            <div class="bar-col"><div class="bar today" style="height:72%"></div><div class="bar-lbl" style="color:#3B5BDB;font-weight:700;">H</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  /* ─── SWITCHER ─── */
+  function showHero(id, btn) {
+    document.querySelectorAll('.sel-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.hero').forEach(h => h.classList.remove('active'));
+    document.getElementById('hero-' + id).classList.add('active');
+  }
+
+  /* ─── COUNTER ANIMATION (Hero A) ─── */
+  function fmt(n) {
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+
+  let counterVal = 4821;
+
+  function animateCounter() {
+    const el = document.getElementById('counterA');
+    if (!el) return;
+    const start = performance.now();
+    const from = 4000;
+    const to = 4821;
+
+    function step(now) {
+      const t = Math.min((now - start) / 1800, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const current = Math.round(from + (to - from) * eased);
+      const parts = fmt(current).split('.');
+      el.innerHTML = parts.join('<span class="sep">.</span>');
+      if (t < 1) requestAnimationFrame(step);
+      else setTimeout(tick, 3200);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function tick() {
+    counterVal++;
+    const el = document.getElementById('counterA');
+    if (el) {
+      const parts = fmt(counterVal).split('.');
+      el.innerHTML = parts.join('<span class="sep">.</span>');
+    }
+    setTimeout(tick, 2800 + Math.random() * 3500);
+  }
+
+  window.addEventListener('load', () => {
+    setTimeout(animateCounter, 400);
+  });
+</script>
+</body>
+</html>
