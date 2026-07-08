@@ -13,7 +13,7 @@ import {
   BarChart3,
   Settings, HelpCircle,
   LogOut, Wallet, ChevronDown, ChevronUp, Check, X, ArrowUpCircle, ArrowDownCircle, Calculator, Menu, Truck, Globe, User, Shield,
-  Sun, Moon, CreditCard
+  Sun, Moon, CreditCard, AlertTriangle
 } from 'lucide-react';
 
 export default function DashboardLayout() {
@@ -79,6 +79,29 @@ export default function DashboardLayout() {
     // Remove document-level zoom to prevent global scrollbars
     document.documentElement.style.zoom = 1;
   }, [globalZoom]);
+
+  const [isExpired, setIsExpired] = useState(false);
+
+  useEffect(() => {
+    if (profile && profile.role !== 'Superadmin') {
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      let expired = false;
+      if (profile.plan_expires_at) {
+        const expiresAt = new Date(profile.plan_expires_at);
+        expiresAt.setHours(0,0,0,0);
+        if (expiresAt < today) expired = true;
+      } else {
+        const createdAt = new Date(profile.created_at);
+        createdAt.setDate(createdAt.getDate() + 7);
+        createdAt.setHours(0,0,0,0);
+        if (createdAt < today) expired = true;
+      }
+      setIsExpired(expired);
+    } else {
+      setIsExpired(false);
+    }
+  }, [profile]);
 
   useEffect(() => {
     if (user) {
@@ -885,6 +908,36 @@ export default function DashboardLayout() {
           </div>
         </div>
       )}
+
+      {/* Plan Expired Overlay */}
+      {isExpired && (
+        <div className="fixed inset-0 bg-bg/95 backdrop-blur-md z-[9999] flex flex-col items-center justify-center p-4">
+          <div className="bg-surface border border-border rounded-3xl p-8 max-w-md w-full text-center shadow-2xl animate-in zoom-in-95">
+            <div className="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <AlertTriangle className="text-red-500" size={32} />
+            </div>
+            <h1 className="text-2xl font-display font-bold text-text mb-2">Plan Vencido</h1>
+            <p className="text-sm md:text-[15px] text-muted mb-8 leading-relaxed">
+              Tu período de prueba o suscripción ha finalizado. Para seguir utilizando la aplicación, necesitas adquirir un plan.
+            </p>
+            <div className="flex flex-col gap-3">
+              <a 
+                href="https://mipos.online/#precios"
+                className="w-full bg-brand hover:bg-brand-hover text-text font-bold py-3.5 rounded-xl transition-all shadow-[0_4px_15px_rgba(82,82,255,0.3)] flex justify-center items-center"
+              >
+                Quiero adquirir un plan
+              </a>
+              <button
+                onClick={handleSignOut}
+                className="w-full bg-transparent border border-border hover:bg-surface-2 text-text font-bold py-3.5 rounded-xl transition-all text-sm md:text-[15px]"
+              >
+                Cerrar sesión
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
 
     </div>
   );
