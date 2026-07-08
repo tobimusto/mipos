@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#E0E8F2; --surface:#FFFFFF; --surface2:#EEF3F8; --border:#C9D6E5;
+    --text:#101828; --muted:#475467; --dim:#98A2B3;
+    --brand:#2563EB; --brand-bg:rgba(37,99,235,.08);
+    --indigo:#6366F1; --emerald:#10B981; --amber:#F59E0B; --up:#047857;
+    --font-display:'Sora',system-ui,sans-serif; --font-sans:'DM Sans',system-ui,sans-serif; --font-mono:'Outfit',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1920px;height:1080px;overflow:hidden}
+  body{font-family:var(--font-sans);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+  .app{display:flex;width:1920px;height:1080px}
+  .side{width:270px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:22px 16px;gap:6px;flex-shrink:0}
+  .brand{display:flex;align-items:center;gap:12px;padding:6px 8px 20px}
+  .logo{width:40px;height:40px;border-radius:11px;background:var(--brand);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(37,99,235,.35)}
+  .logo svg{width:24px;height:24px}
+  .brand .name{font-family:var(--font-display);font-weight:800;font-size:24px;letter-spacing:-.5px}
+  .navlbl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);padding:14px 10px 6px}
+  .nav{display:flex;align-items:center;gap:13px;padding:11px 12px;border-radius:11px;color:var(--muted);font-weight:500;font-size:15px}
+  .nav svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .nav.active{background:var(--brand-bg);color:var(--brand);font-weight:700}
+  .nav.active svg{stroke:var(--brand)}
+  .caja{margin-top:auto;background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:14px}
+  .caja .top{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-weight:700;margin-bottom:8px}
+  .caja .dot{width:8px;height:8px;border-radius:50%;background:var(--up);box-shadow:0 0 0 3px rgba(4,120,87,.15)}
+  .caja .amt{font-family:var(--font-display);font-weight:800;font-size:26px;letter-spacing:-.5px}
+  .caja .sub{color:var(--dim);font-size:12px;margin-top:2px}
+
+  .main{flex:1;display:flex;flex-direction:column;min-width:0}
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding:20px 30px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0}
+  .topbar h1{font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:-.4px}
+  .topbar .sb{font-size:14px;color:var(--muted);margin-top:2px}
+  .presets{display:flex;gap:8px;align-items:center}
+  .preset{height:38px;padding:0 16px;display:flex;align-items:center;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-weight:600;font-size:14px}
+  .preset.on{background:var(--brand);border-color:var(--brand);color:#fff}
+  .avatar{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#2563EB,#60A5FA);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;font-family:var(--font-display)}
+
+  .content{flex:1;display:flex;flex-direction:column;gap:20px;padding:24px 30px;min-height:0}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .kpi{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px 22px;position:relative;overflow:hidden}
+  .kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--acc)}
+  .kpi .lbl{font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
+  .kpi .val{font-family:var(--font-display);font-weight:800;font-size:34px;letter-spacing:-1px;margin-top:10px;font-variant-numeric:tabular-nums}
+  .kpi .delta{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:13.5px;font-weight:700;color:var(--up)}
+  .kpi .delta svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+
+  .tabs{display:flex;gap:4px;border-bottom:1px solid var(--border)}
+  .tab{padding:12px 22px;font-size:15px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+  .tab.on{color:var(--text);border-bottom-color:var(--brand);font-weight:700}
+
+  .grid2{flex:1;display:grid;grid-template-columns:1.55fr 1fr;gap:20px;min-height:0}
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:22px 24px;display:flex;flex-direction:column;min-height:0}
+  .panel h2{font-family:var(--font-display);font-weight:700;font-size:17px}
+  .panel .ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+  .legend{display:flex;gap:16px;font-size:13.5px;color:var(--muted);font-weight:600}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
+
+  .chart{flex:1;display:flex;align-items:flex-end;gap:26px;padding:10px 6px 0}
+  .col{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end}
+  .bars{display:flex;align-items:flex-end;gap:7px;height:100%;width:100%;justify-content:center}
+  .bar{width:26px;border-radius:5px 5px 0 0}
+  .bar.ing{background:linear-gradient(180deg,#818CF8,#6366F1)}
+  .bar.gan{background:linear-gradient(180deg,#34D399,#10B981)}
+  .col .day{font-size:13px;color:var(--muted);font-weight:600}
+
+  .toplist{display:flex;flex-direction:column;gap:2px;overflow:hidden}
+  .toprow{display:flex;align-items:center;gap:14px;padding:12px 6px;border-bottom:1px solid var(--border)}
+  .toprow:last-child{border-bottom:none}
+  .rank{width:26px;height:26px;border-radius:8px;background:var(--brand-bg);color:var(--brand);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);flex-shrink:0}
+  .tp-ico{width:38px;height:38px;border-radius:9px;background:rgba(37,99,235,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .tp-ico svg{width:19px;height:19px;stroke:var(--brand);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .tp-info{flex:1;min-width:0}
+  .tp-nm{font-weight:700;font-size:15px}
+  .tp-un{font-size:13px;color:var(--muted);margin-top:1px}
+  .tp-rev{font-weight:800;font-size:15.5px;color:var(--text);font-variant-numeric:tabular-nums;font-family:var(--font-mono)}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">
+      <div class="logo"><svg viewBox="0 0 64 64" fill="none"><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="name">mipos</span>
+    </div>
+    <div class="navlbl">Operación</div>
+    <div class="nav"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg> Punto de Venta</div>
+    <div class="nav"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg> Compras</div>
+    <div class="nav"><svg viewBox="0 0 24 24"><path d="M21 8V21H3V8M1 3h22v5H1zM10 12h4"/></svg> Inventario</div>
+    <div class="nav"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg> Mi Tienda Online</div>
+    <div class="navlbl">Gestión</div>
+    <div class="nav"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Clientes</div>
+    <div class="nav"><svg viewBox="0 0 24 24"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7zM5.5 19a1.5 1.5 0 1 0 0 .01M18.5 19a1.5 1.5 0 1 0 0 .01"/></svg> Proveedores</div>
+    <div class="nav active"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="4" width="3" height="13"/></svg> Reportes</div>
+    <div class="nav"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.82 1.17V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 3.6 15H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 8.6l.06-.06A2 2 0 1 1 7.5 5.7l.06.06A1.65 1.65 0 0 0 9.4 6H10a2 2 0 0 1 4 0v.09A1.65 1.65 0 0 0 16 7.5"/></svg> Configuración</div>
+    <div class="caja">
+      <div class="top"><span class="dot"></span> Mi Caja · Abierta</div>
+      <div class="amt">$ 148.300</div>
+      <div class="sub">Turno abierto 08:15 · Marcos E.</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div><h1>Reportes</h1><div class="sb">Rendimiento del negocio</div></div>
+      <div class="presets">
+        <div class="preset">Hoy</div>
+        <div class="preset">Semana</div>
+        <div class="preset on">Mes</div>
+        <div class="avatar" style="margin-left:12px">ME</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="kpis">
+        <div class="kpi" style="--acc:var(--brand)"><div class="lbl">Ingresos del período</div><div class="val" style="color:var(--brand)">$ 1.284.500</div><div class="delta"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg> 12,4% vs. mes ant.</div></div>
+        <div class="kpi" style="--acc:var(--emerald)"><div class="lbl">Ganancia estimada (32%)</div><div class="val" style="color:var(--emerald)">$ 411.040</div><div class="delta"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg> 9,1%</div></div>
+        <div class="kpi" style="--acc:var(--indigo)"><div class="lbl">Total de ventas</div><div class="val">342</div><div class="delta"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg> 6,8%</div></div>
+        <div class="kpi" style="--acc:var(--amber)"><div class="lbl">Ticket promedio</div><div class="val">$ 3.755</div><div class="delta"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg> 4,2%</div></div>
+      </div>
+
+      <div class="tabs">
+        <div class="tab on">Resumen</div>
+        <div class="tab">Productos</div>
+        <div class="tab">Ventas</div>
+        <div class="tab">Caja</div>
+        <div class="tab">Usuarios</div>
+      </div>
+
+      <div class="grid2">
+        <div class="panel">
+          <div class="ph">
+            <h2>Ingresos por día</h2>
+            <div class="legend"><span><i style="background:var(--indigo)"></i>Ingresos</span><span><i style="background:var(--emerald)"></i>Ganancia</span></div>
+          </div>
+          <div class="chart">
+            <div class="col"><div class="bars"><div class="bar ing" style="height:52%"></div><div class="bar gan" style="height:17%"></div></div><div class="day">Lun</div></div>
+            <div class="col"><div class="bars"><div class="bar ing" style="height:61%"></div><div class="bar gan" style="height:20%"></div></div><div class="day">Mar</div></div>
+            <div class="col"><div class="bars"><div class="bar ing" style="height:48%"></div><div class="bar gan" style="height:15%"></div></div><div class="day">Mié</div></div>
+            <div class="col"><div class="bars"><div class="bar ing" style="height:70%"></div><div class="bar gan" style="height:23%"></div></div><div class="day">Jue</div></div>
+            <div class="col"><div class="bars"><div class="bar ing" style="height:88%"></div><div class="bar gan" style="height:29%"></div></div><div class="day">Vie</div></div>
+            <div class="col"><div class="bars"><div class="bar ing" style="height:100%"></div><div class="bar gan" style="height:33%"></div></div><div class="day">Sáb</div></div>
+            <div class="col"><div class="bars"><div class="bar ing" style="height:64%"></div><div class="bar gan" style="height:21%"></div></div><div class="day">Dom</div></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="ph"><h2>Top productos</h2><span style="font-size:13px;color:var(--muted);font-weight:600">por ingresos</span></div>
+          <div class="toplist">
+            <div class="toprow"><div class="rank">1</div><div class="tp-ico"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg></div><div class="tp-info"><div class="tp-nm">Coca-Cola 500 ml</div><div class="tp-un">418 unidades</div></div><div class="tp-rev">$ 627.000</div></div>
+            <div class="toprow"><div class="rank">2</div><div class="tp-ico"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg></div><div class="tp-info"><div class="tp-nm">Marlboro Box 20</div><div class="tp-un">96 unidades</div></div><div class="tp-rev">$ 374.400</div></div>
+            <div class="toprow"><div class="rank">3</div><div class="tp-ico"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg></div><div class="tp-info"><div class="tp-nm">Alfajor Jorgito Chocolate</div><div class="tp-un">263 unidades</div></div><div class="tp-rev">$ 249.850</div></div>
+            <div class="toprow"><div class="rank">4</div><div class="tp-ico"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg></div><div class="tp-info"><div class="tp-nm">Agua Villavicencio 500 ml</div><div class="tp-un">198 unidades</div></div><div class="tp-rev">$ 217.800</div></div>
+            <div class="toprow"><div class="rank">5</div><div class="tp-ico"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg></div><div class="tp-info"><div class="tp-nm">Beldent Menta</div><div class="tp-un">305 unidades</div></div><div class="tp-rev">$ 198.250</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

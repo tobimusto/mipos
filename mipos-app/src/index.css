@@ -1,0 +1,176 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-bg: var(--my-bg);
+  --color-surface: var(--my-surface);
+  --color-surface-2: var(--my-surface2);
+  --color-border: var(--my-border);
+  --color-text: var(--my-text);
+  --color-muted: var(--my-muted);
+  --color-dim: var(--my-dim);
+  --color-brand: var(--my-brand);
+  --color-brand-hover: #00B578;
+  --color-brand-bg: rgba(0,214,143,.08);
+  --color-danger: #FF4D6D;
+  --color-warning: #FFB020;
+  --color-info: #4D9FFF;
+
+  --color-side-bg: var(--side-bg);
+  --color-side-bdr: var(--side-bdr);
+  --color-side-txt: var(--side-txt);
+  --color-side-mut: var(--side-mut);
+  --color-side-dim: var(--side-dim);
+  --color-side-hov: var(--side-hov);
+
+  --font-display: 'Sora', system-ui, sans-serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'Outfit', sans-serif;
+
+  --radius-card: 12px;
+}
+
+:root {
+  --my-bg: #E0E8F2;
+  --my-surface: #FFFFFF;
+  --my-surface2: #EEF3F8;
+  --my-border: #C9D6E5;
+  --my-text: #101828;
+  --my-muted: #475467;
+  --my-dim: #98A2B3;
+  --my-brand: #009B65;
+  
+  --side-bg: #FFFFFF;
+  --side-bdr: #C9D6E5;
+  --side-txt: #101828;
+  --side-mut: #475467;
+  --side-dim: #98A2B3;
+  --side-hov: #EEF3F8;
+  /* Semantic status colors â€” WCAG AA on both surfaces */
+  --c-up:   #047857;   /* emerald-700 Â· 8.5:1 on white */
+  --c-down: #B91C1C;   /* red-700     Â· 7.9:1 on white */
+  --c-warn: #B45309;   /* amber-700   Â· 4.8:1 on white */
+  --c-crit: #B91C1C;   /* red-700 */
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --my-bg: #080C12;
+  --my-surface: #0F1821;
+  --my-surface2: #162030;
+  --my-border: #1C2B3C;
+  --my-text: #C8DCF0;
+  --my-muted: #5A7896;
+  --my-dim: #2E4A62;
+  --my-brand: #00D68F;
+
+  --side-bg: #1C3654;
+  --side-bdr: #152840;
+  --side-txt: #FFFFFF;
+  --side-mut: rgba(255, 255, 255, 0.7);
+  --side-dim: rgba(255, 255, 255, 0.4);
+  --side-hov: #152840;
+  --c-up:   #6ee7b7;   /* emerald-300 Â· high contrast on dark */
+  --c-down: #fca5a5;   /* red-300 */
+  --c-warn: #fcd34d;   /* amber-300 */
+  --c-crit: #fca5a5;   /* red-300 */
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--my-bg);
+  color: var(--my-text);
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+/* react-day-picker theme */
+.mipos-calendar .rdp-root {
+  --rdp-accent-color: var(--my-brand);
+  --rdp-accent-background-color: rgba(0, 214, 143, 0.12);
+  --rdp-today-color: var(--my-brand);
+  --rdp-day_button-border-radius: 8px;
+  --rdp-day_button-height: 1.875rem;
+  --rdp-day_button-width: 1.875rem;
+  --rdp-day-height: 2.25rem;
+  --rdp-day-width: 2.25rem;
+  --rdp-nav_button-height: 2rem;
+  --rdp-nav_button-width: 2rem;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  color: var(--my-text);
+}
+.mipos-calendar .rdp-caption_label {
+  font-family: 'Sora', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--my-text);
+  text-transform: capitalize;
+}
+.mipos-calendar .rdp-weekday {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--my-dim);
+}
+.mipos-calendar .rdp-day_button {
+  font-size: 13px;
+  color: var(--my-text);
+  border-radius: 8px;
+}
+.mipos-calendar .rdp-day_button:hover:not(:disabled) {
+  background-color: var(--my-surface2);
+}
+.mipos-calendar .rdp-outside .rdp-day_button {
+  color: var(--my-dim);
+}
+.mipos-calendar .rdp-nav button {
+  color: var(--my-muted);
+  border-radius: 8px;
+}
+.mipos-calendar .rdp-nav button:hover {
+  background-color: var(--my-surface2);
+  color: var(--my-text);
+}
+.mipos-calendar .rdp-selected .rdp-day_button {
+  background-color: var(--my-brand) !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+.mipos-calendar .rdp-today:not(.rdp-selected) .rdp-day_button {
+  color: var(--my-brand);
+  font-weight: 700;
+}
+/* select inside TimePicker */
+.mipos-calendar select option {
+  background: var(--my-surface);
+  color: var(--my-text);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar         { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb   { background: var(--my-border); border-radius: 3px; }
+::-webkit-scrollbar-track   { background: transparent; }
+
+/* Hide scrollbar for elements like horizontal tables on mobile */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* View Transitions for Theme Toggle */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Dark -> Light: Old (dark) on top, shrinks */
+::view-transition-old(root) { z-index: 2; }
+::view-transition-new(root) { z-index: 1; }
+
+/* Light -> Dark: New (dark) on top, expands */
+[data-theme="dark"]::view-transition-old(root) { z-index: 1; }
+[data-theme="dark"]::view-transition-new(root) { z-index: 2; }

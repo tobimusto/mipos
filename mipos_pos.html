@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#E0E8F2; --surface:#FFFFFF; --surface2:#EEF3F8; --border:#C9D6E5;
+    --text:#101828; --muted:#475467; --dim:#98A2B3;
+    --brand:#2563EB; --brand-hover:#3B82F6; --brand-bg:rgba(37,99,235,.08);
+    --danger:#FF4D6D; --up:#047857;
+    --side-bg:#FFFFFF; --side-hov:#EEF3F8;
+    --radius:14px;
+    --font-display:'Sora',system-ui,sans-serif;
+    --font-sans:'DM Sans',system-ui,sans-serif;
+    --font-mono:'Outfit',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1920px;height:1080px;overflow:hidden}
+  body{font-family:var(--font-sans);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+  .app{display:flex;width:1920px;height:1080px}
+
+  /* ============ SIDEBAR ============ */
+  .side{width:270px;background:var(--side-bg);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:22px 16px;gap:6px;flex-shrink:0}
+  .brand{display:flex;align-items:center;gap:12px;padding:6px 8px 20px}
+  .logo{width:40px;height:40px;border-radius:11px;background:var(--brand);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(37,99,235,.35)}
+  .logo svg{width:24px;height:24px}
+  .brand .name{font-family:var(--font-display);font-weight:800;font-size:24px;letter-spacing:-.5px}
+  .navlbl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);padding:14px 10px 6px}
+  .nav{display:flex;align-items:center;gap:13px;padding:11px 12px;border-radius:11px;color:var(--muted);font-weight:500;font-size:15px;cursor:pointer}
+  .nav svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .nav.active{background:var(--brand-bg);color:var(--brand);font-weight:700}
+  .nav.active svg{stroke:var(--brand)}
+  .caja{margin-top:auto;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
+  .caja .top{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-weight:700;margin-bottom:8px}
+  .caja .dot{width:8px;height:8px;border-radius:50%;background:var(--up);box-shadow:0 0 0 3px rgba(4,120,87,.15)}
+  .caja .amt{font-family:var(--font-display);font-weight:800;font-size:26px;letter-spacing:-.5px}
+  .caja .sub{color:var(--dim);font-size:12px;margin-top:2px}
+
+  /* ============ MAIN ============ */
+  .main{flex:1;display:flex;flex-direction:column;min-width:0}
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding:20px 30px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0}
+  .topbar h1{font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:-.4px}
+  .topbar .sb{font-size:14px;color:var(--muted);margin-top:2px}
+  .tb-actions{display:flex;gap:10px}
+  .pill{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:9px 14px;font-size:14px;font-weight:600;color:var(--muted)}
+  .pill svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .pill .kbd{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1px 7px;font-size:12px;font-family:var(--font-mono)}
+  .avatar{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#2563EB,#60A5FA);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;font-family:var(--font-display)}
+
+  .content{flex:1;display:flex;gap:22px;padding:24px 30px;min-height:0}
+  .col-left{flex:1;display:flex;flex-direction:column;gap:16px;min-width:0}
+  .col-right{width:440px;display:flex;flex-direction:column;gap:16px;flex-shrink:0}
+
+  .card{background:var(--surface2);border:1px solid var(--border);border-radius:18px}
+  .searchwrap{padding:18px;display:flex;gap:12px}
+  .search{position:relative;flex:1}
+  .search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:20px;height:20px;stroke:var(--brand);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .search input{width:100%;background:var(--surface);border:1.5px solid rgba(37,99,235,.35);border-radius:13px;padding:15px 16px 15px 46px;font-size:15px;color:var(--text);font-family:var(--font-sans)}
+  .search input::placeholder{color:var(--dim)}
+  .btn-monto{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:0 20px;font-weight:600;font-size:15px;color:var(--text);display:flex;align-items:center;gap:8px;cursor:pointer}
+  .btn-monto svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+  .cart{flex:1;display:flex;flex-direction:column;min-height:0}
+  .cart-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+  .cart-head h2{font-family:var(--font-display);font-weight:700;font-size:17px}
+  .cart-head .cnt{font-size:14px;color:var(--muted);margin-top:2px}
+  .cart-head .clear{font-size:14px;color:var(--muted);cursor:pointer}
+  .cart-list{flex:1;overflow:hidden;padding:12px;display:flex;flex-direction:column;gap:9px}
+  .item{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:16px}
+  .item .ico{width:44px;height:44px;border-radius:10px;background:rgba(37,99,235,.08);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+  .item .info{flex:1;min-width:0}
+  .item .nm{font-weight:700;font-size:15.5px;color:var(--text)}
+  .item .cu{color:var(--muted);font-size:13.5px;margin-top:2px}
+  .stepper{display:flex;align-items:center;gap:2px;background:var(--bg);border:1px solid var(--border);border-radius:11px;padding:5px}
+  .stepper button{width:28px;height:28px;border:none;background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:7px}
+  .stepper button svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round}
+  .stepper .qty{min-width:38px;text-align:center;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+  .item .line{width:110px;text-align:right;font-weight:700;font-size:16px;color:var(--brand);font-variant-numeric:tabular-nums}
+  .item .rm{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--dim)}
+  .item .rm svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* right col */
+  .cli{padding:18px}
+  .cli h2{font-family:var(--font-display);font-weight:700;font-size:16px;display:flex;align-items:center;gap:9px;margin-bottom:14px}
+  .cli h2 svg{width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .fld{margin-bottom:14px}
+  .fld:last-child{margin-bottom:0}
+  .fld label{display:block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .selectbox{position:relative}
+  .selectbox .val{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:12px 14px;font-size:15px;color:var(--text)}
+  .selectbox .car{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+  .selectbox .car svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+  .resumen{flex:1;display:flex;flex-direction:column;padding:22px;min-height:0}
+  .resumen .rh{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+  .resumen .rh h2{font-family:var(--font-display);font-weight:700;font-size:16px}
+  .resumen .rh .badge{background:var(--surface);border:1px solid var(--border);padding:5px 11px;border-radius:8px;font-size:13px;color:var(--muted)}
+  .rows{display:flex;flex-direction:column;gap:13px;margin-bottom:16px}
+  .row{display:flex;justify-content:space-between;font-size:15px}
+  .row .k{color:var(--muted)}
+  .row .v{font-weight:700}
+  .row.disc .k{color:var(--brand)} .row.disc .v{color:var(--brand)}
+  .hr{height:1px;background:var(--border);width:100%;margin:4px 0}
+  .totalrow{display:flex;justify-content:space-between;align-items:flex-end;margin:6px 0 20px}
+  .totalrow .k{font-size:16px;font-weight:700;color:var(--muted)}
+  .totalrow .v{font-family:var(--font-display);font-weight:800;font-size:44px;color:var(--brand);line-height:.9;letter-spacing:-1.5px;font-variant-numeric:tabular-nums}
+  .paylbl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--brand);margin-bottom:12px}
+  .pays{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:auto}
+  .pay{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:15px 4px;border-radius:13px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:13px;font-weight:700}
+  .pay svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .pay.on{border-color:var(--brand);background:var(--brand-bg);color:var(--brand);box-shadow:0 0 0 1px var(--brand)}
+  .cobrar{width:100%;background:var(--brand);color:#fff;border:none;border-radius:15px;padding:22px;font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:-.3px;cursor:pointer;box-shadow:0 8px 26px rgba(37,99,235,.4);display:flex;align-items:center;justify-content:center;gap:12px;margin-top:20px}
+  .cobrar .ci{width:22px;height:22px}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="side">
+    <div class="brand">
+      <div class="logo"><svg viewBox="0 0 64 64" fill="none"><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="name">mipos</span>
+    </div>
+
+    <div class="navlbl">Operación</div>
+    <div class="nav active">
+      <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg> Punto de Venta
+    </div>
+    <div class="nav">
+      <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg> Compras
+    </div>
+    <div class="nav">
+      <svg viewBox="0 0 24 24"><path d="M21 8V21H3V8M1 3h22v5H1zM10 12h4"/></svg> Inventario
+    </div>
+    <div class="nav">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg> Mi Tienda Online
+    </div>
+
+    <div class="navlbl">Gestión</div>
+    <div class="nav">
+      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Clientes
+    </div>
+    <div class="nav">
+      <svg viewBox="0 0 24 24"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7zM5.5 19a1.5 1.5 0 1 0 0 .01M18.5 19a1.5 1.5 0 1 0 0 .01"/></svg> Proveedores
+    </div>
+    <div class="nav">
+      <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="4" width="3" height="13"/></svg> Reportes
+    </div>
+    <div class="nav">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.82 1.17V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 3.6 15H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 8.6l.06-.06A2 2 0 1 1 7.5 5.7l.06.06A1.65 1.65 0 0 0 9.4 6H10a2 2 0 0 1 4 0v.09A1.65 1.65 0 0 0 16 7.5"/></svg> Configuración
+    </div>
+
+    <div class="caja">
+      <div class="top"><span class="dot"></span> Mi Caja · Abierta</div>
+      <div class="amt">$ 148.300</div>
+      <div class="sub">Turno abierto 08:15 · Marcos E.</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h1>Punto de Venta</h1>
+        <div class="sb">Sistema POS · mipos</div>
+      </div>
+      <div class="tb-actions">
+        <div class="pill"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg> Tutorial</div>
+        <div class="pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg> Ayuda <span class="kbd">F1</span></div>
+        <div class="avatar">ME</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- LEFT -->
+      <div class="col-left">
+        <div class="card searchwrap">
+          <div class="search">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input value="" placeholder="Buscar producto o escanear código…">
+          </div>
+          <button class="btn-monto"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Monto</button>
+        </div>
+
+        <div class="card cart">
+          <div class="cart-head">
+            <div>
+              <h2>Carrito</h2>
+              <div class="cnt">5 productos</div>
+            </div>
+            <div class="clear">Vaciar</div>
+          </div>
+          <div class="cart-list">
+            <div class="item">
+              <div class="ico"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:#2563EB;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></svg></div>
+              <div class="info"><div class="nm">Coca-Cola 500 ml</div><div class="cu">$ 1.500 c/u</div></div>
+              <div class="stepper"><button><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><span class="qty">2</span><button><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div>
+              <div class="line">$ 3.000</div>
+              <div class="rm"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg></div>
+            </div>
+            <div class="item">
+              <div class="ico"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:#2563EB;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></svg></div>
+              <div class="info"><div class="nm">Alfajor Jorgito Chocolate</div><div class="cu">$ 950 c/u</div></div>
+              <div class="stepper"><button><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><span class="qty">3</span><button><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div>
+              <div class="line">$ 2.850</div>
+              <div class="rm"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg></div>
+            </div>
+            <div class="item">
+              <div class="ico"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:#2563EB;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></svg></div>
+              <div class="info"><div class="nm">Marlboro Box 20</div><div class="cu">$ 3.900 c/u</div></div>
+              <div class="stepper"><button><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><span class="qty">1</span><button><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div>
+              <div class="line">$ 3.900</div>
+              <div class="rm"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg></div>
+            </div>
+            <div class="item">
+              <div class="ico"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:#2563EB;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></svg></div>
+              <div class="info"><div class="nm">Agua Villavicencio 500 ml</div><div class="cu">$ 1.100 c/u</div></div>
+              <div class="stepper"><button><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><span class="qty">1</span><button><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div>
+              <div class="line">$ 1.100</div>
+              <div class="rm"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg></div>
+            </div>
+            <div class="item">
+              <div class="ico"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:#2563EB;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></svg></div>
+              <div class="info"><div class="nm">Beldent Menta</div><div class="cu">$ 650 c/u</div></div>
+              <div class="stepper"><button><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><span class="qty">2</span><button><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div>
+              <div class="line">$ 1.300</div>
+              <div class="rm"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="col-right">
+        <div class="card cli">
+          <h2><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Cliente</h2>
+          <div class="fld">
+            <label>Condición IVA</label>
+            <div class="selectbox"><div class="val">Consumidor Final</div><div class="car"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div></div>
+          </div>
+          <div class="fld">
+            <label>Cliente (Opcional)</label>
+            <div class="selectbox"><div class="val" style="color:var(--dim)">Sin cliente asignado</div><div class="car"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div></div>
+          </div>
+        </div>
+
+        <div class="card resumen">
+          <div class="rh"><h2>Resumen</h2><span class="badge">5 ítems</span></div>
+          <div class="rows">
+            <div class="row"><span class="k">Subtotal:</span><span class="v">$ 12.150</span></div>
+            <div class="row disc"><span class="k">Descuento (Efectivo):</span><span class="v">-$ 610</span></div>
+            <div class="hr"></div>
+          </div>
+          <div class="totalrow"><span class="k">Total:</span><span class="v">$ 11.540</span></div>
+
+          <div class="paylbl">Método de Pago</div>
+          <div class="pays">
+            <div class="pay on"><svg viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>Efectivo</div>
+            <div class="pay"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Tarjeta</div>
+            <div class="pay"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>QR / Transf.</div>
+            <div class="pay"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Fiado</div>
+          </div>
+
+          <button class="cobrar">
+            <svg class="ci" viewBox="0 0 64 64" fill="none"><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            mipos · Cobrar $ 11.540
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
