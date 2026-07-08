@@ -713,11 +713,11 @@ export default function Reports() {
                   <div className="px-5 py-3.5 border-b border-border">
                     <p className="text-[15px] md:text-base font-bold text-text">Pendientes</p>
                   </div>
-                  {/* A mipos */}
+                  {/* A cobrar */}
                   <div className="px-5 py-3 border-b border-border/60 flex items-center gap-3">
                     <span className="w-2 h-2 rounded-full bg-brand shrink-0"/>
                     <p className="text-[15px] md:text-base font-semibold text-text flex-1 min-w-0 truncate">
-                      A mipos
+                      A cobrar
                     </p>
                     <span className="text-[15px] md:text-base text-muted shrink-0">
                       {pendientes.mipos.length} {pendientes.mipos.length === 1 ? 'cliente' : 'clientes'}

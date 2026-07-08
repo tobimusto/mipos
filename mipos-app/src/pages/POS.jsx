@@ -1006,7 +1006,7 @@ export default function POS() {
                 disabled={cart.length === 0 || processing || (paymentMethod === PAYMENT_METHODS.FIADO && !selectedClientId)}
                 className="w-full bg-[#2563eb] hover:bg-[#3b82f6] text-text font-bold py-4 rounded-xl transition-all disabled:opacity-50 disabled:hover:bg-[#2563eb] flex justify-center items-center gap-2 shadow-[0_4px_20px_rgba(37,99,235,0.3)] text-lg"
               >
-                {processing ? <Loader2 className="animate-spin" size={18} /> : `mipos ${formatCurrency(finalTotal)}`}
+                {processing ? <Loader2 className="animate-spin" size={18} /> : `Cobrar ${formatCurrency(finalTotal)}`}
               </button>
             </div>
           </div>
@@ -1039,9 +1039,9 @@ export default function POS() {
 
             <div className="p-6 flex flex-col gap-5">
 
-              {/* Total a mipos */}
+              {/* Total a cobrar */}
               <div className="bg-bg rounded-2xl p-4 text-center">
-                <p className="text-xs font-medium text-muted mb-1">Total a mipos</p>
+                <p className="text-xs font-medium text-muted mb-1">Total a cobrar</p>
                 <p className="text-4xl font-display font-bold text-text tracking-tight">
                   {formatCurrencyCents(finalTotal)}
                 </p>

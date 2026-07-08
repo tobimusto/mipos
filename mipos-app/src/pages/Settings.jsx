@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 import { usePlan } from '../hooks/usePlan';
 
 export default function Settings() {
-  const { user, owner_id } = useAuth();
+  const { user, owner_id, profile } = useAuth();
   const { refreshCountry, countryConfig } = useCountry();
   const { planId, name: planName } = usePlan();
   const location = useLocation();
@@ -711,7 +711,27 @@ export default function Settings() {
         </div>
       )}
 
-      {activeTab === 'Plan' && (
+      {activeTab === 'Plan' && (() => {
+        // Calcular fechas de vencimiento
+        const planExpiresAt = profile?.plan_expires_at 
+          ? new Date(profile.plan_expires_at) 
+          : new Date(new Date(profile?.created_at || new Date()).getTime() + 7 * 24 * 60 * 60 * 1000);
+        
+        const now = new Date();
+        const diffTime = planExpiresAt - now;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const isExpired = diffDays < 0;
+        
+        const formatter = new Intl.DateTimeFormat('es-AR', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric'
+        });
+        
+        const vencimientoText = formatter.format(planExpiresAt);
+        const diasRestantesText = isExpired ? 'Vencido' : `${diffDays} día${diffDays !== 1 ? 's' : ''}`;
+
+        return (
         <div className="space-y-6">
           <div className="bg-surface border border-border rounded-2xl overflow-hidden p-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
@@ -729,11 +749,11 @@ export default function Settings() {
               </div>
               <div className="bg-surface-2 border border-border rounded-xl p-4">
                 <p className="text-sm md:text-[15px] font-bold text-dim uppercase tracking-wider mb-2">Vencimiento</p>
-                <p className="font-bold text-text text-lg">14 de jun de 2026</p>
+                <p className={`font-bold text-lg ${isExpired ? 'text-red-500' : 'text-text'}`}>{vencimientoText}</p>
               </div>
               <div className="bg-surface-2 border border-border rounded-xl p-4">
                 <p className="text-sm md:text-[15px] font-bold text-dim uppercase tracking-wider mb-2">Días restantes</p>
-                <p className="font-bold text-text text-lg">7 días</p>
+                <p className={`font-bold text-lg ${isExpired ? 'text-red-500' : 'text-text'}`}>{diasRestantesText}</p>
               </div>
             </div>
           </div>
@@ -764,7 +784,8 @@ export default function Settings() {
             </div>
           </div>
         </div>
-      )}
+        );
+      })()}
     </div>
   );
 }

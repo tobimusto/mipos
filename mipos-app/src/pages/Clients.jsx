@@ -155,7 +155,7 @@ export default function Clients() {
     if (!amount || amount <= 0) return setErrorMsg('Ingresá un monto mayor a 0.');
     
     if (debtAction === 'restar' && amount > Number(selectedClient.deuda)) {
-      return setErrorMsg(`No podés mipos más de la deuda actual (${formatCurrency(selectedClient.deuda)}).`);
+      return setErrorMsg(`No podés cobrar más de la deuda actual (${formatCurrency(selectedClient.deuda)}).`);
     }
 
     const newDebt = debtAction === 'sumar'
@@ -312,7 +312,7 @@ export default function Clients() {
                             onClick={() => { setSelectedClient(c); setDebtAction('restar'); setDebtAmount(''); setErrorMsg(''); setShowDebtModal(true); }}
                             className="text-sm md:text-[15px] font-bold px-2 py-0.5 rounded-full border transition-colors bg-brand/10 border-brand/30 text-brand hover:bg-brand hover:text-text"
                             title="Registrar cobro">
-                            mipos
+                            Cobrar
                           </button>
                         )}
                         <button
