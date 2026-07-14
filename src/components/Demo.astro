@@ -1,0 +1,69 @@
+---
+---
+<!-- DEMO -->
+<section class="demo" id="demo">
+<div class="wrap demo-grid">
+  <div class="demo-intro" data-reveal>
+    <p class="sec-sub">El mismo sistema que usás en el mostrador. Tocá un producto y mirá cómo el stock se descuenta, la caja se actualiza y el ticket queda registrado.</p>
+    <div class="demo-outcomes">
+      <span class="demo-outcome">Stock descontado</span>
+      <span class="demo-outcome">Caja actualizada</span>
+      <span class="demo-outcome">Ticket generado</span>
+    </div>
+  </div>
+
+  <div class="terminal" data-reveal>
+    <div class="terminal-bar">
+      <span class="td"></span><span class="td"></span><span class="td"></span>
+      <div class="terminal-head-center">
+        <div style="width:16px;height:16px;border-radius:4px;overflow:hidden;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="#2563EB"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="terminal-title">mipos · Caja</span>
+      </div>
+      <span class="demo-indicator" id="demoIndicator">En vivo</span>
+    </div>
+    <div class="terminal-screen" id="demoScreen">
+      <div class="demo-search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" placeholder="Buscar producto o escanear código…" readonly aria-label="Buscar producto"/>
+      </div>
+      <div class="demo-prods">
+        <button class="dprod" type="button" onclick="addToCart('Coca Cola 2.25L',1900)" data-id="coca">
+          <div class="dp-top"><span class="dp-cat" style="--cat:oklch(0.50 0.14 220)"></span><span class="dp-stock">24 und.</span></div>
+          <span class="dp-name">Coca Cola 2.25L</span><span class="dp-price">$1.900</span>
+        </button>
+        <button class="dprod" type="button" onclick="addToCart('Alfajor Havanna',1200)" data-id="alfa">
+          <div class="dp-top"><span class="dp-cat" style="--cat:#F59E0B"></span><span class="dp-stock">15 und.</span></div>
+          <span class="dp-name">Alfajor Havanna</span><span class="dp-price">$1.200</span>
+        </button>
+        <button class="dprod" type="button" onclick="addToCart('Agua 1.5L',800)" data-id="agua">
+          <div class="dp-top"><span class="dp-cat" style="--cat:oklch(0.55 0.10 200)"></span><span class="dp-stock">38 und.</span></div>
+          <span class="dp-name">Agua 1.5L</span><span class="dp-price">$800</span>
+        </button>
+        <button class="dprod" type="button" onclick="addToCart('Red Bull 250ml',2800)" data-id="bull">
+          <div class="dp-top"><span class="dp-cat" style="--cat:oklch(0.58 0.16 30)"></span><span class="dp-stock">8 und.</span></div>
+          <span class="dp-name">Red Bull 250ml</span><span class="dp-price">$2.800</span>
+        </button>
+      </div>
+      <div class="demo-cart">
+        <div class="demo-cart-head">Carrito</div>
+        <div class="demo-cart-items" id="cartItems"><span class="cart-empty">Tocá un producto para empezar…</span></div>
+        <div class="demo-total"><span>Total</span><span class="demo-total-val" id="demoTotal">$0</span></div>
+        <button class="btn btn-orange demo-mipos" id="miposBtn" type="button" onclick="mipos()">Cobrar venta</button>
+      </div>
+    </div>
+    <div class="terminal-screen success" id="demoSuccess" hidden>
+      <div class="success-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <p class="success-txt">¡Venta registrada!</p>
+      <p class="success-amount" id="successAmount"></p>
+      <div class="success-chips">
+        <span class="success-chip">Stock actualizado</span>
+        <span class="success-chip">Ingreso anotado</span>
+        <span class="success-chip">Ticket generado</span>
+      </div>
+      <button class="btn btn-ghost success-reset" type="button" onclick="resetDemo()">Hacer otra venta</button>
+    </div>
+  </div>
+</div>
+</section>

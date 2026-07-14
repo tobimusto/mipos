@@ -1,0 +1,63 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+
+import '@fontsource-variable/sora';
+import '@fontsource/dm-sans';
+import '@fontsource/jetbrains-mono';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: string;
+  content: any;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'Sistema de punto de venta para kioscos, almacenes y comercios. Ventas, stock y fiados sin papel.',
+  lang = 'es',
+  content,
+  ogImage = '/mipos_pos_ui.png',
+} = Astro.props;
+
+const canonicalURL = Astro.url;
+---
+
+<!doctype html>
+<html lang={lang} class="js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <ClientRouter />
+
+    <script is:inline>
+      const t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark-theme');
+      }
+    </script>
+  </head>
+  <body>
+    <slot />
+    <script src="/script.js" is:inline></script>
+  </body>
+</html>

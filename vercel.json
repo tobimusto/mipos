@@ -1,6 +1,0 @@
-{
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/uy", "destination": "/indexuy" }
-  ]
-}

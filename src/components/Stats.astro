@@ -1,0 +1,48 @@
+---
+const { content } = Astro.props;
+const { stats, currency } = content;
+---
+<!-- STATS STRIP -->
+<style>
+@supports (animation-timeline: view()) {
+  @keyframes stat-in {
+    from { opacity: 0; transform: translateY(28px) scale(0.96); }
+    to   { opacity: 1; transform: none; }
+  }
+  .stat-block {
+    animation: stat-in linear both;
+    animation-timeline: view(block);
+  }
+  .stat-block:nth-child(1) { animation-range: entry 5%  entry 50%; }
+  .stat-block:nth-child(2) { animation-range: entry 13% entry 58%; }
+  .stat-block:nth-child(3) { animation-range: entry 21% entry 66%; }
+  .stat-block:nth-child(4) { animation-range: entry 29% entry 74%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stat-block { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
+</style>
+<section class="stats-strip" aria-label="mipos en números">
+  <div class="wrap stats-row">
+    <div class="stat-block">
+      <span class="stat-num" data-stat="1322" data-prefix="+">+1.322</span>
+      <span class="stat-desc">Negocios activos</span>
+      <span class="stat-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7.5L5 2.5l3 5"/></svg>en tiempo real</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num" data-stat="301129" data-prefix="+">+301.129</span>
+      <span class="stat-desc">Ventas procesadas</span>
+      <span class="stat-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7.5L5 2.5l3 5"/></svg>este mes</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">{stats.volumeAmount}</span>
+      <span class="stat-desc">{stats.volumeDesc}</span>
+      <span class="stat-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7.5L5 2.5l3 5"/></svg>en volumen</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">5 min</span>
+      <span class="stat-desc">Para estar operativo</span>
+      <span class="stat-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7.5L5 2.5l3 5"/></svg>promedio</span>
+    </div>
+  </div>
+</section>

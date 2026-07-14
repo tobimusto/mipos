@@ -1,0 +1,95 @@
+---
+const { content } = Astro.props;
+const { appLoginUrl, appPanelUrl } = content;
+---
+<!-- NAV -->
+<header id="nav" transition:name="site-nav">
+<div class="wrap nav-inner">
+  <a href="#" class="logo" aria-label="mipos, inicio">
+    <div style="display:flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:8px; overflow:hidden;">
+      <svg width="30" height="30" viewBox="0 0 64 64" fill="none">
+        <rect width="64" height="64" rx="17" fill="#2563EB"/>
+        <polyline points="17,32 27,43 47,22" stroke="white" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span class="logo-name" style="font-family:var(--font-display); text-transform:lowercase; font-size:22px; margin-left:-2px;">mipos</span>
+  </a>
+  <nav class="nav-links" aria-label="Secciones">
+    <a href="#panel">Qué hace</a>
+    <a href="#ahorro">Ahorrá tiempo</a>
+    <a href="#compare">Comparar</a>
+    <a href="#pricing">Precios</a>
+    <a href="#faq">Preguntas</a>
+    <a href="#soporte">Contacto</a>
+  </nav>
+  <div class="nav-ctas">
+    <button id="themeToggle" class="btn-theme" aria-label="Cambiar tema" type="button">
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    </button>
+    <a href={appLoginUrl} class="link-in auth-guest">Entrar</a>
+    <div class="auth-logged" style="display: none; align-items: center; gap: 12px;">
+      <div style="display: flex; flex-direction: column; text-align: right; line-height: 1.1;">
+        <span id="navUserName" style="font-size: 13px; font-weight: 600; color: var(--ink);"></span>
+        <span id="navUserEmail" style="font-size: 11px; color: var(--ink-3);"></span>
+      </div>
+      <a href={appPanelUrl} class="btn btn-ink" style="padding: 8px 14px; font-size: 13px;">Ir al Panel</a>
+    </div>
+    <button id="menuOpen" class="menu-open" aria-label="Abrir menú" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</div>
+</header>
+
+<script>
+  function initThemeToggle() {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark-theme');
+      document.documentElement.classList.toggle('dark-theme');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    });
+  }
+
+  document.addEventListener('astro:page-load', initThemeToggle);
+</script>
+
+<!-- MOBILE NAV -->
+<div id="mobileOverlay" class="mobile-nav-overlay" aria-hidden="true"></div>
+<nav id="mobileMenu" class="mobile-nav" aria-label="Menú de navegación">
+  <div class="mobile-nav-head">
+    <a href="#" class="logo" aria-label="mipos, inicio">
+      <div style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;overflow:hidden;">
+        <svg width="30" height="30" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="17" fill="#2563EB"/><polyline points="17,32 27,43 47,22" stroke="white" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="logo-name" style="font-family:var(--font-display);text-transform:lowercase;font-size:22px;margin-left:-2px;">mipos</span>
+    </a>
+    <button id="menuClose" class="btn-theme" aria-label="Cerrar menú" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="#panel">Qué hace</a>
+    <a href="#ahorro">Ahorrá tiempo</a>
+    <a href="#compare">Comparar</a>
+    <a href="#pricing">Precios</a>
+    <a href="#faq">Preguntas</a>
+    <a href="#soporte">Contacto</a>
+  </div>
+  <div class="mobile-nav-ctas">
+    <a href={appLoginUrl} class="btn btn-ghost btn-lg auth-guest">Entrar</a>
+    <div class="auth-logged" style="display: none; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--panel); border-radius: var(--r-sm); border: 1px solid var(--line);">
+        <div id="mobUserAvatar" style="width: 34px; height: 34px; border-radius: 8px; background: var(--brand); color: white; display: grid; place-items: center; font-size: 14px; font-weight: 700;"></div>
+        <div style="display: flex; flex-direction: column; line-height: 1.2; flex: 1; overflow: hidden;">
+          <span id="mobUserName" style="font-size: 14px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></span>
+          <span id="mobUserEmail" style="font-size: 11.5px; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></span>
+        </div>
+      </div>
+      <a href={appPanelUrl} class="btn btn-ink btn-lg" style="width: 100%;">Ir al Panel</a>
+    </div>
+  </div>
+</nav>

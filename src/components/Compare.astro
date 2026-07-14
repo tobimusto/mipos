@@ -1,0 +1,33 @@
+---
+const { content } = Astro.props;
+---
+<!-- COMPARE -->
+<section class="compare" id="compare">
+<div class="wrap">
+  <header class="sec-head" data-reveal>
+    <h2>Comparación honesta,<br/><span class="hl">sin letra chica.</span></h2>
+    <p class="sec-sub">Función por función. Si no somos lo que buscás, te lo decimos.</p>
+  </header>
+  <div class="table-scroll" data-reveal>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th scope="col">Característica</th>
+          <th scope="col" class="us">mipos</th>
+          <th scope="col">Excel / Papel</th>
+          <th scope="col">Competencia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Plan gratuito real</th><td class="us-col yes">7 días de prueba</td><td class="no">Libreta fiado</td><td class="no">No</td></tr>
+        <tr><th scope="row">Precio inicial</th><td class="us-col yes">{content.compare.ourPriceRange}</td><td>Pérdida de datos</td><td>{content.compare.competitorPrice}</td></tr>
+        <tr><th scope="row">Acceso multi-dispositivo</th><td class="us-col yes">Incluido</td><td class="no">No aplica</td><td class="no">No</td></tr>
+        <tr><th scope="row">Multi-sucursal</th><td class="us-col yes">Desde Esencial</td><td>Imposible</td><td>Solo enterprise</td></tr>
+        <tr><th scope="row">Tienda online</th><td class="us-col yes">Solo Plan Pro</td><td class="no">No</td><td class="no">No</td></tr>
+        <tr><th scope="row">Apertura y cierre de caja</th><td class="us-col yes">Incluido</td><td class="no">Cálculos tediosos</td><td>Parcial</td></tr>
+        <tr><th scope="row">Soporte por WhatsApp</th><td class="us-col yes">Todos los planes</td><td>No existe</td><td>Email</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>

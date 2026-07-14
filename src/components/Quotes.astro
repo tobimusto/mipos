@@ -1,0 +1,157 @@
+---
+const testimonials = [
+  { id: 4821, dias: 'hace 2 días',    tipo: 'Kiosco',       quote: 'Antes cerraba la caja con lápiz y papel. Ahora mipos me dice exactamente cuánto vendí y qué se fue. No sé cómo laburaba antes.',                     nombre: 'Marcela R.',   sub: 'Kiosco · Palermo, CABA',           img: 'https://randomuser.me/api/portraits/women/44.jpg' },
+  { id: 1203, dias: 'hace 5 días',    tipo: 'Almacén',      quote: 'Tengo dos almacenes y por fin los veo en un solo lado. El cierre de caja me ahorra media hora al día. Antes eso lo hacía con la calculadora.',         nombre: 'Lucas F.',     sub: 'Almacén · Rosario, Santa Fe',      img: 'https://randomuser.me/api/portraits/men/32.jpg'   },
+  { id: 3542, dias: 'hace 3 días',    tipo: 'Autoservicio', quote: 'Lo empecé a usar para el stock y terminé usando todo. Los fiados sin libreta me cambiaron la vida. Mis clientes me preguntan cómo lo hago.',            nombre: 'Diego P.',     sub: 'Autoservicio · Montevideo',        img: 'https://randomuser.me/api/portraits/men/18.jpg'   },
+  { id: 4617, dias: 'hace 2 semanas', tipo: 'Almacén',      quote: 'Los fiados eran mi pesadilla. Una libreta, otra libreta, y siempre me faltaba plata al cierre. Ahora todo está en pantalla y no perdí más un peso.',    nombre: 'Carlos B.',    sub: 'Almacén · Fray Bentos',            img: 'https://randomuser.me/api/portraits/men/63.jpg'   },
+]
+
+const staggerDelays = [0, 80, 160, 240]
+---
+
+<!-- TESTIMONIALS -->
+<section class="quotes" id="opiniones">
+  <div class="wrap">
+
+    <header class="q-head" data-reveal>
+      <h2>Comerciantes que ya<br/><span class="hl">dejaron el papel.</span></h2>
+
+      <div class="tck-proof">
+        <div class="tck-proof-avs">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Marcela R." width="34" height="34" loading="lazy"/>
+          <img src="https://randomuser.me/api/portraits/men/32.jpg"   alt="Lucas F."   width="34" height="34" loading="lazy"/>
+          <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Romina G."  width="34" height="34" loading="lazy"/>
+          <img src="https://randomuser.me/api/portraits/men/18.jpg"   alt="Diego P."   width="34" height="34" loading="lazy"/>
+          <span class="tck-proof-more">+296</span>
+        </div>
+        <span class="tck-proof-sep" aria-hidden="true"></span>
+        <div class="tck-proof-score">
+          <span class="tck-proof-stars">★★★★★</span>
+          <span class="tck-proof-num">4.9</span>
+          <span class="tck-proof-label">de&nbsp;5</span>
+        </div>
+        <span class="tck-proof-sep" aria-hidden="true"></span>
+        <div class="tck-proof-count">
+          <span class="tck-proof-num">300+</span>
+          <span class="tck-proof-label">negocios activos</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="q-grid">
+      {testimonials.map((t, i) => (
+        <figure class="tck-card" data-reveal style={`--delay:${staggerDelays[i]}ms`}>
+          <div class="tck-header">
+            <div class="tck-hlogo">
+              <svg width="14" height="14" viewBox="0 0 64 64" fill="none">
+                <rect width="64" height="64" rx="17" fill="rgba(255,255,255,.25)"/>
+                <polyline points="17,32 27,43 47,22" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="tck-hmeta">
+              <span class="tck-hbrand">mipos</span>
+              <span class="tck-hnum">#{t.id} · {t.dias}</span>
+            </div>
+            <span class="tck-htype">{t.tipo}</span>
+          </div>
+          <div class="tck-body">
+            <p class="tck-stars">★★★★★</p>
+            <blockquote>{t.quote}</blockquote>
+          </div>
+          <div class="tck-cut" aria-hidden="true"></div>
+          <figcaption class="tck-cap">
+            <img class="tck-av" src={t.img} alt={t.nombre} width="38" height="38" loading="lazy"/>
+            <div><strong>{t.nombre}</strong><span>{t.sub}</span></div>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+.quotes { padding: clamp(64px,8vw,104px) 0; }
+
+/* ── Header ── */
+.q-head { margin-bottom: clamp(40px,5vw,56px); }
+.q-head h2 { font-size: clamp(29px,3.6vw,46px); font-weight: 780; margin-bottom: 28px; }
+
+/* ── Social proof chip ── */
+.tck-proof {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  box-shadow: var(--shadow-sm);
+}
+.tck-proof-avs { display: flex; align-items: center; }
+.tck-proof-avs img {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  object-fit: cover;
+  display: block;
+  margin-right: -10px;
+}
+.tck-proof-avs img:last-of-type { margin-right: 0; }
+.tck-proof-more {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  background: var(--panel);
+  color: var(--ink-2);
+  font-size: 10px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  margin-left: -10px;
+  flex-shrink: 0;
+}
+.tck-proof-sep { width: 1px; height: 28px; background: var(--line); flex-shrink: 0; }
+.tck-proof-score { display: flex; align-items: baseline; gap: 5px; }
+.tck-proof-stars { color: #F59E0B; font-size: 15px; letter-spacing: 1px; line-height: 1; }
+.tck-proof-num { font-family: var(--font-display); font-size: 22px; font-weight: 780; letter-spacing: -0.03em; color: var(--ink); line-height: 1; }
+.tck-proof-label { font-size: 13px; color: var(--ink-3); font-weight: 500; }
+.tck-proof-count { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+
+/* ── Carrusel ── */
+.q-grid {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 8px;
+}
+.q-grid::-webkit-scrollbar { display: none; }
+
+/* ── Card (reutiliza estilos globales de .tck-card) ── */
+.q-grid .tck-card {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  width: calc(25% - 15px);
+  max-width: none;
+  cursor: default;
+  transition: box-shadow .25s ease, transform .25s ease;
+}
+.q-grid .tck-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .q-grid .tck-card { width: calc(50% - 10px); }
+}
+@media (max-width: 560px) {
+  .q-grid .tck-card { width: calc(100% - 0px); }
+  .tck-proof { gap: 14px; padding: 12px 18px; flex-wrap: wrap; justify-content: center; border-radius: 16px; }
+  .tck-proof-sep { display: none; }
+  .tck-proof-num { font-size: 18px; }
+}
+</style>

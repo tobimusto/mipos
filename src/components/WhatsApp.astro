@@ -1,0 +1,307 @@
+---
+const { content } = Astro.props;
+const waHref = `https://wa.me/${content.whatsapp}?text=${encodeURIComponent('Hola, me interesa mipos para mi negocio.')}`;
+---
+<!-- SOPORTE WHATSAPP -->
+<section class="wa-section" id="soporte">
+<div class="wrap wa-grid">
+
+  <!-- ── Copy ── -->
+  <div class="wa-copy" data-reveal>
+    <h2 class="wa-h2">Respondemos<br/>en minutos,<br/><span class="hl">no en días.</span></h2>
+    <p class="wa-desc">Sin bots ni formularios. Un equipo de personas reales que te acompaña desde el primer mensaje — también los fines de semana.</p>
+
+    <!-- Stats -->
+    <div class="wa-stats">
+      <div class="wa-stat">
+        <span class="wa-stat-val">~5 min</span>
+        <span class="wa-stat-lbl">respuesta promedio</span>
+      </div>
+      <span class="wa-stat-sep"></span>
+      <div class="wa-stat">
+        <span class="wa-stat-val">Sin turno</span>
+        <span class="wa-stat-lbl">escribí cuando quieras</span>
+      </div>
+    </div>
+
+    <div class="wa-ctas">
+      <a
+        href={waHref}
+        target="_blank" rel="noopener noreferrer"
+        class="wa-cta"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.121 1.532 5.848L0 24l6.335-1.611A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.372l-.36-.214-3.727.977.994-3.634-.235-.374A9.818 9.818 0 1 1 12 21.818z"/>
+        </svg>
+        Escribinos ahora
+      </a>
+      <button class="wa-mail-cta" id="openContactModal" type="button">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        Mandanos un mail
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Phone ── -->
+  <div class="wa-phone" data-reveal>
+    <!-- Online badge -->
+    <div class="wa-online-badge" aria-hidden="true">
+      <span class="wa-online-dot"></span>
+      En línea ahora
+    </div>
+
+    <div class="wa-device">
+      <!-- WA Header -->
+      <div class="wa-header">
+        <span class="wa-back" aria-hidden="true">
+          <svg width="9" height="16" viewBox="0 0 9 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1 1 8l7 7"/></svg>
+        </span>
+        <div class="wa-av" aria-hidden="true">C</div>
+        <div class="wa-contact-info">
+          <span class="wa-contact-name">
+            <span class="wa-contact-name-txt">mipos Soporte</span>
+            <span class="wa-verified" aria-label="Verificado">
+              <svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#25d366"/><path d="M7 12.5l3.5 3.5 6.5-7" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </span>
+          <span class="wa-contact-status">en línea</span>
+        </div>
+        <div class="wa-header-icons" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l5-3v10l-5-3z"/><rect x="2" y="6" width="13" height="12" rx="2.5"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l1.5 4.5L7.5 11a12 12 0 0 0 5.5 5.5l2.5-2 4.5 1.5V19a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="wa-msgs" id="waMessages" role="log" aria-label="Conversación de soporte">
+        <div class="wa-date-chip"><span>HOY</span></div>
+      </div>
+
+      <!-- Input bar -->
+      <div class="wa-input-bar">
+        <div class="wa-input-field" aria-hidden="true">Escribí un mensaje…</div>
+        <div class="wa-input-send" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 6l6 6-6 6"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<style>
+/* ── Section ── */
+.wa-section { padding: clamp(64px,9vw,110px) 0; background: var(--panel); }
+.wa-grid {
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  gap: clamp(40px,6vw,80px);
+  align-items: center;
+}
+
+/* ── Copy ── */
+.wa-copy { max-width: 460px; }
+.wa-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.8vw, 48px);
+  font-weight: 780; line-height: 1.06;
+  letter-spacing: -.035em;
+  color: var(--ink); margin-bottom: 16px;
+}
+.wa-desc {
+  font-size: 15.5px; line-height: 1.65;
+  color: var(--ink-2); max-width: 40ch;
+  text-wrap: pretty; margin-bottom: 28px;
+}
+
+/* Stats row */
+.wa-stats {
+  display: flex; align-items: center;
+  gap: 16px; margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.wa-stat { display: flex; flex-direction: column; gap: 2px; }
+.wa-stat-val {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 780;
+  letter-spacing: -.025em; color: var(--ink);
+  line-height: 1;
+}
+.wa-stat-lbl { font-size: 11.5px; color: var(--ink-3); font-weight: 500; }
+.wa-stat-sep { width: 1px; height: 28px; background: var(--line); flex-shrink: 0; }
+
+/* CTA button */
+.wa-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.wa-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #25D366; color: #04210f;
+  font-family: var(--font); font-weight: 700; font-size: 15px;
+  padding: 14px 28px; border-radius: 14px;
+  text-decoration: none;
+  box-shadow: 0 6px 24px -4px rgba(37,211,102,.45);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.wa-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px -4px rgba(37,211,102,.55);
+}
+.wa-mail-cta {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: transparent; color: var(--ink-2);
+  font-family: var(--font); font-weight: 600; font-size: 15px;
+  padding: 14px 24px; border-radius: 14px; border: 1.5px solid var(--line);
+  cursor: pointer;
+  transition: transform .18s ease, border-color .15s ease, color .15s ease;
+}
+.wa-mail-cta:hover { transform: translateY(-2px); border-color: var(--ink); color: var(--ink); }
+
+/* ── Phone column ── */
+.wa-phone {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 0;
+  position: relative;
+}
+
+/* Online badge */
+.wa-online-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 99px; padding: 6px 14px;
+  font-size: 12.5px; font-weight: 600; color: var(--ink-2);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 12px;
+  align-self: flex-start;
+  margin-left: 16px;
+}
+.wa-online-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #25D366;
+  box-shadow: 0 0 0 2px rgba(37,211,102,.25);
+  animation: wa-pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes wa-pulse {
+  0%,100% { box-shadow: 0 0 0 2px rgba(37,211,102,.25); }
+  50%      { box-shadow: 0 0 0 5px rgba(37,211,102,.12); }
+}
+
+/* Phone shell */
+.wa-device {
+  width: 100%;
+  max-width: 420px;
+  background: #0b141a;
+  border-radius: 22px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 560px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.06) inset,
+    0 40px 90px -20px rgba(0,0,0,.6),
+    0 0 0 1px rgba(0,0,0,.3);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .wa-grid { grid-template-columns: 1fr; }
+  .wa-copy { max-width: none; text-align: center; }
+  .wa-desc { max-width: none; margin-left: auto; margin-right: auto; }
+  .wa-stats { justify-content: center; }
+  .wa-phone { align-items: center; }
+  .wa-online-badge { align-self: center; margin-left: 0; }
+  .wa-ctas { flex-direction: column; }
+  .wa-cta, .wa-mail-cta { width: 100%; justify-content: center; }
+}
+</style>
+
+<script>
+// WhatsApp chat animation — runs as Astro component script (deferred, after DOM ready)
+(function () {
+  const waEl = document.getElementById('waMessages');
+  const waSec = document.querySelector('.wa-section');
+  if (!waEl || !waSec) return;
+
+  const seq = [
+    { t:'out',    txt:'Hola! ¿cómo abro mi tienda online con mipos?',                                                                                                                               time:'10:14' },
+    { t:'typing', ms:2200 },
+    { t:'in',     txt:'¡Hola! La tienda online está disponible en el plan Pro 🛍️ La activás desde Menú → Mi Tienda Online. Subís el catálogo con fotos y precios, le ponés el nombre y listo — en 10 minutos ya está publicada.',  time:'10:14' },
+    { t:'pause',  ms:1200 },
+    { t:'out',    txt:'¿Y puedo pasarle el link a todos mis clientes?',                                                                                                                              time:'10:15' },
+    { t:'typing', ms:1800 },
+    { t:'in',     txt:'¡Exacto! Tenés un link único tipo mipos.com/tienda/tu-negocio para compartir por WhatsApp, Instagram o donde quieras 🔗',                                                    time:'10:15' },
+    { t:'pause',  ms:700 },
+    { t:'typing', ms:2000 },
+    { t:'in',     txt:'Cuando un cliente pide, te llega directo a tu WhatsApp con todos los detalles: qué pidió, las cantidades y el total. Solo confirmás y listo 📲',                             time:'10:16' },
+    { t:'pause',  ms:1100 },
+    { t:'out',    txt:'Perfecto! Ya lo activo. Gracias 🙌',                                                                                                                                         time:'10:16' },
+    { t:'typing', ms:900 },
+    { t:'in',     txt:'¡Vamos! Cualquier duda, acá estamos 🚀',                                                                                                                                    time:'10:17' },
+    { t:'pause',  ms:4000 },
+  ];
+
+  const chkSvg = '<svg width="15" height="11" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#53bdeb"><path d="M1 7l3.4 3.4L11 3"/><path d="M7.6 9.4 9 10.8 17 2"/></svg>';
+  let typingEl: HTMLElement | null = null;
+
+  function clearMsgs() {
+    Array.from(waEl.children).forEach(c => {
+      if (!(c as HTMLElement).classList.contains('wa-date-chip')) c.remove();
+    });
+    typingEl?.remove(); typingEl = null;
+  }
+
+  function addBubble(txt: string, cls: string, time: string, checks: boolean) {
+    const b = document.createElement('div');
+    b.className = 'wa-bubble ' + cls;
+    const spacer = cls === 'out'
+      ? '<span style="display:inline-block;width:62px;height:1px"></span>'
+      : '<span style="display:inline-block;width:42px;height:1px"></span>';
+    b.innerHTML = txt + spacer + `<span class="wa-ts">${time}${checks ? chkSvg : ''}</span>`;
+    waEl.appendChild(b);
+    waEl.scrollTop = waEl.scrollHeight;
+  }
+
+  function run() {
+    clearMsgs();
+    let cursor = 400;
+    seq.forEach(step => {
+      if (step.t === 'out') {
+        const s = step, at = cursor;
+        setTimeout(() => addBubble(s.txt!, 'out', s.time!, false), at);
+        cursor += 360;
+      } else if (step.t === 'typing') {
+        const at = cursor, dur = step.ms!;
+        setTimeout(() => {
+          typingEl = document.createElement('div');
+          typingEl.className = 'wa-typing';
+          typingEl.innerHTML = '<span class="wa-dot"></span><span class="wa-dot"></span><span class="wa-dot"></span>';
+          waEl.appendChild(typingEl);
+          waEl.scrollTop = waEl.scrollHeight;
+        }, at);
+        setTimeout(() => { typingEl?.remove(); typingEl = null; }, at + dur);
+        cursor += dur;
+      } else if (step.t === 'in') {
+        const s = step, at = cursor;
+        setTimeout(() => addBubble(s.txt!, 'in', s.time!, true), at);
+        cursor += 360;
+      } else if (step.t === 'pause') {
+        cursor += step.ms!;
+      }
+    });
+    // No loop — conversation stays visible and scrollable
+  }
+
+  // Start when section enters viewport
+  let started = false;
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !started) {
+      started = true;
+      observer.disconnect();
+      run();
+    }
+  }, { threshold: 0.05 });
+  observer.observe(waSec);
+})();
+</script>
+</style>

@@ -1,0 +1,42 @@
+---
+---
+<!-- TIME CALCULATOR -->
+<section class="calc-section">
+  <div class="wrap calc-grid">
+    <div class="calc-intro" data-reveal>
+      <h2>¿Cuánto tiempo recuperarás por mes?</h2>
+      <p class="sec-sub">Movés las barras con los números de tu comercio y calculás las horas que dejás de perder en tareas manuales.</p>
+      
+      <div class="calc-controls">
+        <div class="calc-field">
+          <label>Ventas por día <output id="outVentas">120</output></label>
+          <input type="range" class="slider" id="rngVentas" min="10" max="500" value="120">
+        </div>
+        <div class="calc-field">
+          <label>Minutos en cerrar la caja por día <output id="outCierre">25 min</output></label>
+          <input type="range" class="slider" id="rngCierre" min="5" max="120" value="25">
+        </div>
+        <div class="calc-field">
+          <label>Horas de inventario por semana <output id="outStock">6 h</output></label>
+          <input type="range" class="slider" id="rngStock" min="1" max="40" value="6">
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-result" data-reveal>
+      <div class="cr-label">RECUPERÁS CADA MES</div>
+      <div class="cr-hours"><span id="crHours">71</span> <span class="cr-unit">horas</span></div>
+      <div class="cr-year">Equivale a <strong id="crDays">107</strong> jornadas de 8 h al año.</div>
+      
+      <ul class="cr-breakdown">
+        <li>Registrar ventas <span id="brVentas">+42 h</span></li>
+        <li>Cierre de caja <span id="brCierre">+11 h</span></li>
+        <li>Inventario y restock <span id="brStock">+16 h</span></li>
+        <li>Reportes automáticos <span id="brRep">+3 h</span></li>
+      </ul>
+      
+      <button class="btn cr-cta" onclick="document.querySelector('#pricing').scrollIntoView({behavior:'smooth', block:'start'})">Empezar a ahorrar tiempo</button>
+      <div class="cr-fine">Estimación según promedios de comercios que ya usan mipos.</div>
+    </div>
+  </div>
+</section>

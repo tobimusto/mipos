@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Stats from '../components/Stats.astro';
+import Panel from '../components/Panel.astro';
+import TimeCalculator from '../components/TimeCalculator.tsx';
+import Features from '../components/Features.astro';
+import Pricing from '../components/Pricing.astro';
+import Compare from '../components/Compare.astro';
+import Quotes from '../components/Quotes.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+import Faq from '../components/Faq.astro';
+import Footer from '../components/Footer.astro';
+import TransferModal from '../components/TransferModal.astro';
+import ContactModal from '../components/ContactModal.astro';
+
+import { ar } from '../content/ar';
+import { shared } from '../content/shared';
+
+const content = { ...shared, ...ar };
+---
+
+<Base title={content.meta.title} description={content.meta.description} lang={content.locale.split('-')[0]} content={content}>
+  <Nav content={content} />
+  <main transition:name="page-main">
+    <Hero content={content} />
+    <Stats content={content} />
+    <Panel />
+    <TimeCalculator client:visible />
+    <Features />
+    <Compare content={content} />
+    <Pricing content={content} />
+    <Quotes />
+    <Faq />
+    <WhatsApp content={content} />
+    <Footer content={content} />
+  </main>
+  <TransferModal content={content} />
+  <ContactModal content={content} />
+</Base>

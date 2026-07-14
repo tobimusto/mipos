@@ -1,0 +1,112 @@
+---
+const { content } = Astro.props;
+const { plans, currency } = content;
+const savings = currency.format((plans.pro.monthly - plans.pro.yearlyPerMonth) * 12);
+---
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+<div class="wrap">
+  <header class="sec-head" data-reveal>
+    <h2>Elegí tu plan.<br/><span class="hl">Sin sorpresas.</span></h2>
+    <p class="sec-sub">Empezás gratis. Si tu comercio crece, escalás cuando quieras.</p>
+    <div class="toggle">
+      <button class="toggle-btn" id="btnMensual" type="button" onclick="setToggle('mensual')">
+        <span class="toggle-btn-main">Mensual</span>
+      </button>
+      <button class="toggle-btn active" id="btnAnual" type="button" onclick="setToggle('anual')">
+        <span class="toggle-btn-main">Anual</span>
+        <span class="toggle-btn-sub">−20%</span>
+      </button>
+    </div>
+    <p class="toggle-savings-line visible" id="toggleSavingsLine">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><circle cx="7.5" cy="7.5" r="7" stroke="#16a34a" stroke-width="1.4"/><polyline points="4.5,7.5 6.5,9.5 10.5,5.5" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Ahorrás <strong id="savingsCount">{savings}</strong> en el año
+    </p>
+  </header>
+
+  <div class="tags">
+    <article class="ptag" data-price-card="side">
+      <span class="ptag-hole"></span>
+      <h3 class="ptag-name">Básico</h3>
+      <p class="ptag-old plan-old-price" data-m="" data-a={plans.basico.oldMonthly}></p>
+      <div class="ptag-price"><sup>{currency.symbol}</sup><span class="plan-p" data-m={plans.basico.monthly} data-a={plans.basico.yearlyPerMonth}>{plans.basico.monthly.toLocaleString(content.locale)}</span></div>
+      <p class="ptag-period">por mes</p>
+      <p class="plan-yearly-lbl" style="display:none; font-size: 12px; color: var(--ink-3); font-weight: 500;"></p>
+      <ul class="ptag-feats">
+        <li>Ventas con lector de código de barras</li>
+        <li>Gestión de stock y reposición</li>
+        <li>Reportes de ventas diarios</li>
+        <li>Clientes y cuentas corrientes</li>
+        <li>Hasta 3.500 productos</li>
+        <li>Hasta 2 usuarios</li>
+      </ul>
+      <a href="#" onclick="openTransferModal(this); return false;" class="btn btn-ghost ptag-cta">Elegir este plan</a>
+    </article>
+
+    <article class="ptag featured" data-price-card="pro">
+      <span class="ptag-hole"></span>
+      <div class="ptag-beam" aria-hidden="true"></div>
+      <span class="ptag-badge">El más elegido</span>
+      <h3 class="ptag-name">Pro</h3>
+      <p class="ptag-old plan-old-price" data-m="" data-a={plans.pro.oldMonthly}></p>
+      <div class="ptag-price"><sup>{currency.symbol}</sup><span class="plan-p" data-m={plans.pro.monthly} data-a={plans.pro.yearlyPerMonth}>{plans.pro.monthly.toLocaleString(content.locale)}</span></div>
+      <p class="ptag-period">por mes {plans.pro.vatNote ?? ''}</p>
+      <p class="plan-yearly-lbl" style="display:none; font-size: 12px; color: var(--ink-3); font-weight: 500;"></p>
+      <ul class="ptag-feats">
+        <li>Todo lo del Plan Esencial</li>
+        <li>Tienda Online <span class="feat-pro-pill" aria-hidden="true"></span></li>
+        <li>Hasta 15.000 productos</li>
+        <li>Hasta 15 usuarios</li>
+        <li><span class="tag-pronto">Pronto</span> Soporte para balanzas</li>
+      </ul>
+      <a href="#" onclick="openTransferModal(this); return false;" class="btn btn-orange ptag-cta">Elegir este plan</a>
+      <p class="plan-trial" style="text-align:center; font-size:13px; color:var(--ink-3); margin-top:12px; font-weight:500;">Probar 7 días gratis</p>
+    </article>
+
+    <article class="ptag" data-price-card="side">
+      <span class="ptag-hole"></span>
+      <h3 class="ptag-name">Esencial</h3>
+      <p class="ptag-old plan-old-price" data-m="" data-a={plans.esencial.oldMonthly}></p>
+      <div class="ptag-price"><sup>{currency.symbol}</sup><span class="plan-p" data-m={plans.esencial.monthly} data-a={plans.esencial.yearlyPerMonth}>{plans.esencial.monthly.toLocaleString(content.locale)}</span></div>
+      <p class="ptag-period">por mes · 7 días de prueba gratis</p>
+      <p class="plan-yearly-lbl" style="display:none; font-size: 12px; color: var(--ink-3); font-weight: 500;"></p>
+      <ul class="ptag-feats">
+        <li>Todo lo del Plan Básico</li>
+        <li>Alertas de productos sin rotación</li>
+        <li>Hasta 10.000 productos</li>
+        <li>Hasta 5 usuarios</li>
+        <li>Cargamos tus productos</li>
+      </ul>
+      <a href="#" onclick="openTransferModal(this); return false;" class="btn btn-ghost ptag-cta">Elegir este plan</a>
+    </article>
+  </div>
+</div>
+</section>
+
+<script>
+  function initPricingReveal() {
+    const section = document.getElementById('pricing');
+    if (!section) return;
+
+    const pro   = section.querySelector('[data-price-card="pro"]');
+    const sides = section.querySelectorAll('[data-price-card="side"]');
+    if (!pro || !sides.length) return;
+
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      pro.classList.add('ptag-visible');
+      sides.forEach(s => s.classList.add('ptag-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      pro.classList.add('ptag-visible');
+      setTimeout(() => sides.forEach(s => s.classList.add('ptag-visible')), 550);
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  }
+
+  document.addEventListener('astro:page-load', initPricingReveal);
+</script>

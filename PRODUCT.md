@@ -6,30 +6,35 @@ brand
 
 ## Users
 
-Comerciantes independientes argentinos: dueños de kioscos, almacenes, autoservicios e indumentarias. Trabajan solos o con 1-2 empleados. Usan papel y libreta hoy. Acceden desde el celular o tablet detrás del mostrador. Buscan algo simple que no requiera capacitación.
+Dueños de comercios minoristas en Uruguay y Argentina: kioscos, almacenes, autoservicios, ferreterías, indumentaria, verdulerías, panaderías, perfumerías. Hoy gestionan su negocio con una libreta, un cuaderno de fiados y una planilla de Excel (o nada). No son tech-savvy. El que decide es el mismo que atiende la caja. Quieren algo que funcione desde el primer día, sin complicarse, y que cueste menos que el dolor de cabeza que reemplaza.
 
 ## Product Purpose
 
-mipos es un sistema de punto de venta web para el comercio minorista argentino. Reemplaza la libreta, el cuaderno de fiados y la planilla de Excel. Permite registrar ventas, controlar stock, gestionar cuentas corrientes de clientes y cerrar la caja diaria. El comerciante arranca a vender en 5 minutos, sin instalar nada.
+mipos es un punto de venta y sistema de gestión para comercios minoristas que reemplaza la libreta y el Excel. Maneja ventas, stock, cuentas corrientes (fiados) y cierre de caja diario. El éxito es: un comerciante que llega a la landing, entiende qué es mipos en menos de 30 segundos, y arranca una prueba gratis.
 
 ## Brand Personality
 
-Confiable, directo, argentino. Sin frivolidades, sin promesas vacías. Habla de igual a igual con el comerciante. No es tecnología de Silicon Valley: es una herramienta que entiende el mostrador.
+Confiable, directo, de mostrador. No es una startup que pitchea inversores; es la herramienta de la persona detrás del mostrador. Habla de igual a igual con el comerciante, en español rioplatense. Sin tecnicismos, sin marketing vacío.
+
+Tres palabras: confiable, directo, cercano.
 
 ## Anti-references
 
-- Software de gestión corporativo (SAP, Odoo): demasiado complejo, lenguaje de empresa grande
-- Apps de fintech con estética neon/crypto: genera desconfianza en el usuario objetivo
-- Alertas y toasts en rojo/naranja que se asocian a errores o peligro
+- Estética crypto/fintech/neón
+- Mesh gradients, glow effects, halos
+- Voz Silicon Valley ("potenciá", "transformá tu negocio", "solución integral")
+- Rojos/naranjas de alarma
+- Interfaces que se ven complicadas — tiene que funcionar para el comerciante de 60 años
+- Lenguaje aphorístico del tipo "simple. poderoso. tuyo."
 
 ## Design Principles
 
-1. **Claridad antes que creatividad** — el comerciante no tiene tiempo de descifrar la interfaz.
-2. **Azul que genera confianza** — el sistema de color base es azul-gris; los acentos también deben ser azules, no alarmas.
-3. **Mostrar la herramienta** — el panel real es el mejor argumento de venta.
-4. **Honestidad sobre las limitaciones** — no prometer funciones que no existen.
-5. **Respeto por el contexto** — es un negocio real, no un startup de juguete.
+1. **El panel real es el mejor argumento**: mostrar capturas reales del producto, nunca UI inventada
+2. **Directo y de mostrador**: cada palabra gana su lugar; sin relleno, sin "pensado con..."
+3. **De igual a igual**: hablarle al comerciante en su idioma, con situaciones concretas de su día
+4. **Confianza a través de lo concreto**: números reales, ubicaciones específicas, resultados tangibles
+5. **Un solo trabajo**: el único objetivo de la página es que alguien empiece la prueba gratis
 
 ## Accessibility & Inclusion
 
-WCAG AA mínimo. Contraste de texto ≥ 4.5:1. Soporte para modo oscuro. Funciona en dispositivos de gama media (teléfonos Android de 2022+). Sin dependencia de JavaScript para contenido crítico.
+WCAG AA (contraste ≥ 4.5:1 texto body). Dark mode incluido. Debe sentirse accesible para comerciantes sin experiencia tech, incluyendo adultos mayores. Reduced motion respetado. `lang="es"`, HTML semántico.

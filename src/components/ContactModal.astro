@@ -1,0 +1,170 @@
+---
+const { content } = Astro.props;
+---
+<div class="cm-overlay" id="contactModal" data-email={content.support.email} role="dialog" aria-modal="true" aria-labelledby="cmTitle">
+  <div class="cm-card">
+    <button class="cm-close" id="closeContactModal" aria-label="Cerrar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div class="cm-icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+    </div>
+
+    <h2 class="cm-title" id="cmTitle">Envianos tu consulta</h2>
+    <p class="cm-sub">Te respondemos a la brevedad en <strong>{content.support.email}</strong></p>
+
+    <form class="cm-form" id="contactForm" novalidate>
+      <label class="cm-label" for="cmName">Tu nombre <span class="cm-opt">(opcional)</span></label>
+      <input class="cm-input" id="cmName" type="text" placeholder="Ej: María González" autocomplete="name"/>
+
+      <label class="cm-label" for="cmEmail">Tu email <span class="cm-opt">(para que te respondamos)</span></label>
+      <input class="cm-input" id="cmEmail" type="email" placeholder="tu@email.com" autocomplete="email"/>
+
+      <label class="cm-label" for="cmMsg">Mensaje</label>
+      <textarea class="cm-textarea" id="cmMsg" rows="5" placeholder="Contanos en qué te podemos ayudar…" required></textarea>
+
+      <div class="cm-subject-row">
+        <span class="cm-subject-lbl">Asunto:</span>
+        <span class="cm-subject-val">MI POS ONLINE: CONSULTA</span>
+      </div>
+
+      <button class="cm-send" type="submit">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22 11 13 2 9l20-7z"/></svg>
+        Abrir en mi cliente de mail
+      </button>
+      <p class="cm-fine">Se abrirá tu app de correo con el mensaje listo para enviar.</p>
+    </form>
+  </div>
+</div>
+
+<style>
+.cm-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+.cm-overlay.active {
+  opacity: 1; visibility: visible; pointer-events: auto;
+}
+.cm-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: clamp(28px, 4vw, 44px);
+  width: 100%; max-width: 480px;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(16px);
+  transition: transform .25s ease;
+}
+.cm-overlay.active .cm-card { transform: translateY(0); }
+
+.cm-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 34px; height: 34px; border-radius: 8px;
+  background: var(--panel); border: 1px solid var(--line);
+  color: var(--ink-2); cursor: pointer; display: grid; place-items: center;
+  transition: background .15s ease, color .15s ease;
+}
+.cm-close:hover { background: var(--line); color: var(--ink); }
+
+.cm-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: var(--brand-tint); color: var(--brand);
+  display: grid; place-items: center; margin-bottom: 16px;
+}
+.cm-title { font-size: 22px; font-weight: 760; letter-spacing: -.025em; margin-bottom: 6px; }
+.cm-sub { font-size: 14px; color: var(--ink-2); margin-bottom: 24px; line-height: 1.5; }
+.cm-sub strong { color: var(--ink); font-weight: 600; }
+
+.cm-form { display: flex; flex-direction: column; gap: 14px; }
+.cm-label { font-size: 13px; font-weight: 600; color: var(--ink); display: flex; gap: 6px; align-items: baseline; }
+.cm-opt { font-weight: 400; color: var(--ink-3); font-size: 12px; }
+.cm-input, .cm-textarea {
+  width: 100%;
+  background: var(--bg); border: 1px solid var(--line);
+  border-radius: var(--r-sm); padding: 10px 14px;
+  font-family: var(--font); font-size: 14px; color: var(--ink);
+  transition: border-color .15s ease, box-shadow .15s ease;
+  resize: vertical;
+}
+.cm-input::placeholder, .cm-textarea::placeholder { color: var(--ink-3); }
+.cm-input:focus, .cm-textarea:focus {
+  outline: none; border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-tint);
+}
+.cm-textarea { min-height: 110px; }
+
+.cm-subject-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 14px; border-radius: var(--r-sm);
+  background: var(--panel); border: 1px solid var(--line);
+  font-size: 13px;
+}
+.cm-subject-lbl { color: var(--ink-3); font-weight: 500; white-space: nowrap; }
+.cm-subject-val { color: var(--ink); font-weight: 600; font-family: var(--font-mono); font-size: 12px; }
+
+.cm-send {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 13px;
+  background: var(--brand); color: #fff;
+  font-family: var(--font); font-size: 15px; font-weight: 700;
+  border: none; border-radius: var(--r); cursor: pointer;
+  box-shadow: 0 4px 14px rgba(37,99,235,.28);
+  transition: transform .18s ease, box-shadow .18s ease, background .12s ease;
+}
+.cm-send:hover { background: var(--brand-strong); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,99,235,.36); }
+.cm-send:active { transform: translateY(0); }
+
+.cm-fine { font-size: 12px; color: var(--ink-3); text-align: center; }
+</style>
+
+<script>
+const overlay  = document.getElementById('contactModal');
+const openBtn  = document.getElementById('openContactModal');
+const closeBtn = document.getElementById('closeContactModal');
+const form     = document.getElementById('contactForm') as HTMLFormElement;
+
+function openModal() {
+  overlay?.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  (document.getElementById('cmName') as HTMLInputElement)?.focus();
+}
+function closeModal() {
+  overlay?.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+openBtn?.addEventListener('click', openModal);
+closeBtn?.addEventListener('click', closeModal);
+overlay?.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+form?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name    = (document.getElementById('cmName') as HTMLInputElement).value.trim();
+  const email   = (document.getElementById('cmEmail') as HTMLInputElement).value.trim();
+  const msg     = (document.getElementById('cmMsg') as HTMLTextAreaElement).value.trim();
+
+  if (!msg) {
+    (document.getElementById('cmMsg') as HTMLTextAreaElement).focus();
+    return;
+  }
+
+  const body = [
+    name  ? `Nombre: ${name}` : '',
+    email ? `Email: ${email}` : '',
+    '',
+    msg,
+  ].filter(Boolean).join('\n');
+
+  const supportEmail = document.getElementById('contactModal').dataset.email;
+  const mailto = `mailto:${supportEmail}?subject=${encodeURIComponent('MI POS ONLINE: CONSULTA')}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailto;
+});
+</script>

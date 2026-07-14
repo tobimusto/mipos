@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+import { ar } from '../content/ar';
+import { shared } from '../content/shared';
+
+const content = { ...shared, ...ar };
+---
+
+<Base title="Términos y Condiciones · mipos Argentina" description="Términos y Condiciones de uso del servicio mipos para usuarios en Argentina." lang="es" content={content}>
+  <Nav content={content} />
+
+  <main>
+    <div class="legal-wrap">
+      <a href="/" class="legal-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Volver al inicio
+      </a>
+
+      <p class="legal-eyebrow">Legal · Argentina 🇦🇷</p>
+      <h1 class="legal-title">Términos y Condiciones de Uso</h1>
+      <p class="legal-updated">Última actualización: julio de 2026</p>
+
+      <div class="legal-body">
+        <p>Bienvenido a <strong>mipos</strong>. Al acceder y utilizar nuestra plataforma web y servicios asociados, usted acepta estar sujeto a los siguientes Términos y Condiciones. Si no está de acuerdo con alguna parte de estos términos, le rogamos que se abstenga de utilizar el servicio.</p>
+
+        <h2>1. Descripción del Servicio</h2>
+        <p><strong>mipos</strong> es un software de punto de venta (POS) y gestión basado en la nube, diseñado específicamente para el comercio minorista (kioscos, almacenes, autoservicios, indumentaria, etc.). Permite registrar ventas, controlar inventario, gestionar cuentas corrientes (fiados), visualizar reportes de rendimiento y disponer de un catálogo o tienda online.</p>
+
+        <h2>2. Privacidad y Protección de Datos Personales</h2>
+        <p>El tratamiento de la información se ajusta a las normativas de protección de datos vigentes en Argentina. El usuario es el único responsable de contar con el consentimiento de sus clientes antes de registrar sus datos en la sección de "Cuentas corrientes" (fiados) o "Clientes".</p>
+        <p>En cumplimiento con la <strong>Ley N° 25.326 de Protección de Datos Personales</strong>, le informamos que los datos recabados son tratados con estricta confidencialidad. La <strong>Agencia de Acceso a la Información Pública (AAIP)</strong> es el órgano de control de la ley. mipos adopta las medidas técnicas y organizativas necesarias para garantizar la seguridad y confidencialidad de los datos personales, de modo de evitar su adulteración, pérdida, consulta o tratamiento no autorizado.</p>
+
+        <h2>3. Obligaciones y Responsabilidades del Usuario</h2>
+        <ul>
+          <li><strong>Uso Comercial:</strong> La Plataforma está concebida exclusivamente para uso comercial y de gestión de negocios.</li>
+          <li><strong>Credenciales:</strong> Usted es responsable de mantener la confidencialidad de su contraseña y cuenta, así como de todas las actividades que ocurran bajo su sesión.</li>
+          <li><strong>Veracidad de la Información:</strong> La información de precios, carga de stock, cierres de caja y saldos de clientes es de su exclusiva responsabilidad. <strong>mipos</strong> no asume responsabilidad por errores de carga manual, diferencias de caja o conflictos con clientes originados por registros incorrectos.</li>
+        </ul>
+
+        <h2>4. Disposiciones Fiscales y Tributarias</h2>
+        <p><strong>mipos</strong> es una herramienta de gestión administrativa y operativa. El usuario es el único y exclusivo responsable de cumplir con sus obligaciones tributarias frente a la <strong>AFIP (Administración Federal de Ingresos Públicos)</strong>.</p>
+        <p>En caso de utilizar futuras integraciones de facturación electrónica (Facturación ARCA), mipos facilita la conexión tecnológica, pero no se responsabiliza por caídas de los servidores gubernamentales, ni por errores en la categorización impositiva o multas derivadas del mal uso de la facturación.</p>
+
+        <h2>5. Defensa del Consumidor</h2>
+        <p>Dado que <strong>mipos</strong> es un software as a service (SaaS) B2B (Business to Business) que el usuario contrata para integrar a su cadena comercial y generar lucro, el usuario no califica legalmente como "consumidor final" en los términos del Art. 2 de la <strong>Ley N° 24.240 de Defensa del Consumidor</strong>, ya que el servicio se integra directamente en su proceso de comercialización.</p>
+
+        <h2>6. Limitación de Responsabilidad y Disponibilidad</h2>
+        <p>La plataforma se proporciona "tal cual" y "según disponibilidad". <strong>mipos</strong> realiza los mayores esfuerzos para asegurar una disponibilidad del 99.9%, pero no garantiza que el servicio sea ininterrumpido o libre de errores en su totalidad (por ejemplo, debido a cortes de internet del usuario o caídas de servidores de alojamiento externo).</p>
+        <p>En ningún caso <strong>mipos</strong> será responsable por lucro cesante, pérdida de datos (incluyendo pérdida de historial de ventas o stock), daños indirectos, incidentales o consecuentes derivados del uso o la imposibilidad de uso de la plataforma.</p>
+
+        <h2>7. Precios, Suscripción y Pagos</h2>
+        <p>El uso de las funcionalidades exclusivas o planes pagos de mipos se rige por las tarifas publicadas en el sitio web al momento de la suscripción. Nos reservamos el derecho de modificar las tarifas con un previo aviso mínimo de treinta (30) días, comunicado a través del correo electrónico registrado o mediante la plataforma.</p>
+
+        <h2>8. Ley Aplicable y Jurisdicción</h2>
+        <p>Estos términos se regirán e interpretarán de acuerdo con las leyes de la <strong>República Argentina</strong>. Cualquier controversia será sometida a la jurisdicción de los Tribunales Ordinarios competentes de la <strong>Ciudad Autónoma de Buenos Aires</strong>, renunciando a cualquier otro fuero.</p>
+
+        <h2>9. Modificaciones de los Términos</h2>
+        <p><strong>mipos</strong> se reserva el derecho de modificar estos Términos y Condiciones en cualquier momento. Las modificaciones entrarán en vigencia inmediatamente después de su publicación en la plataforma. El uso continuado del servicio después de la publicación constituye su aceptación de los nuevos términos.</p>
+
+        <hr class="legal-divider"/>
+
+        <div class="legal-note">
+          ¿Tenés dudas sobre estos términos? Escribinos por <a href={`https://wa.me/${content.whatsapp}`} target="_blank" rel="noopener noreferrer">WhatsApp</a> y te respondemos.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer content={content} />
+</Base>
