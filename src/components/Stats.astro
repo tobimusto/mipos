@@ -35,7 +35,11 @@ const { stats, currency } = content;
       <span class="stat-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7.5L5 2.5l3 5"/></svg>este mes</span>
     </div>
     <div class="stat-block">
-      <span class="stat-num">{stats.volumeAmount}</span>
+      {stats.volumeAmount === '$2.022M' ? (
+        <span class="stat-num" data-stat="2022" data-prefix="$" data-suffix="M">$2.022M</span>
+      ) : (
+        <span class="stat-num" data-stat="520" data-prefix="$U " data-suffix="K">$U 520K</span>
+      )}
       <span class="stat-desc">{stats.volumeDesc}</span>
       <span class="stat-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7.5L5 2.5l3 5"/></svg>en volumen</span>
     </div>
@@ -46,3 +50,48 @@ const { stats, currency } = content;
     </div>
   </div>
 </section>
+
+<script>
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const nums = document.querySelectorAll('.stat-num[data-stat]');
+  if (!nums.length || !('IntersectionObserver' in window)) return;
+
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+
+  function fmtMillions(val, prefix, direct) {
+    if (direct) return prefix + Math.round(val) + 'M';
+    const m = val / 1000;
+    const formatted = Number.isInteger(m) ? String(m) : m.toFixed(3);
+    return prefix + formatted + 'M';
+  }
+
+  function fmt(val, prefix, suffix, directMillion) {
+    if (suffix === 'M') return fmtMillions(val, prefix, directMillion);
+    return prefix + Math.round(val).toLocaleString('es-AR') + suffix;
+  }
+
+  function animate(el) {
+    const target = parseInt(el.dataset.stat, 10);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const directMillion = 'million' in el.dataset;
+    const duration = 1600;
+    const t0 = performance.now();
+    (function step(now) {
+      const p = Math.min((now - t0) / duration, 1);
+      el.textContent = fmt(easeOut(p) * target, prefix, suffix, directMillion);
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = fmt(target, prefix, suffix, directMillion);
+    })(t0);
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { animate(e.target); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.6 });
+
+  nums.forEach(el => io.observe(el));
+})();
+</script>
